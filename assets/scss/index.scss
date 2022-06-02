@@ -435,6 +435,24 @@
     }
 
   }
+  .horizontal-card-container-2 {
+    @include flex-direction(column);
+    max-width: 1400px;
+    margin: auto;
+
+    &__title {
+      font-weight: 700;
+      font-size: 20px;
+      border-bottom: 1.5px solid #208BEE;
+      width: fit-content;
+    }
+
+    &__horizontal-card-container {
+      border-top: 1px solid #208BEE;
+
+    }
+
+  }
 }
 
 .footer {
