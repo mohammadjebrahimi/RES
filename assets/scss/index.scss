@@ -374,4 +374,51 @@
     padding: 40px 0;
   }
 }
+.footer {
+
+  @include flex-direction();
+  min-height: 131px;
+  background-color: #333333;
+  background-image: url("../../assets/images/Rectangle 81.png"), url("../../assets/images/Pattern.png");
+  align-items: center;
+  justify-content: space-around;
+
+  &__right {
+    @include flex-direction();
+    gap: 30px;
+
+  }
+
+  &__brand {
+    filter: brightness(0) invert(1);
+  }
+
+  &__desc {
+    max-width: 670px;
+    color: white;
+  }
+
+  &__links {
+    @include flex-direction();
+    max-width: 400px;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  &__link {
+    color: white;
+    font-size: 18px;
+  }
+  @media screen and (max-width: 700px) {
+    @include flex-direction(column);
+    justify-content: center;
+    align-items: center;
+    &__right {
+      @include flex-direction(column);
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+}
 

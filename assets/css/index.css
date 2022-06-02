@@ -359,4 +359,51 @@
   padding: 40px 0;
 }
 
+.footer {
+  display: flex;
+  flex-direction: row;
+  min-height: 131px;
+  background-color: #333333;
+  background-image: url("../../assets/images/Rectangle 81.png"), url("../../assets/images/Pattern.png");
+  align-items: center;
+  justify-content: space-around;
+}
+.footer__right {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+.footer__brand {
+  filter: brightness(0) invert(1);
+}
+.footer__desc {
+  max-width: 670px;
+  color: white;
+}
+.footer__links {
+  display: flex;
+  flex-direction: row;
+  max-width: 400px;
+  justify-content: space-between;
+  gap: 10px;
+}
+.footer__link {
+  color: white;
+  font-size: 18px;
+}
+@media screen and (max-width: 700px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 /*# sourceMappingURL=index.css.map */
