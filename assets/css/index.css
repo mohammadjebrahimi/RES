@@ -445,8 +445,11 @@
   justify-content: space-between;
   margin: 0;
 }
-.main .comments .comments-card {
+.main .comments__seperator {
   border-top: 1px solid #208BEE;
+  margin: 0;
+}
+.main .comments .comments-card {
   border-bottom: 1px solid #208BEE;
 }
 .main .comments .comments-card__detail {

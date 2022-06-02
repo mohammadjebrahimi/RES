@@ -469,9 +469,12 @@
       justify-content: space-between;
       margin: 0;
     }
+    &__seperator{
+      border-top: 1px solid #208BEE;
+      margin: 0;
+    }
 
     .comments-card {
-      border-top: 1px solid #208BEE;
       border-bottom: 1px solid #208BEE;
 
       &__detail {
