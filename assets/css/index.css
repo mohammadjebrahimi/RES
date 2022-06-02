@@ -101,4 +101,262 @@
   padding: 8px 24px;
 }
 
+.tag {
+  padding: 2px 8px 3px;
+  background: #DEEAF5;
+  border-radius: 4px;
+  color: #208BEE;
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 19px;
+  text-align: right;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  padding: 32px;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 4px 10px 35px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(50px);
+  border-radius: 12px;
+}
+.card__header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.card__auth-figure {
+  margin: 0 0 0 12px;
+}
+.card__header-left {
+  display: flex;
+  flex-direction: column;
+}
+.card__author-name {
+  font-size: 14px;
+  color: white;
+}
+.card__author-name--color-dark {
+  color: #28394F;
+}
+.card__inner-image {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+}
+.card__inner-image:before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(194, 221, 246, 0.5490196078);
+  transform-origin: 0 bottom 0;
+  transform: scaleY(0);
+  transition: 0.4s ease-out;
+}
+.card__inner-image > img {
+  width: 100%;
+  height: auto;
+}
+.card:hover .card__inner-image:before {
+  transform: scaleY(1);
+}
+.card__date {
+  font-size: 11px;
+  color: rgba(204, 204, 204, 0.8);
+}
+.card__date--color-dark {
+  color: #8593A6;
+}
+.card__title {
+  width: 100%;
+  font-weight: 600;
+  font-size: 18px;
+  color: white;
+}
+.card__title--color-dark {
+  color: #243447;
+}
+.card__summery {
+  width: 100%;
+  font-weight: 400;
+  font-size: 16px;
+  color: #CCCCCC;
+}
+.card__summery--color-dark {
+  color: #445161;
+}
+.card__footer {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  width: 100%;
+  align-items: baseline;
+  gap: 10px;
+}
+.card__footer--color-dark {
+  color: #8593A6;
+}
+.card__study-duration {
+  color: #CCCCCC;
+  font-weight: 600;
+  font-size: 11px;
+}
+.card__study-duration--color-dark {
+  color: #8593A6;
+}
+
+.card-2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.card-2__outer-image {
+  position: relative;
+}
+.card-2__outer-image:before {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(194, 221, 246, 0.5490196078);
+  transform-origin: 0 bottom 0;
+  transform: scaleY(0);
+  transition: 0.4s ease-out;
+}
+.card-2__outer-image > img {
+  width: 100%;
+  height: auto;
+}
+.card-2:hover .card-2__outer-image:before {
+  transform: scaleY(1);
+}
+.card-2__card {
+  width: 735px;
+  box-shadow: none;
+  background: transparent;
+}
+
+.main {
+  padding-top: 65px;
+}
+.main__scroll-bar {
+  position: relative;
+}
+.main .scroll-bar {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.main .scroll-bar__images {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  width: fit-content;
+}
+.main .scroll-bar__figure {
+  margin: 0px;
+}
+.main .scroll-bar__image {
+  width: 100vw;
+}
+.main .scroll-bar__content {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+@media screen and (max-width: 1150px) {
+  .main .scroll-bar .card {
+    display: none;
+  }
+}
+.main .scroll-bar__arrow-left {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  border-radius: 4px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.8) url("../../assets/images/arrow-left.png") no-repeat center;
+  transform: rotate(180deg);
+  margin: 25px;
+}
+.main .scroll-bar__main {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  align-items: center;
+  justify-content: end;
+}
+.main .scroll-bar__navigation {
+  display: flex;
+  flex-direction: row;
+  padding: 32px 0;
+  gap: 12px;
+}
+.main .scroll-bar__nav-dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+}
+.main .scroll-bar__nav-dot--activate {
+  width: 10px;
+  height: 10px;
+  background: #ffffff;
+  border-radius: 50%;
+}
+.main .scroll-bar__arrow-right {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(30px);
+  border-radius: 4px;
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.8) url("../../assets/images/arrow-left.png") no-repeat center;
+  transform: rotate(0 deg);
+  margin: 25px;
+}
+.main .horizontal-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+  flex-wrap: wrap;
+}
+.main .horizontal-card-container__card {
+  width: 450px;
+  box-shadow: none;
+  background: transparent;
+}
+.main .vertical-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  padding: 40px 0;
+}
+
 /*# sourceMappingURL=index.css.map */
