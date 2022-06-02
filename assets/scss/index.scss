@@ -313,4 +313,17 @@
       margin: 25px;
     }
   }
+  .horizontal-card-container {
+    @include flex-direction();
+    justify-content: center;
+    gap: 20px;
+    padding: 20px 0;
+    flex-wrap: wrap;
+
+    &__card {
+      width: 450px;
+      box-shadow: none;
+      background: transparent;
+    }
+  }
 }
