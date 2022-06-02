@@ -137,7 +137,7 @@
 .card__auth-figure {
   margin: 0 0 0 12px;
 }
-.card__header-left {
+.card__header-right {
   display: flex;
   flex-direction: column;
 }
