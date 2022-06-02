@@ -428,8 +428,9 @@
   border-bottom: 1.5px solid #208BEE;
   width: fit-content;
 }
-.main .horizontal-card-container-2__horizontal-card-container {
+.main .horizontal-card-container-2__seperator {
   border-top: 1px solid #208BEE;
+  margin: 0;
 }
 .main .comments {
   display: flex;

@@ -450,8 +450,14 @@
       width: fit-content;
     }
 
-    &__horizontal-card-container {
+    &__seperator{
       border-top: 1px solid #208BEE;
+      margin: 0;
+    }
+
+
+    &__horizontal-card-container {
+    
 
     }
 
