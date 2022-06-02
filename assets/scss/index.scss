@@ -453,6 +453,46 @@
     }
 
   }
+  .comments {
+    @include flex-direction(column);
+    margin: auto;
+    max-width: 798px;
+
+    &__title {
+      font-weight: 700;
+      font-size: 20px;
+      border-bottom: 1.5px solid #208BEE;
+      width: fit-content;
+      justify-content: space-between;
+      margin: 0;
+    }
+
+    .comments-card {
+      border-top: 1px solid #208BEE;
+      border-bottom: 1px solid #208BEE;
+
+      &__detail {
+        @include flex-direction();
+        justify-content: space-between;
+      }
+
+      &__author-name {
+        font-weight: 700;
+        font-size: 16px;
+      }
+
+      &__date {
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 19px;
+        color: #8593A6;
+      }
+
+      &__body {
+
+      }
+    }
+  }
 }
 
 .footer {

@@ -428,7 +428,39 @@
 .main .horizontal-card-container-2__horizontal-card-container {
   border-top: 1px solid #208BEE;
 }
-
+.main .comments {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 798px;
+}
+.main .comments__title {
+  font-weight: 700;
+  font-size: 20px;
+  border-bottom: 1.5px solid #208BEE;
+  width: fit-content;
+  justify-content: space-between;
+  margin: 0;
+}
+.main .comments .comments-card {
+  border-top: 1px solid #208BEE;
+  border-bottom: 1px solid #208BEE;
+}
+.main .comments .comments-card__detail {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.main .comments .comments-card__author-name {
+  font-weight: 700;
+  font-size: 16px;
+}
+.main .comments .comments-card__date {
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 19px;
+  color: #8593A6;
+}
 .footer {
   display: flex;
   flex-direction: row;
