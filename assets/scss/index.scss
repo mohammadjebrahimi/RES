@@ -233,7 +233,7 @@
   }
 
 }
-<<<<<<< HEAD
+
 .card-2 {
   @include flex-direction();
   justify-content: center;
@@ -273,9 +273,7 @@
     background: transparent;;
   }
 }
-=======
 
->>>>>>> 729b07b683d47a66fe7f731ff4f851a532c0eacd
 .main {
   padding-top: 65px;
 
@@ -368,7 +366,7 @@
       background: transparent;
     }
   }
-<<<<<<< HEAD
+
   .vertical-card-container {
     @include flex-direction(column);
     justify-content: center;
@@ -376,6 +374,4 @@
     padding: 40px 0;
   }
 }
-=======
-}
->>>>>>> 729b07b683d47a66fe7f731ff4f851a532c0eacd
+
