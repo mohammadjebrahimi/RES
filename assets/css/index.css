@@ -461,6 +461,64 @@
   line-height: 19px;
   color: #8593A6;
 }
+.main .commenting {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 798px;
+}
+.main .commenting__title {
+  font-weight: 600;
+  font-size: 18px;
+}
+.main .commenting__form {
+  display: flex;
+  flex-direction: column;
+}
+.main .commenting__form-row {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+}
+.main .commenting__email-input {
+  flex-grow: 2;
+}
+.main .commenting .input {
+  height: 46px;
+  border: 0;
+  border-bottom: 2.5px solid navy;
+}
+.main .commenting .input::placeholder {
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  /* identical to box height, or 200% */
+  text-align: right;
+  /* Text 3 */
+  color: #8593A6;
+}
+.main .commenting__submit {
+  background: #208BEE;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: right;
+  padding: 8px 24px;
+  color: #FFFFFF;
+  width: fit-content;
+  align-self: end;
+  margin: 20px 0 100px 0;
+}
+@media screen and (max-width: 700px) {
+  .main .commenting__form-row {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 .footer {
   display: flex;
   flex-direction: row;

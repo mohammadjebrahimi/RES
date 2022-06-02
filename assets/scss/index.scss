@@ -492,6 +492,64 @@
 
       }
     }
+
+  }
+  .commenting{
+    @include flex-direction(column);
+    margin: auto;
+    max-width: 798px;
+    &__title{
+      font-weight: 600;
+      font-size: 18px
+    }
+    &__form{
+      @include flex-direction(column);
+    }
+    &__form-row{
+      @include flex-direction();
+      gap: 15px;
+    }
+    &__email-input{
+      flex-grow: 2;
+    }
+    .input{
+      height: 46px;
+      border: 0;
+      border-bottom: 2.5px solid navy;
+      &::placeholder{
+        font-family: 'Kalameh';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 32px;
+        /* identical to box height, or 200% */
+
+        text-align: right;
+
+        /* Text 3 */
+
+        color: #8593A6;
+
+      }
+    }
+    &__submit{
+      background: $primaryColor;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 14px;
+      line-height: 24px;
+      text-align: right;
+      padding: 8px 24px;
+      color: #FFFFFF;
+      width: fit-content;
+      align-self: end;
+      margin:20px 0 100px 0 ;
+    }
+    @media screen and (max-width: 700px) {
+      &__form-row{
+        @include flex-direction(column)
+      }
+    }
   }
 }
 
