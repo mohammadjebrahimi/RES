@@ -303,5 +303,18 @@
   transform: rotate(0 deg);
   margin: 25px;
 }
+.main .horizontal-card-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0;
+  flex-wrap: wrap;
+}
+.main .horizontal-card-container__card {
+  width: 450px;
+  box-shadow: none;
+  background: transparent;
+}
 
 /*# sourceMappingURL=index.css.map */
