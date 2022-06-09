@@ -79,7 +79,7 @@
 .header {
   display: flex;
   flex-direction: row;
-  background-color: #d5d5d5;
+  background-color: #FAFBFC;
   justify-content: right;
   align-items: center;
   padding-right: 20%;

@@ -74,7 +74,7 @@
 
 .header {
   @include flex-direction();
-  background-color: $headColor;
+  background-color: $bodyColor;
   justify-content: right;
   align-items: center;
   padding-right: 20%;
