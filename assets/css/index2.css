@@ -85,6 +85,7 @@
   padding-right: 20%;
   width: 100%;
   height: 65px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 
 .main {
@@ -167,7 +168,8 @@
   display: block;
 }
 .registerCard .registerCard-inputBox--error .registerCard-inputBox__box {
-  box-shadow: 0px 3px rgba(148, 8, 8, 0.5);
+  box-shadow: 0px 3px rgba(167, 5, 5, 0.5);
+  background-color: #EDEDED;
 }
 .registerCard__submit {
   align-items: center;
@@ -213,14 +215,18 @@
   border-radius: 12px;
   background-color: #EDEDED;
 }
-.registerCard .registerCard-inputImage__box__figure {
+.registerCard .registerCard-inputImage__avatar-figure {
   width: 60px;
   height: 60px;
   margin: 0;
   background-color: #EDEDED;
   box-shadow: none;
 }
-.registerCard .registerCard-inputImage__box__text {
+.registerCard .registerCard-inputImage__avatar-input {
+  visibility: hidden;
+  display: none;
+}
+.registerCard .registerCard-inputImage__avatar-label {
   margin: 0;
   width: 81px;
   height: 24px;

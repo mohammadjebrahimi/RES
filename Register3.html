@@ -8,16 +8,22 @@
     <link rel="stylesheet" href="./assets/css/index2.css">
 </head>
 <body class="body">
-<header class="header body__header">
-    <div class="brand">
-        <div class="logo brand__logo">
-            <div class="logo__rec2"></div>
-            <div class="logo__rec1"></div>
+    <header class="header body__header">
+        <div class="header__container">
+            <div class="brand">
+                <div class="logo brand__logo">
+                    <div class="logo__rec2"></div>
+                    <div class="logo__rec1"></div>
+                </div>
+                <span class="brand__theme-name">هلیوم</span>
+                <span class="brand__theme-name-plus">+</span>
+            </div>
+            <div class="header__left">
+            </div>
         </div>
-        <span class="brand__theme-name">هلیوم</span>
-        <span class="brand__theme-name-plus">+</span>
-    </div>
-</header>
+    
+    
+    </header>
 <nav>
 </nav>
 <main>
@@ -43,10 +49,11 @@
             <div class="registerCard-inputImage">
                 <p class="registerCard-inputImage__text">انتخاب تصویر پروفایل</p>
                 <div class="registerCard-inputImage__box">
-                    <figure class="registerCard registerCard-inputImage__box__figure">
+                    <figure class="registerCard-inputImage__avatar-figure">
                         <img src="./assets/images/Default Avatar.png" alt="بارگزاری عکس">
                     </figure>
-                    <input type="file" class="registerCard registerCard-inputImage__box__text" vaبارگزاری تصویر>
+                    <input type="file" id="files" class="registerCard-inputImage__avatar-input">
+                    <label for="files" class="registerCard-inputImage__avatar-label">بارگزاری تصویر</label>
                 </div>
             </div>
             <button class="registerCard__submit">تایید</button>

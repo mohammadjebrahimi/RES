@@ -80,6 +80,7 @@
   padding-right: 20%;
   width: 100%;
   height: 65px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
   }
 
 .main {
@@ -160,12 +161,12 @@
     &--error {
       
       & .registerCard-inputBox__error-text {
-        
         display: block;
-
       }
+      
       & .registerCard-inputBox__box {
-        box-shadow: 0px 3px rgba(148, 8, 8, 0.5);
+        box-shadow: 0px 3px $errorColor;
+        background-color: $imageboxColor;
       }
 
     }
@@ -212,27 +213,30 @@
       height: 76px;
       border-radius: 12px;
       background-color: $imageboxColor;
-
-      &__figure {
-        width: 60px;
-        height: 60px;
-        margin: 0;
-        background-color: $imageboxColor;
-        box-shadow: none
-      }
-      &__text {
-        margin: 0;
-        width: 81px;
-        height: 24px;
-        font-family: 'Kalameh';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 14px;
-        color: $primaryColor;
-        line-height: 24px;
-        background-color: $imageboxColor;
-        box-shadow:none;
-      }
+    }
+    &__avatar-figure {
+      width: 60px;
+      height: 60px;
+      margin: 0;
+      background-color: $imageboxColor;
+      box-shadow: none
+    }
+    &__avatar-input {
+      visibility: hidden;
+      display: none;
+    }
+    &__avatar-label {
+      margin: 0;
+      width: 81px;
+      height: 24px;
+      font-family: 'Kalameh';
+      font-style: normal;
+      font-weight: 700;
+      font-size: 14px;
+      color: $primaryColor;
+      line-height: 24px;
+      background-color: $imageboxColor;
+      box-shadow:none;
     }
   }
 }
