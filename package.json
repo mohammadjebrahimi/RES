@@ -1,15 +1,19 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "sass": "sass ./assets/scss/index.scss ./assets/css/index.css --watch "
+    "sass2": "sass ./assets/scss/index2.scss ./assets/css/index2.css --watch "
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sass": "^1.52.1"
-  }
+    "sass": "^1.52.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://igit.partdp.ir/college/turbofront2/team-work/borna/helium-2.git"
+  },
+  "description": ""
 }

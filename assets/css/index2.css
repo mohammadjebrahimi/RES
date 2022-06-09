@@ -1,0 +1,315 @@
+@font-face {
+  font-family: "Kalameh";
+  font-weight: 400;
+  src: url("../fonts/Kalameh/Kalameh-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Kalameh";
+  font-weight: 500;
+  src: url("../fonts/Kalameh/Kalameh-Medium.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Kalameh";
+  font-weight: 700;
+  src: url("../fonts/Kalameh/Kalameh-Bold.ttf") format("truetype");
+}
+.body {
+  height: 100vh;
+  font-family: "Kalameh";
+  font-style: normal;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: #FAFBFC;
+}
+.body__header {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+}
+
+.brand {
+  display: flex;
+  flex-direction: row;
+}
+.brand__logo {
+  position: relative;
+  margin: 0px 15px;
+}
+.brand__theme-name {
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: right;
+  color: #208BEE;
+}
+.brand__theme-name-plus {
+  color: #208BEE;
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: right;
+}
+.brand .logo {
+  height: 33.941125497px;
+  width: 61px;
+}
+.brand .logo__rec1 {
+  position: absolute;
+  border: 7px solid #6D6C80;
+  height: 24px;
+  width: 24px;
+  transform: rotate(-45deg);
+  border-radius: 4px;
+}
+.brand .logo__rec2 {
+  position: absolute;
+  border: 7px solid #208BEE;
+  height: 24px;
+  width: 24px;
+  right: 28px;
+  transform: rotate(-45deg);
+  border-radius: 4px;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  background-color: #d5d5d5;
+  justify-content: right;
+  align-items: center;
+  padding-right: 20%;
+  width: 100%;
+  height: 65px;
+}
+
+.main {
+  height: 100%;
+  padding-top: 65px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 212px 0px 480px;
+  border-radius: 12px;
+  box-shadow: 0px 8px 16px;
+}
+.registerCard__conteiner__text {
+  align-self: flex-start;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+}
+.registerCard__title {
+  margin: 50px 180px 0;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 40px;
+  text-align: center;
+}
+.registerCard__detail {
+  margin: 0px 180px 0;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 36px;
+  text-align: center;
+  color: #8593A6;
+}
+.registerCard .registerCard-inputBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 60px 40px;
+  background: #FAFBFC;
+}
+.registerCard .registerCard-inputBox__text {
+  align-self: flex-start;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+}
+.registerCard .registerCard-inputBox__box {
+  padding: 7px 16px;
+  width: 360px;
+  height: 46px;
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+  background: #FAFBFC;
+  border: 0;
+  border-radius: 5px;
+  box-shadow: 0px 3px rgba(17, 58, 97, 0.5);
+}
+.registerCard .registerCard-inputBox__error-text {
+  display: none;
+  width: 100%;
+  color: rgb(148, 8, 8);
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 19px;
+}
+.registerCard .registerCard-inputBox--error .registerCard-inputBox__error-text {
+  display: block;
+}
+.registerCard .registerCard-inputBox--error .registerCard-inputBox__box {
+  box-shadow: 0px 3px rgba(148, 8, 8, 0.5);
+}
+.registerCard__submit {
+  align-items: center;
+  padding: 8px 24px;
+  margin: 0 0 50px;
+  width: 167px;
+  height: 46px;
+  gap: 10px;
+  font-family: "Kalameh";
+  font-weight: 700;
+  font-size: 14px;
+  color: #FFFFFF;
+  line-height: 24px;
+  background: #208BEE;
+  border-radius: 4px;
+  border: 0;
+}
+.registerCard .registerCard-inputImage {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: 40px 60px 40px;
+  align-items: center;
+  border-radius: 12px;
+  background: #FAFBFC;
+}
+.registerCard .registerCard-inputImage__text {
+  display: flex;
+  align-self: flex-start;
+  width: fit-content;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+}
+.registerCard .registerCard-inputImage__box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px 8px 24px;
+  width: 360px;
+  height: 76px;
+  border-radius: 12px;
+  background-color: #EDEDED;
+}
+.registerCard .registerCard-inputImage__box__figure {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  background-color: #EDEDED;
+  box-shadow: none;
+}
+.registerCard .registerCard-inputImage__box__text {
+  margin: 0;
+  width: 81px;
+  height: 24px;
+  font-family: "Kalameh";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  color: #208BEE;
+  line-height: 24px;
+  background-color: #EDEDED;
+  box-shadow: none;
+}
+
+.registerCard2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 212px 0px 480px;
+}
+.registerCard2__text {
+  justify-content: center;
+  align-items: center;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 32px;
+}
+.registerCard2__submit {
+  padding: 8px 24px;
+  margin: 0 0 50px;
+  width: 167px;
+  height: 46px;
+  align-items: center;
+  gap: 10px;
+  font-family: "Kalameh";
+  font-weight: 700;
+  font-size: 14px;
+  color: #FFFFFF;
+  line-height: 24px;
+  background: #208BEE;
+  border-radius: 4px;
+  border: 0;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  min-height: 131px;
+  background-color: #333333;
+  background-image: url("../../assets/images/Rectangle 81.png"), url("../../assets/images/Pattern.png");
+  align-items: center;
+  justify-content: space-around;
+}
+.footer__right {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+}
+.footer__brand {
+  filter: brightness(0) invert(1);
+}
+.footer__desc {
+  max-width: 670px;
+  color: white;
+}
+.footer__links {
+  display: flex;
+  flex-direction: row;
+  max-width: 400px;
+  justify-content: space-between;
+  gap: 10px;
+}
+.footer__link {
+  color: white;
+  font-size: 18px;
+}
+@media screen and (max-width: 700px) {
+  .footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .footer__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/*# sourceMappingURL=index2.css.map */
