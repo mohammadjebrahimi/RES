@@ -28,3 +28,43 @@
     src: url("../fonts/Kalameh/Kalameh-Bold.ttf") format("truetype");
   };
 }
+
+@mixin tag() {
+  width: fit-content;
+  padding: 2px 8px 3px;
+  background: #DEEAF5;
+  border-radius: 4px;
+  color: $primaryColor;
+  font-family: 'Kalameh';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 19px;
+  text-align: right;
+}
+
+@mixin circle-button() {
+  width: 42px;
+  display: flex;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: #208BEE;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin rectangular-button() {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 24px;
+  width: 164px;
+  height: fit-content;
+  background: #208BEE;
+  border-radius: 4px;
+  border: none;
+  color: white;
+  font-weight: 700;
+}

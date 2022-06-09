@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "sass2": "sass ./assets/scss/index2.scss ./assets/css/index2.css --watch "
+    "sass2": "sass ./assets/scss/index2.scss ./assets/css/index2.css --watch ",
+    "sass": "sass ./assets/scss/index.scss ./assets/css/index.css --watch "
   },
   "keywords": [],
   "author": "",
