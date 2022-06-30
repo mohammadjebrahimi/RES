@@ -29,14 +29,30 @@
   };
 }
 
+@mixin kalameh-farsi-number-font-face() {
+  @font-face {
+    font-family: "KalamehFarsiNumber";
+    font-weight: 400;
+    src: url("../fonts/Kalameh/Kalameh\(FaNum\)-Regular.ttf") format("truetype");
+  };
+  @font-face {
+    font-family: "KalamehFarsiNumber";
+    font-weight: 500;
+    src: url("../fonts/Kalameh/Kalameh\(FaNum\)-Medium.ttf") format("truetype");
+  };
+  @font-face {
+    font-family: "KalamehFarsiNumber";
+    font-weight: 700;
+    src: url("../fonts/Kalameh/Kalameh\(FaNum\)-Bold.ttf") format("truetype");
+  };
+}
+
 @mixin tag() {
   width: fit-content;
   padding: 2px 8px 3px;
   background: #DEEAF5;
   border-radius: 4px;
   color: $primaryColor;
-  font-family: 'Kalameh';
-  font-style: normal;
   font-weight: 600;
   font-size: 11px;
   line-height: 19px;

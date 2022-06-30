@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="fa">
+<html dir="rtl" lang="fa" class="story-writing-add-subject-page">
 
 <head>
     <meta charset="utf-8">
@@ -12,16 +12,16 @@
 
 </head>
 
-<body class="body">
-    <header class="header body__header">
+<body class="flex-body story-writing-add-subject-page__flex-body">
+    <header class="header flex-body__header">
         <div class="header__container">
             <div class="brand">
-                <div class="logo brand__logo">
-                    <div class="logo__rec2"></div>
-                    <div class="logo__rec1"></div>
+                <div class="brand__logo">
+                    <div class="brand__logo-rec2"></div>
+                    <div class="brand__logo-rec1"></div>
                 </div>
-                <span class="brand__theme-name">هلیوم</span>
-                <span class="brand__theme-name-plus">+</span>
+                <span class="brand__name">هلیوم+</span>
+
             </div>
             <div class="header__left">
                 <img class="header__search" src="./assets/images/search-normal.png" alt="search" />
@@ -33,37 +33,37 @@
 
     </header>
     <nav></nav>
-    <main class="main">
-        <div class="createNewArticle">
-            <div class="createNewArticle__header">
-                <figure class="createNewArticle__icon"><img src="assets/images/Edit.png" alt=""></figure>
-                <p class="createNewArticle__title">ایجاد مطلب جدید</p>
+    <main class="main  story-writing-add-subject-page__main">
+        <div class="create-new-article story-writing-add-subject-page__create-new-article">
+            <div class="create-new-article__header">
+                <figure class="create-new-article__icon"><img src="assets/images/Edit.png" alt=""></figure>
+                <p class="create-new-article__title">ایجاد مطلب جدید</p>
             </div>
-            <div class="createNewArticle__article">
-                <div class="createNewArticle__article-image-section">
-                    <figure class="createNewArticle__article-image">
+            <div class="create-new-article__article">
+                <div class="create-new-article__article-image-section">
+                    <figure class="create-new-article__article-image">
                         <img src="./assets/images/Group 254.png" alt="">
                     </figure>
-                    <div class="createNewArticle__article-image-editor">
-                        <button class="createNewArticle__article-maximize-image"><img
+                    <div class="create-new-article__article-image-editor">
+                        <button class="create-new-article__article-maximize-image"><img
                                 src="./assets/images/maximize-circle.png" alt=""></button>
-                        <button class="createNewArticle__article-edit-image"><img src="./assets/images/gallery-edit.png"
-                                alt=""></button>
+                        <button class="create-new-article__article-edit-image"><img
+                                src="./assets/images/gallery-edit.png" alt=""></button>
                     </div>
                 </div>
-                <input class="createNewArticle__article-insert-title" placeholder="عنوان مطلب خود را وارد کنید " />
-                <div class="createNewArticle__article-tag-section">
-                    <a id="insertTag" href="#selectTag" class="createNewArticle__article-tag-editor"><img src="./assets/images/tag-2.png"
-                            alt=""></a>
+                <input class="create-new-article__article-insert-title" placeholder="عنوان مطلب خود را وارد کنید " />
+                <div class="create-new-article__article-tag-section">
+                    <a id="insertTag" href="#selectTag" class="create-new-article__article-tag-editor"><img
+                            src="./assets/images/tag-2.png" alt=""></a>
                 </div>
-                <div class="createNewArticle__article-content-section">
-                    <textarea class="createNewArticle__article-insert-content"
+                <div class="create-new-article__article-content-section">
+                    <textarea oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' class="create-new-article__article-insert-content"
                         placeholder="متن اصلی خود را وارد کنید..."></textarea>
-                    <button class="createNewArticle__article-content-editor">
+                    <button class="create-new-article__article-content-editor">
                         <img src="./assets/images/gallery-edit.png" alt="">
                     </button>
                 </div>
-                <button class="createNewArticle__article-submit createNewArticle__article-submit--modified">انتشار
+                <button class="create-new-article__article-submit" type="button" disabled>انتشار
                     مطلب</button>
             </div>
 
@@ -75,29 +75,30 @@
             <div class="modal__card">
                 <a class="modal__card-close" href="##"></a>
                 <label for="tags" class="modal__card-title">لطفا دسته بندی موضوعی خود را وارد کنید</label>
-                    <select class="modal__card-select-option" id="tags">
-                        <option value="01" selected>نانو تکنولوژی </option>
-                        <option value="02">تکنولوژی </option>
-                        <option value="03">گزارش</option>
-                    </select>
-                    <a class="modal__card-ok" href="##">تایید</a>
+                <select class="modal__card-select-option" id="tags">
+                    <option value="01" selected>نانو تکنولوژی </option>
+                    <option value="02">تکنولوژی </option>
+                    <option value="03">گزارش</option>
+                </select>
+                <a class="modal__card-ok" href="##">تایید</a>
             </div>
 
         </div>
-       
+
 
     </main>
 
-    <footer class="footer">
-        <div class="footer__right">
-            <div class="brand footer__brand">
-                <div class="logo brand__logo">
-                    <div class="logo__rec2"></div>
-                    <div class="logo__rec1"></div>
+    <footer class="footer story-writing-add-subject-page__footer">
+        <div class="footer__right  footer__brand">
+            <div class="brand">
+                <div class="brand__logo">
+                    <div class="brand__logo-rec2"></div>
+                    <div class="brand__logo-rec1"></div>
                 </div>
-                <span class="brand__theme-name">هلیوم</span>
-                <span class="brand__theme-name-plus">+</span>
+                <span class="brand__name">هلیوم+</span>
+
             </div>
+
             <div class="footer__desc">
                 هلیوم بستری برای اشتراک گزاری ایده ها و فکر افراد پیشرو در زمینه علم و دانش است. در هلیوم میتوانید به
                 جدیدترین مقالات علمی در کشور دسترسی داشته باشید و خود نیز در ترویج علم و دانش نقشی داشته باشید.

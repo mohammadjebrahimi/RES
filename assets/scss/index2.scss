@@ -2,6 +2,7 @@
 @import './mixins.scss';
 
 @include kalameh-font-face();
+
 .body {
   height: 100vh;
   font-family: 'Kalameh';
@@ -17,10 +18,11 @@
     z-index: 10;
   }
 }
+
 .brand {
   @include flex-direction();
 
-  
+
   &__logo {
     position: relative;
     margin: 0px 15px;
@@ -81,7 +83,7 @@
   width: 100%;
   height: 65px;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
-  }
+}
 
 .main {
   height: 100%;
@@ -99,12 +101,13 @@
   box-shadow: 0px 8px 16px;
 
   &__conteiner__text {
-    align-self:flex-start;
+    align-self: flex-start;
     width: fit-content;
     font-weight: 400;
     font-size: 16px;
     line-height: 32px;
   }
+
   &__title {
     margin: 50px 180px 0;
     font-weight: 700;
@@ -112,6 +115,7 @@
     line-height: 40px;
     text-align: center;
   }
+
   &__detail {
     margin: 0px 180px 0;
     font-weight: 600;
@@ -120,6 +124,7 @@
     text-align: center;
     color: #8593A6;
   }
+
   .registerCard-inputBox {
     @include flex-direction(column);
     align-items: center;
@@ -127,12 +132,13 @@
     background: $bodyColor;
 
     &__text {
-      align-self:flex-start;
+      align-self: flex-start;
       width: fit-content;
       font-weight: 400;
       font-size: 16px;
       line-height: 32px;
     }
+
     &__box {
       padding: 7px 16px;
       width: 360px;
@@ -147,10 +153,11 @@
       border-radius: 5px;
       box-shadow: 0px 3px rgba(17, 58, 97, 0.5);
     }
+
     &__error-text {
       display: none;
       width: 100%;
-      color:rgba(148, 8, 8);
+      color: rgba(148, 8, 8);
       font-family: 'Kalameh';
       font-style: normal;
       font-weight: 600;
@@ -159,11 +166,11 @@
     }
 
     &--error {
-      
+
       & .registerCard-inputBox__error-text {
         display: block;
       }
-      
+
       & .registerCard-inputBox__box {
         box-shadow: 0px 3px $errorColor;
         background-color: $imageboxColor;
@@ -171,6 +178,7 @@
 
     }
   }
+
   &__submit {
     align-items: center;
     padding: 8px 24px;
@@ -199,12 +207,13 @@
 
     &__text {
       display: flex;
-      align-self:flex-start;
+      align-self: flex-start;
       width: fit-content;
       font-weight: 400;
       font-size: 16px;
       line-height: 32px;
     }
+
     &__box {
       @include flex-direction(row);
       justify-content: space-between;
@@ -215,6 +224,7 @@
       border-radius: 12px;
       background-color: $imageboxColor;
     }
+
     &__avatar-figure {
       width: 60px;
       height: 60px;
@@ -222,10 +232,12 @@
       background-color: $imageboxColor;
       box-shadow: none
     }
+
     &__avatar-input {
       visibility: hidden;
       display: none;
     }
+
     &__avatar-label {
       margin: 0;
       width: 81px;
@@ -237,7 +249,7 @@
       color: $primaryColor;
       line-height: 24px;
       background-color: $imageboxColor;
-      box-shadow:none;
+      box-shadow: none;
     }
   }
 }
@@ -248,8 +260,7 @@
   justify-content: center;
   margin: 212px 0px 480px;
 
-  &__figure {
-  }
+  &__figure {}
 
   &__text {
     justify-content: center;
@@ -258,6 +269,7 @@
     font-size: 16px;
     line-height: 32px;
   }
+
   &__submit {
     padding: 8px 24px;
     margin: 0 0 50px;
@@ -313,10 +325,12 @@
     color: white;
     font-size: 18px;
   }
+
   @media screen and (max-width: 700px) {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
+
     &__right {
       @include flex-direction(column);
       justify-content: center;
@@ -325,4 +339,3 @@
   }
 
 }
-

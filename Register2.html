@@ -1,75 +1,98 @@
 <!DOCTYPE html>
-<html dir="rtl" lang="en">
+<html dir="rtl" lang="fa" class="register2">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="author" content="MirHosseini">
-    <title>Register1</title>
-    <link rel="stylesheet" href="./assets/css/index2.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Register2</title>
+    <meta name="description" content="A Register2 HTML5 Template for Helium plus project.">
+    <meta name="author" content="Mir Hosseini">
+    <link rel="stylesheet" href="./assets/css/index.css">
+
 </head>
-<body class="body">
-    <header class="header body__header">
+
+<body class="flex-body register2__flex-body">
+    <header class="header flex-body__header">
         <div class="header__container">
             <div class="brand">
-                <div class="logo brand__logo">
-                    <div class="logo__rec2"></div>
-                    <div class="logo__rec1"></div>
+                <div class="brand__logo">
+                    <div class="brand__logo-rec2"></div>
+                    <div class="brand__logo-rec1"></div>
                 </div>
-                <span class="brand__theme-name">هلیوم</span>
-                <span class="brand__theme-name-plus">+</span>
+                <span class="brand__name">هلیوم+</span>
             </div>
             <div class="header__left">
             </div>
         </div>
-    
-    
     </header>
-<nav>
-</nav>
-<main class="main">
-    <article>
-        <form class="registerCard">
-        <div>
-        <h3 class="registerCard__title">شما هنوز ثبت نام نکرده اید.</h3>
-        <p class="registerCard__detail">لطفا اطلاعات زیر را برای ثبت نام کامل کنید.</p>
+    <nav>
+    </nav>
+    <main class="main register2__main">
+        <section class="singel-card">
+            <form class="registering singel-card__registering">
+                <div class="registering__detail">
+                    <h3 class="registering__title">شما هنوز در هلیوم ثبت نام نکرده اید.</h3>
+                    <p class="registering__description">لطفا اطلاعات زیر را برای ثبت نام کامل کنید.</p>
+                </div>
+                <div class="registering__input-container">
+                    <div class="registering__input-box">
+                        <input placeholder=" " class="registering__input registering__input--direction-ltr" type="tel"
+                            id="Phon-Number" pattern="[0][9][0-9]{9}" >
+                            <label for="Phon-Number" class="registering__input-label">لطفا شماره تلفن همراه خود را وارد
+                                کنید</label>
+                        <div class="registering__input-placeholder">
+                            <span>مثال:</span>
+                            <span>۰۹۱۵۱۲۳۴۵۶۷</span>
+                        </div>
+                    </div>
+                    <div class="registering__input-box">
+                        <input placeholder=" " class="registering__input" type="text" id="name" required>
+                        <label for="name" class="registering__input-label">نام و نام خانوادگی</label>
+                        <div class="registering__input-placeholder">
+                            <span>نام خود را به فارسی وارد کنید</span>
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="registering__input-box">
+                        <input placeholder=" " class="registering__input registering__input--direction-ltr" type="email"
+                            id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required >
+                            <label for="email" class="registering__input-label">پست الکترونیکی</label>
+                        <div class="registering__input-placeholder">
+                            <span>مثال:</span>
+                            <span>example@helium.com</span>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="registering__submit">ادامه</button>
+            </form>
+        </section>
+
+    </main>
+    <footer class="footer register2__footer">
+        <div class="footer__right  footer__brand">
+            <div class="brand">
+                <div class="brand__logo">
+                    <div class="brand__logo-rec2"></div>
+                    <div class="brand__logo-rec1"></div>
+                </div>
+                <span class="brand__name">هلیوم+</span>
+
+            </div>
+
+            <div class="footer__desc">
+                هلیوم بستری برای اشتراک گزاری ایده ها و فکر افراد پیشرو در زمینه علم و دانش است. در هلیوم میتوانید به
+                جدیدترین مقالات علمی در کشور دسترسی داشته باشید و خود نیز در ترویج علم و دانش نقشی داشته باشید.
+            </div>
         </div>
-            <div class="registerCard-inputBox">
-                <label for="phon_number" class="registerCard-inputBox__text">شماره تلفن همراه شما </label>
-                <input type="text" id="phon_number" placeholder="۰۹۱۵۱۲۳۴۵۶۷" class="registerCard-inputBox__box">
-            </div>
-            <div class="registerCard-inputBox">
-                <label for="name" class="registerCard-inputBox__text">*نام و نام خوانوادگی</label>
-                <input type="text" id="name" placeholder="نام خود را به فارسی وارد کنید" class="registerCard-inputBox__box">
-            </div>
-            <div class="registerCard-inputBox">
-                <label for="Email" class="registerCard-inputBox__text">*پست الکترونیکی</label>
-                <input type="text" id="Email" placeholder="مثال:                                             example@helium.com" class="registerCard-inputBox__box">
-            </div>
-            <button class="registerCard__submit">ادامه</button>
-        </form>
-    </article>
-</main>
-<footer class="footer">
-    <div class="footer__right">
-        <div class="brand footer__brand">
-            <div class="logo brand__logo">
-                <div class="logo__rec2"></div>
-                <div class="logo__rec1"></div>
-            </div>
-            <span class="brand__theme-name">هلیوم</span>
-            <span class="brand__theme-name-plus">+</span>
+        <div class="footer__links">
+            <a class="footer__link" herf="#">بنویسید</a>
+            <a class="footer__link" herf="#">راهنما</a>
+            <a class="footer__link" herf="#">معرفی به دوستان</a>
+            <a class="footer__link" herf="#">قوانین</a>
         </div>
-        <div class="footer__desc">
-            هلیوم بستری برای اشتراک گزاری ایده ها و فکر افراد پیشرو در زمینه علم و دانش است. در هلیوم میتوانید به جدیدترین مقالات علمی در کشور دسترسی داشته باشید و خود نیز در ترویج علم و دانش نقشی داشته باشید.
-        </div>
-    </div>
-    <div class="footer__links">
-        <a  class="footer__link" herf="#">بنویسید</a>
-        <a  class="footer__link" herf="#">راهنما</a>
-        <a  class="footer__link" herf="#">معرفی به دوستان</a>
-        <a  class="footer__link" herf="#">قوانین</a>
-    </div>
-</footer>
+    </footer>
 
 </body>
+
 </html>
