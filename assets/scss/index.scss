@@ -133,6 +133,7 @@
   }
 
 }
+
 .register3 {
   &__flex-body {
     margin: 0 auto;
@@ -148,6 +149,7 @@
   }
 
 }
+
 .register-done {
   &__flex-body {
     margin: 0 auto;
@@ -164,7 +166,23 @@
 
 }
 
+.profile{
+  &__flex-body {
+    margin: 0 auto;
+  }
 
+  &__main {
+    padding: 0em 1em;
+    margin-top: 63px;
+  }
+
+  &__footer {
+    padding: 1em;
+  }
+  &__horizontal-card-container{
+    margin: 30px 0 140px;
+  }
+}
 
 .flex-body {
   width: 100%;
@@ -255,7 +273,6 @@
     font-size: 14px;
     line-height: 24px;
     color: $primaryColor;
-
     border: 1px solid rgba(36, 52, 71, 0.15);
     border-radius: 4px;
     padding: 8px 24px;
@@ -607,13 +624,23 @@
     justify-content: center;
     align-items: center;
     gap: 2em;
-
+    flex-wrap: wrap;
     @include breakpoint_max(small) {
       @include flex-direction(column);
     }
   }
 
-
+  &__see-more{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    color: $primaryColor;
+    border: 1px solid rgba(36, 52, 71, 0.15);
+    border-radius: 4px;
+    padding: 8px 24px;
+    width: 374px;
+    margin: 60px auto 0;
+  }
 
   &__title {
     font-weight: 700;
@@ -628,7 +655,7 @@
   }
 
   &__card {
-    max-width: 450px;
+    max-width: 378px;
     box-shadow: none;
     background: transparent;
     padding: 0;
@@ -759,7 +786,7 @@
   @include flex-direction();
   min-height: 131px;
   background-color: #333333;
-  background-image: url("../../assets/images/Rectangle 81.png"), url("../../assets/images/Pattern.png");
+  background-image:  url("../../assets/images/Pattern.png"),url("../../assets/images/Rectangle 81.png");
   align-items: center;
   justify-content: space-around;
 
@@ -1116,11 +1143,79 @@
   }
 
 }
-.success-register{
+
+.success-register {
   @include flex-direction(column);
-  justify-content:center;
+  justify-content: center;
   align-items: center;
+
   &__submit {
     @include rectangular-button()
+  }
+}
+
+.user-detail {
+  @include flex-direction();
+  align-items: center;
+  justify-content: space-between;
+  background-image: url("../../assets/images/Pattern2.png"), url("../../assets/images/Rectangle 22.png");
+  background-repeat: no-repeat;
+  height: 148px;
+  width: 100%;
+  max-width: 1200px;
+  border-radius: 10px;
+
+  &__avatar {
+    @include flex-direction();
+    align-items: center;
+    justify-content: space-evenly;
+    margin: 0;
+    gap: 24px;
+    margin: 0 24px;
+  }
+
+  &__avatar-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  &__specification {
+    @include flex-direction(column);
+    justify-content: space-evenly;
+  }
+
+  &__specification-name {
+    font-weight: 700;
+    font-size: 32px;
+    color: #FAFBFC;
+  }
+
+  &__specification-social {
+    @include flex-direction();
+    margin: 0;
+    align-items: center;
+    gap: 8px;
+  }
+
+  &__specification-social-img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &__specification-social-id {
+    font-size: 18px;
+    color: #FAFBFC;
+  }
+
+  &__contact {
+    margin: 0 24px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+    padding: 8px 24px;
+    background-color: transparent;
   }
 }
