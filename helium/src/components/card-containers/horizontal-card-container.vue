@@ -1,11 +1,12 @@
 <template>
     <section class="horizontal-card-container">
+        <span v-if="label" class="horizontal-card-container__title">از همین نویسنده</span>
+        <hr v-if="label" class="horizontal-card-container__seperator">
         <div class="horizontal-card-container__cards">
             <template v-for="(data, index) in cards" :key="`card-{index}`">
                 <default-card class="horizontal-card-container__card" v-bind="data" />
             </template>
         </div>
-
     </section>
 </template>
 <script>
@@ -15,6 +16,7 @@ export default {
     components: { defaultCard },
     props: {
         'cards': Object,
+        'label':String
     },
 
 }

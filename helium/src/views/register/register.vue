@@ -135,6 +135,7 @@ export default {
                     }
                 },
             ],
+
             cards: [
                 {
                     "authFigure": "/src/assets/images/Ellipse 1.png",
