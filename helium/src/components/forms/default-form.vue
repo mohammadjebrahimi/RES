@@ -1,5 +1,6 @@
 <template>
-    <form @submit.prevent="submit()" :action="action" class="form singel-card__form">
+    <Form @submit="submit()"  :validation-schema="schema" :action="action"
+        class="form singel-card__form">
         <div class="form__detail">
             <h3 class="form__title">{{ title }}</h3>
             <p class="form__description">{{ description }}</p>
@@ -8,14 +9,16 @@
             <slot></slot>
         </div>
 
-        <button v-if="submitText" class="form__submit" :class="{' form__submit--align-end': alignToEnd }">
+        <button v-if="submitText" class="form__submit" :class="{ ' form__submit--align-end': alignToEnd }">
             {{ submitText }}
         </button>
-    </form>
+    </Form>
 </template>
 <script>
+import { Form } from 'vee-validate';
 export default {
     props: {
+        schema: Object,
         action: String,
         title: String,
         description: String,
@@ -25,10 +28,13 @@ export default {
             default: false
         }
     },
+    components: { Form },
     methods: {
         submit(e) {
             this.$emit('submit', e)
-        }
+        },
+
+
     }
 }
 </script>

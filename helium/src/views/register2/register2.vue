@@ -4,7 +4,7 @@
         </default-header>
         <nav></nav>
         <SingelCard :showClose="false" :showOk="false">
-            <DefaultForm :="formData">
+            <DefaultForm :schema="schema" :="formData">
                 <DefaultTextInput :="phoneInput" />
                 <DefaultTextInput :="nameInput" />
                 <DefaultTextInput :="emailInput" />
@@ -14,6 +14,7 @@
     <default-footer />
 </template>
 <script>
+import * as Yup from "yup";
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import SingelCard from '@/components/cards/singel-card.vue'
@@ -23,6 +24,11 @@ export default {
     name: "register2-page",
     data() {
         return {
+            schema: Yup.object().shape({
+                'Phon-Number': Yup.string().required('فیلد ضروری است'),
+                'Email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
+                'name': Yup.string().required('فیلد ضروری است'),
+            }),
             formData: {
                 title: 'شما هنوز در هلیوم ثبت نام نکرده اید.',
                 description: 'لطفا اطلاعات زیر را برای ثبت نام کامل کنید.',
@@ -47,7 +53,7 @@ export default {
                     'نام و نام خانوادگی',
                 ],
                 type: 'text',
-       
+                equired: true,
             },
             emailInput: {
                 name: 'Email',
