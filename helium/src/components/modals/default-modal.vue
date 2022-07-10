@@ -1,6 +1,6 @@
 <template >
     <div class="modal" v-if="show">
-        <SingelCard :buttonText="buttonText" :showClose="showClose" :showOk="showOk" @ok="ok()" @close="close()">
+        <SingelCard :outLineBtn="outLineBtn" :buttonText="buttonText" :showClose="showClose" :showOk="showOk" @ok="ok()" @close="close()">
             <slot></slot>
         </SingelCard>
     </div>
@@ -25,6 +25,10 @@ export default {
         buttonText: {
             type: String,
             default: 'تایید'
+        } ,
+        outLineBtn: {
+            type: Boolean,
+            default: false
         }
     },
     methods: {

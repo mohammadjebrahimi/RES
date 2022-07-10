@@ -11,8 +11,8 @@
                 class="visit-card__specification-section">
                 <img class="visit-card__specification-img" :src="specification.image" alt="">
                 <figcaption class="visit-card__specification"
-                    :class="(specification.big) ? 'visit-card__specification--big' : (specification.number) ? 'visit-card__specification--number' : ''"
-                    >{{
+                    :class="{ 'visit-card__specification--big': specification.big, 'visit-card__specification--number': specification.number }">
+                    {{
                             specification.value
                     }}
                 </figcaption>
@@ -63,15 +63,16 @@ export default {
     }
 
     &__specification {
-      
+
 
         &--big {
             font-weight: 600;
             font-size: 18px;
             color: #445161;
         }
-        &--number{
-           font-family: 'KalamehFarsiNumber';
+
+        &--number {
+            font-family: 'KalamehFarsiNumber';
         }
     }
 }

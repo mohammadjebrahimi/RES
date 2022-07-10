@@ -1,7 +1,8 @@
 <template>
     <div class="input-box" @input="input($event)">
         <input @input="input($event)" :name="name" placeholder=" " class="input-box__input"
-            :class="(ltr) ? ' input-box__input--direction-ltr' : ''" :type="type" :id="id" :required="required">
+          :class="{ 'input-box__input--direction-ltr': ltr }" :type="type" :id="id" :required="required">
+          
         <label :for="id" class="input-box__input-label">{{ label }}</label>
         <div class="input-box__input-placeholder">
             <span v-for="(data, index) in placeHolder " :key="`place-${index}`">{{ data }}</span>

@@ -2,7 +2,9 @@
     <div class="singel-card">
         <a class="singel-card__close" v-if="showClose" @click="close()"></a>
         <slot></slot>
-        <a class="singel-card__ok" v-if="showOk" @click="ok()">{{buttonText}}</a>
+        <a class="singel-card__ok" :class="{ 'singel-card__ok--outline': outLineBtn }" v-if="showOk" @click="ok()">{{
+                buttonText
+        }}</a>
     </div>
 </template>
 <script>
@@ -20,6 +22,11 @@ export default {
         buttonText: {
             type: String,
             default: 'تایید'
+        }
+        ,
+        outLineBtn: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -50,7 +57,7 @@ export default {
             @include flex-direction(column);
             max-width: 470px;
             width: 90%;
-             padding:5%;
+            padding: 5%;
         }
     }
 
@@ -68,6 +75,13 @@ export default {
         margin: 30px 0 0;
         align-self: end;
         text-decoration: none;
+
+        &--outline {
+            background: transparent;
+            color: $primaryColor;
+            border: 1px solid rgba(36, 52, 71, 0.15);
+            width: fit-content;
+        }
     }
 }
 </style>

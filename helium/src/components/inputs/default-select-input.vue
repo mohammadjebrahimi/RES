@@ -1,7 +1,7 @@
 <template>
     <div class="select-box">
         <select @change="selectItem($event)" :placeholder="placeHolder" class="select-box__select-option"
-            :class="(ltr) ? 'select-box__select-option--direction-ltr' : ''" :id="id">
+            :class="{ 'select-box__select-option--direction-ltr': ltr }" :id="id">
             <option v-if="value == ''" value="" :key='`option`' selected>انتخاب کنید</option>
             <template v-for="(option, index) in options">
                 <option v-if="option.key == value" :value="option.key" :key='`option-${index}`' selected>{{ option.value

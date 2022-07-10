@@ -9,7 +9,7 @@
         <HorizontalCardContainer label="مقالات" :cards='cards' buttonText="مشاهده بیشتر" />
 
 
-        <DefaultModal buttonText="بستن" :showClose="false"  v-model:show="showModal">
+        <DefaultModal outLineBtn="true" buttonText="بستن" :showClose="false"  v-model:show="showModal">
             <VisitCard :="person" />
         </DefaultModal>
 

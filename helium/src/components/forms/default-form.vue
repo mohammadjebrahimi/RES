@@ -8,7 +8,7 @@
             <slot></slot>
         </div>
 
-        <button v-if="submitText" class="form__submit" :class="(alignToEnd) ? 'form__submit--align-end' : ''">
+        <button v-if="submitText" class="form__submit" :class="{' form__submit--align-end': alignToEnd }">
             {{ submitText }}
         </button>
     </form>
