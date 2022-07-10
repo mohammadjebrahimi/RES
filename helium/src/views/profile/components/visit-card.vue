@@ -32,11 +32,13 @@ export default {
 <style lang="scss">
 .visit-card {
     @include flex-direction();
-    justify-content: center;
+    justify-content: space-between;
+    gap: 20px;
 
     &__avatar-img {
         width: 100px;
         height: 100px;
+        margin: 0;
     }
 
     &__body {

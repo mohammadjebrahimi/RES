@@ -9,7 +9,8 @@
         <HorizontalCardContainer label="مقالات" :cards='cards' buttonText="مشاهده بیشتر" />
 
 
-        <DefaultModal outLineBtn="true" buttonText="بستن" :showClose="false"  v-model:show="showModal">
+        <DefaultModal  outLineBtn="true" buttonText="بستن" :showClose="false"
+            v-model:show="showModal">
             <VisitCard :="person" />
         </DefaultModal>
 
@@ -125,7 +126,7 @@ export default {
                         image: '/src/assets/images/mobile.png',
                         value: '09151231234',
                         big: false,
-                        number:true
+                        number: true
                     }
                 ]
             },
@@ -156,6 +157,7 @@ export default {
     padding: 1em;
     margin-top: 63px;
     flex-grow: 1;
+
 
     &__header {
         position: fixed;
