@@ -1,12 +1,13 @@
 <template>
     <section class="horizontal-card-container">
-        <span v-if="label" class="horizontal-card-container__title">از همین نویسنده</span>
+        <span v-if="label" class="horizontal-card-container__title">{{label}}</span>
         <hr v-if="label" class="horizontal-card-container__seperator">
         <div class="horizontal-card-container__cards">
             <template v-for="(data, index) in cards" :key="`card-{index}`">
                 <default-card class="horizontal-card-container__card" v-bind="data" />
             </template>
         </div>
+        <button v-if="buttonText" class="horizontal-card-container__see-more">{{buttonText}}</button>
     </section>
 </template>
 <script>
@@ -15,8 +16,9 @@ export default {
     name: "horizontal-card-container",
     components: { defaultCard },
     props: {
-        'cards': Object,
-        'label':String
+        'cards': Array,
+        'label':String,
+        'buttonText':String,
     },
 
 }
@@ -47,7 +49,8 @@ export default {
         border: 1px solid rgba(36, 52, 71, 0.15);
         border-radius: 4px;
         padding: 8px 24px;
-        width: 374px;
+        max-width: 374px;
+        width: 100%;
         margin: 60px auto 0;
     }
 

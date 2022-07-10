@@ -118,7 +118,7 @@ export default {
     }
 
     &__card {
-        z-index: 1;
+        @include z-index-group(1);
         position: absolute;
         bottom: 70px;
         margin: 0 75px;

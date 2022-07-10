@@ -75,7 +75,7 @@
         </default-article>
         <horizontal-card-container label="از همین نویسنده" :cards="cards"></horizontal-card-container>
         <DefaultCommentContainer label="نظرات" :comments="comments" />
-        <DefaultCommentForm action="" label="نظر دادن"/>
+        <DefaultCommentForm action="" label="نظر دادن" />
     </main>
     <default-footer />
 </template>
@@ -84,18 +84,18 @@ import defaultHeader from '@/components/headers/default-header.vue'
 import defaultArticle from '@/components/articles/default-article.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import HorizontalCardContainer from '@/components/card-containers/horizontal-card-container.vue'
-import DefaultCommentContainer from '../../components/comment-containers/default-comment-container.vue'
-import DefaultCommentForm from '../../components/comment-form/default-comment-form.vue'
+import DefaultCommentContainer from '@/components/comment-containers/default-comment-container.vue'
+import DefaultCommentForm from '@/components/comment-form/default-comment-form.vue'
 export default {
     name: "singel-page",
     components: {
-    defaultArticle,
-    defaultHeader,
-    defaultFooter,
-    HorizontalCardContainer,
-    DefaultCommentContainer,
-    DefaultCommentForm
-},
+        defaultArticle,
+        defaultHeader,
+        defaultFooter,
+        HorizontalCardContainer,
+        DefaultCommentContainer,
+        DefaultCommentForm
+    },
     data() {
         return {
             articleDetail: {
@@ -153,7 +153,7 @@ export default {
                 متنوع با
                 هدف بهبود ابزارهای
                 کاربردی می باشد.`
-            },{
+            }, {
                 authorName: "سروش صفایی زاده",
                 date: "۲۸ تیر ۱۴۰۰",
                 comment: `لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
@@ -164,7 +164,7 @@ export default {
                 متنوع با
                 هدف بهبود ابزارهای
                 کاربردی می باشد.`
-            },{
+            }, {
                 authorName: "سروش صفایی زاده",
                 date: "۲۸ تیر ۱۴۰۰",
                 comment: `لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
@@ -190,7 +190,7 @@ export default {
     &__header {
         position: fixed;
         top: 0px;
-        z-index: 10;
+       @include z-index-group(2);
     }
 }
 </style>

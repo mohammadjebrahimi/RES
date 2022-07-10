@@ -34,6 +34,7 @@ export default {
     background-image: url("../../assets/images/Pattern.png"), url("../../assets/images/Rectangle 81.png");
     align-items: center;
     justify-content: space-around;
+    padding: 1em;
 
     &__right {
         @include flex-direction();

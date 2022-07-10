@@ -17,6 +17,7 @@ export default defineConfig({
       @import '@/assets/scss/_vars.scss';
       @import '@/assets/scss/_mixins.scss';
       @import '@/assets/scss/_media-query.scss';
+      @import '@/assets/scss/_z-index-group.scss';
       ` },
     },
   },

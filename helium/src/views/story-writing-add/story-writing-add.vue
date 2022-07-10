@@ -1,0 +1,42 @@
+<template>
+    <main class="main">
+        <default-header class="main__header">
+            <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
+            <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
+            <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
+        </default-header>
+        <CreateNewArticle></CreateNewArticle>
+    </main>
+    <default-footer />
+</template>
+<script>
+import defaultHeader from '@/components/headers/default-header.vue'
+import defaultFooter from '@/components/footers/default-footer.vue'
+import CreateNewArticle from './components/create-new-article.vue'
+export default {
+    name: "singel-page",
+    components: {
+        defaultHeader,
+        defaultFooter,
+        CreateNewArticle,
+    },
+    data() {
+        return {
+
+        }
+    }
+}
+</script>
+<style lang="scss" scoped>
+.main {
+    @include flex-direction(column);
+    justify-content: center;
+    align-items: center;
+
+    &__header {
+        position: fixed;
+        top: 0px;
+        @include z-index-group(2);
+    }
+}
+</style>

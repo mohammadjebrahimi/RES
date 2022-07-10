@@ -187,7 +187,7 @@ export default {
     &__header {
         position: fixed;
         top: 0px;
-        z-index: 10;
+        @include z-index-group(2);
     }
 }
 </style>

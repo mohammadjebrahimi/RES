@@ -90,7 +90,7 @@ export default {
             display: block;
             width: 100%;
             height: 100%;
-            background-color: #c2ddf68c;
+            background-color: #208bee40;
             transform-origin: 0 bottom 0;
             transform: scaleY(0);
             transition: .4s ease-out;

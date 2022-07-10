@@ -4,17 +4,50 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'home',
+      path: '/singel',
+      name: 'singel',
       component: () => import('../views/singel/singel.vue')
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../components/headers/default-header.vue')
+      path: '/register',
+      name: 'register',
+      component: () => import('../views/register/register.vue')
+    },
+
+    {
+      path: '/story-writing-add',
+      name: 'story-writing-add',
+      component: () => import('../views/story-writing-add/story-writing-add.vue')
+    },
+
+    {
+      path: '/register1',
+      name: 'register1',
+      component: () => import('../views/register1/register1.vue')
+    },
+
+    {
+      path: '/register2',
+      name: 'register2',
+      component: () => import('../views/register2/register2.vue')
+    },
+
+    {
+      path: '/register3',
+      name: 'register3',
+      component: () => import('../views/register3/register3.vue')
+    },
+
+    {
+      path: '/register-done',
+      name: 'register-done',
+      component: () => import('../views/register-done/register-done.vue')
+    },
+
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/profile/profile.vue')
     }
   ]
 })
