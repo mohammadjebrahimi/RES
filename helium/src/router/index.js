@@ -24,6 +24,11 @@ const router = createRouter({
       path: '/register1',
       name: 'register1',
       component: () => import('../views/register1/register1.vue')
+    }, 
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/login/login.vue')
     },
 
     {
@@ -58,12 +63,12 @@ console.log(!localStorage.getItem("accessToken"));
 router.beforeEach((to, from) => {
   if (!localStorage.getItem("accessToken") && tokenPage.includes(to.name)) {
     router.push({ name: 'register' })
-  }else if(localStorage.getItem("accessToken") && !tokenPage.includes(to.name)){
+  } else if (localStorage.getItem("accessToken") && !tokenPage.includes(to.name)) {
     router.push({ name: 'profile' })
   }
 
 })
 router.afterEach((to, from) => {
-      document.title = to.name;
-  });
+  document.title = to.name;
+});
 export default router

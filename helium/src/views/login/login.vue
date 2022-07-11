@@ -4,8 +4,9 @@
         </default-header>
         <nav></nav>
         <SingelCard :showClose="false" :showOk="false">
-            <DefaultForm :schema="schema" :="formData" @submitForm="handelUserExistAPI($event)">
-                <DefaultTextInput :="phoneInput" />
+            <DefaultForm :schema="schema" :="formData" @submitForm="handelLoginAPI($event)">
+                <DefaultTextInput v-model:value="phoneNumber" :="phoneInput" />
+                <DefaultTextInput :="passwordInput" />
             </DefaultForm>
         </SingelCard>
     </main>
@@ -24,18 +25,32 @@ export default {
     name: "register1-page",
     data() {
         return {
+            phoneNumber:this.$route.query['phone_number'],
             toast: useToast(),
             schema: Yup.object().shape({
-                'Phon-Number': Yup.number('فیلد از نوع عددی است').required('فیلد ضروری است'),
+                'phone_number': Yup.number().typeError('فیلد از نوع عددی است').required('فیلد ضروری است'),
+                password: Yup.string().min(6, 'حداقل 6 کاراکتر').required('فیلد ضروری است'),
             }),
             formData: {
                 title: 'ورود/ثبت نام',
                 description: '',
                 submitText: 'ادامه'
             },
+            passwordInput: {
+                name: 'password',
+                id: 'password',
+                label: 'رمز عبور',
+                placeHolder: [
+                    'رمز عبور دلخواه را به انگلیسی وارد کنید',
+                ],
+                type: 'password',
+                required: true,
+                ltr: true,
+
+            },
             phoneInput: {
-                name: 'Phon-Number',
-                id: 'Phon-Number',
+                name: 'phone_number',
+                id: 'phone_number',
                 label: 'لطفا شماره تلفن همراه خود را وارد کنید',
                 placeHolder: [
                     'مثال:',
@@ -57,33 +72,23 @@ export default {
     },
     methods: {
 
-        async handelUserExistAPI(e) {
-
-            let resp = await fetch('http://87.107.30.143:3003/auth/user-exist', {
+        async handelLoginAPI(e) {
+            console.log(e);
+            let resp = await fetch('http://87.107.30.143:3003/auth/login', {
                 method: 'POST', // or 'PUT'
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ 'phone_number': e['Phon-Number'] }),
+                body: JSON.stringify(e),
             })
             let respData = await resp.json()
-            if (resp.status == 400) {
+            if (resp.status >= 400) {
                 this.toast.error(respData.message)
 
-                this.$router.push({ name: 'register2', query: { 'phone_number': e['Phon-Number'] } })
-                this.toast.info('وارد صفحه ثبت نام می شوید')
-            } else if (resp.status == 200) {
-                if (respData.isUserExist) {
-                    this.toast.success('شما قبلا ثبت نام کرده اید')
-                    this.$router.push({ name: 'login', query: { 'phone_number': e['Phon-Number'] } })
-                     this.toast.info('وارد صفحه لاگین می شوید')
-                } else {
-                    this.toast.error('لطفا ثبت نام کنید')
-                    this.$router.push({ name: 'register2', query: { 'phone_number': e['Phon-Number'] } })
-                    this.toast.info('وارد صفحه ثبت نام می شوید')
-                }
-
-
+            } else if (resp.status <= 300) {
+                this.toast.success('لاگین شدید.')
+                localStorage.setItem("accessToken", respData.accessToken);
+                this.$router.push({ name: 'profile' })
             }
 
         }
