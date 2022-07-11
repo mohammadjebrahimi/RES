@@ -190,6 +190,12 @@ export default {
     align-items: center;
     padding: 0 1em;
 
+    @include breakpoint_max(small) {
+
+        margin-top: 63px;
+
+    }
+
     &__horizontal-card-container {
         margin: 4rem auto 0;
     }

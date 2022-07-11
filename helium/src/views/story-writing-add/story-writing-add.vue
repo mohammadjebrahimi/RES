@@ -5,7 +5,7 @@
             <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
             <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
         </default-header>
-        <CreateNewArticle></CreateNewArticle>
+        <CreateNewArticle class="story-writing-add-page__create-new-article"></CreateNewArticle>
     </main>
     <default-footer />
 </template>
@@ -34,6 +34,13 @@ export default {
     align-items: center;
     margin-top: 97px;
     padding: 0 1em;
+
+    &__create-new-article {
+        & .create-new-article__article-image-editor {
+            background-image: none;
+            background-color: #738c9830;
+        }
+    }
 
     &__header {
         position: fixed;
