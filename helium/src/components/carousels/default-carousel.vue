@@ -2,29 +2,32 @@
     <section class="carousel">
         <div class="carousel__images">
 
-            <figure class="carousel__figure" v-for="(data, index) in carouselDatas" :key="`carousel__figure-{index}`">
-                <img class="carousel__image" :src="data.carouselImage" alt="scroll" />
-                <default-card class="carousel__card" v-bind="data.cardData" />
-            </figure>
+
+            <template v-for="(data, index) in carouselDatas" :key="`carousel__figure-{index}`">
+                <transition name="slide-fade">
+                    <figure v-if="index + 1 == active" :id="`carousel__figure-{index}`" class="carousel__figure">
+                        <img class="carousel__image" :src="data.carouselImage" alt="scroll" />
+                        <default-card class="carousel__card" v-bind="data.cardData" />
+                    </figure>
+                </transition>
+            </template>
+
+
 
 
         </div>
         <div class="carousel__content">
-            <button class="carousel__arrow-left"></button>
+            <button ref="left" @click="move(-1)" class="carousel__arrow-left"></button>
             <div class="carousel__main">
 
 
                 <div class="carousel__navigation">
-                    <span class="carousel__nav-dot"></span>
-                    <span class="carousel__nav-dot"></span>
-                    <span class="carousel__nav-dot"></span>
-                    <span class="carousel__nav-dot carousel__nav-dot--activate"></span>
-                    <span class="carousel__nav-dot"></span>
-                    <span class="carousel__nav-dot"></span>
-                    <span class="carousel__nav-dot"></span>
+                    <span v-for="(dot, index) in carouselDatas"
+                        :class="{ 'carousel__nav-dot--activate': ++index === active }" @click="jump(index)"
+                        class="carousel__nav-dot"></span>
                 </div>
             </div>
-            <button class="carousel__arrow-right"></button>
+            <button ref="right" @click="move(1)" class="carousel__arrow-right"></button>
         </div>
     </section>
 </template>
@@ -37,18 +40,64 @@ export default {
     },
     props: ['carouselDatas'],
     components: { DefaultCard },
+    data() {
+        return {
+            active: 1,
+        }
+    },
+    methods: {
+        move(amount) {
+            let newActive
+            const newIndex = this.active + amount
+            if (newIndex > this.carouselDatas.length) newActive = 1
+            if (newIndex === 0) newActive = this.carouselDatas.length
+            this.active = newActive || newIndex
+        },
+        jump(index) {
+            this.active = index
+        },
+    }
+
 }
 </script>
 <style lang="scss">
 .carousel {
     @include flex-direction(column);
     overflow: hidden;
+    width: 100%;
     position: relative;
+    justify-content: center;
+    align-items: center;
 
     &__images {
         @include flex-direction();
         overflow: hidden;
-        width: fit-content;
+        width: 100%;
+        height: 744px;
+
+        .animated {
+            transition: all 400ms;
+            position: absolute;
+            transform: translate(-50%, -50%);
+        }
+
+        .slide-in {
+            opacity: 0;
+            transform: translate(-40%, -50%);
+        }
+
+        .slide-in-active {
+            transition-delay: 150ms;
+        }
+
+        .slide-out {
+            opacity: 1;
+        }
+
+        .slide-out-active {
+            opacity: 0;
+            transform: translate(-60%, -50%);
+        }
     }
 
     &__figure {
@@ -82,6 +131,8 @@ export default {
     &__arrow-left {
         @include scroll-bar-arrow(180deg);
         margin: 25px;
+        cursor: pointer;
+
     }
 
     &__main {
@@ -103,6 +154,8 @@ export default {
         height: 10px;
         background: rgba(255, 255, 255, 0.2);
         border-radius: 50%;
+        cursor: pointer;
+
     }
 
     &__nav-dot--activate {
@@ -115,6 +168,8 @@ export default {
     &__arrow-right {
         @include scroll-bar-arrow();
         margin: 25px;
+        cursor: pointer;
+
     }
 
     &__card {
@@ -149,6 +204,28 @@ export default {
         & .card__study-duration {
             color: #CCCCCC;
         }
+    }
+}
+
+.slide-fade-enter-active {
+    animation: slide-in 0.75s;
+}
+
+.slide-fade-leave-active {
+    animation: slide-in 0.75s reverse;
+}
+
+@keyframes slide-in {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
     }
 }
 </style>

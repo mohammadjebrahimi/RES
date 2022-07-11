@@ -14,9 +14,9 @@
 <script>
 import DefaultHeader from "@/components/headers/default-header.vue";
 import DefaultCarousel from "@/components/carousels/default-carousel.vue";
-import HorizontalCardContainer from "../../components/card-containers/horizontal-card-container.vue";
-import VerticalCardContainer from "../../components/card-containers/vertical-card-container.vue";
-import DefaultFooter from "../../components/footers/default-footer.vue";
+import HorizontalCardContainer from "@/components/card-containers/horizontal-card-container.vue";
+import VerticalCardContainer from "@/components/card-containers/vertical-card-container.vue";
+import DefaultFooter from "@/components/footers/default-footer.vue";
 export default {
     name: "register-page",
     components: {
@@ -30,7 +30,7 @@ export default {
         return {
             "carouselDatas": [
                 {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+                    "carouselImage": '/src/assets/images/unsplash_NnRv949hZ1Q.png',
                     "cardData": {
                         "authFigure": "/src/assets/images/Ellipse 1.png",
                         "authorName": "محمدسبحان سجایی فر",
