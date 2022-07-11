@@ -1,15 +1,15 @@
 <template>
-    <main class="main">
-        <default-header class="main__header">
+    <main class="register">
+        <default-header class="register__header">
             <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
             <button @click="redirect()" class="header__button">ورود/ثبت نام</button>
         </default-header>
         <default-carousel :carouselDatas="carouselDatas" />
-        <horizontal-card-container :cards="cards" />
-        <vertical-card-container  :cards="cards"/>
-        
+        <horizontal-card-container class="register__horizontal-card-container" :cards="cards" />
+        <vertical-card-container class="register__vertical-card-container" :cards="cards" />
+
     </main>
-    <default-footer/>
+    <default-footer />
 </template>
 <script>
 import DefaultHeader from "@/components/headers/default-header.vue";
@@ -20,12 +20,12 @@ import DefaultFooter from "../../components/footers/default-footer.vue";
 export default {
     name: "register-page",
     components: {
-    DefaultHeader,
-    DefaultCarousel,
-    HorizontalCardContainer,
-    VerticalCardContainer,
-    DefaultFooter
-},
+        DefaultHeader,
+        DefaultCarousel,
+        HorizontalCardContainer,
+        VerticalCardContainer,
+        DefaultFooter
+    },
     data() {
         return {
             "carouselDatas": [
@@ -149,7 +149,7 @@ export default {
                     "tag": "تکنولوژی",
                     "image": "/src/assets/images/Rectangle%207.png"
                 },
-                                {
+                {
                     "authFigure": "/src/assets/images/Ellipse 1.png",
                     "authorName": "محمدسبحان سجایی فر",
                     "date": "۲۸ تیر ۱۴۰۰",
@@ -161,7 +161,7 @@ export default {
                     "tag": "تکنولوژی",
                     "image": "/src/assets/images/Rectangle%207.png"
                 },
-                                {
+                {
                     "authFigure": "/src/assets/images/Ellipse 1.png",
                     "authorName": "محمدسبحان سجایی فر",
                     "date": "۲۸ تیر ۱۴۰۰",
@@ -176,18 +176,27 @@ export default {
             ]
         }
     },
-methods:{
-    redirect(){
-   this.$router.push({ name: 'register1'})
-}
-}
+    methods: {
+        redirect() {
+            this.$router.push({ name: 'register1' })
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
-.main {
+.register {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
+    padding: 0 1em;
+
+    &__horizontal-card-container {
+        margin: 4rem auto 0;
+    }
+
+    &__vertical-card-container {
+        margin: 4rem auto 0;
+    }
 
     &__header {
         position: fixed;

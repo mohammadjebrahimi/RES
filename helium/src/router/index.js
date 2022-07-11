@@ -53,12 +53,14 @@ const router = createRouter({
 
 
 })
-let tokenPage=['profile','register-done','story-writing-add','singel']
-console.log(!localStorage.getItem("accessToken") );
+let tokenPage = ['profile', 'register-done', 'story-writing-add', 'singel']
+console.log(!localStorage.getItem("accessToken"));
 router.beforeEach((to, from) => {
-   if(!localStorage.getItem("accessToken") && tokenPage.includes(to.name)){
+  if (!localStorage.getItem("accessToken") && tokenPage.includes(to.name)) {
     router.push({ name: 'register' })
+  }else if(localStorage.getItem("accessToken") && !tokenPage.includes(to.name)){
+    router.push({ name: 'profile' })
   }
-  
-  } )
+
+})
 export default router

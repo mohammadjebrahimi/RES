@@ -1,6 +1,6 @@
 <template>
-    <main class="main">
-        <default-header class="main__header">
+    <main class="story-writing-add-page">
+        <default-header class="story-writing-add-page__header">
             <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
             <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
             <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
@@ -28,10 +28,12 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.main {
+.story-writing-add-page {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
+    margin-top: 97px;
+    padding: 0 1em;
 
     &__header {
         position: fixed;

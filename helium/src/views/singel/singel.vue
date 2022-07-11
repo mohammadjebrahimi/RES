@@ -1,6 +1,6 @@
 <template>
-    <main class="main">
-        <default-header class="main__header">
+    <main class="singel">
+        <default-header class="singel__header">
             <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
             <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
             <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
@@ -73,8 +73,8 @@
                 </p>
             </div>
         </default-article>
-        <horizontal-card-container label="از همین نویسنده" :cards="cards"></horizontal-card-container>
-        <DefaultCommentContainer label="نظرات" :comments="comments" />
+        <horizontal-card-container class="singel__horizontal-card-containe" label="از همین نویسنده" :cards="cards"></horizontal-card-container>
+        <DefaultCommentContainer  class="singel__comments" label="نظرات" :comments="comments" />
         <DefaultCommentForm action="" label="نظر دادن" />
     </main>
     <default-footer />
@@ -182,15 +182,25 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.main {
+.singel {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
+    margin-top: 97px;
+    padding: 0 1em;
 
     &__header {
         position: fixed;
         top: 0px;
-       @include z-index-group(2);
+        @include z-index-group(2);
+    }
+
+    &__horizontal-card-container {
+        margin: 4rem auto 0;
+    }
+
+    &__comments {
+        margin: 8rem auto 0;
     }
 }
 </style>

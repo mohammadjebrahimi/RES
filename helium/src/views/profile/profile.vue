@@ -1,16 +1,16 @@
 <template>
-    <main class="main">
-        <default-header class="main__header">
+    <main class="profile">
+        <default-header class="profile__header">
             <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
             <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
             <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
         </default-header>
         <UserDetail @btnClick="showSpecification()" :="userDetail" />
-        <HorizontalCardContainer label="مقالات" :cards='cards' buttonText="مشاهده بیشتر" />
+        <HorizontalCardContainer class="profile__horizontal-card-container" label="مقالات" :cards='cards'
+            buttonText="مشاهده بیشتر" />
 
 
-        <DefaultModal  outLineBtn="true" buttonText="بستن" :showClose="false"
-            v-model:show="showModal">
+        <DefaultModal outLineBtn="true" buttonText="بستن" :showClose="false" v-model:show="showModal">
             <VisitCard :="person" />
         </DefaultModal>
 
@@ -130,7 +130,7 @@ export default {
                     }
                 ]
             },
-            showModal: true
+            showModal: false
         }
 
     },
@@ -150,7 +150,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.main {
+.profile {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
@@ -163,6 +163,18 @@ export default {
         position: fixed;
         top: 0px;
         @include z-index-group(2);
+    }
+
+    & &__horizontal-card-container {
+        margin: 30px 0 140px;
+
+        .horizontal-card-container__seperator {
+            border: 1px solid #24344740;
+        }
+
+        .horizontal-card-container__title {
+            border: 1.5px solid #24344740;
+        }
     }
 }
 </style>
