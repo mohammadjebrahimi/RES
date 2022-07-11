@@ -50,6 +50,15 @@ const router = createRouter({
       component: () => import('../views/profile/profile.vue')
     }
   ]
-})
 
+
+})
+let tokenPage=['profile','register-done','story-writing-add','singel']
+console.log(!localStorage.getItem("accessToken") );
+router.beforeEach((to, from) => {
+   if(!localStorage.getItem("accessToken") && tokenPage.includes(to.name)){
+    router.push({ name: 'register' })
+  }
+  
+  } )
 export default router

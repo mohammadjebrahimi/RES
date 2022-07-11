@@ -1,5 +1,5 @@
 <template>
-    <Form @submit="submit()"  :validation-schema="schema" :action="action"
+    <Form @submit="submit($event)" :validationSchema="schema" :action="action"
         class="form singel-card__form">
         <div class="form__detail">
             <h3 class="form__title">{{ title }}</h3>
@@ -31,7 +31,7 @@ export default {
     components: { Form },
     methods: {
         submit(e) {
-            this.$emit('submit', e)
+            this.$emit('submitForm', e)
         },
 
 

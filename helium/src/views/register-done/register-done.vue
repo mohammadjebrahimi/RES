@@ -3,7 +3,7 @@
         <default-header class="main__header">
         </default-header>
         <nav></nav>
-        <SuccessRegister/>
+        <SuccessRegister @btnClicked="redirect()" />
     </main>
     <default-footer />
 </template>
@@ -11,6 +11,7 @@
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import SuccessRegister from './components/success-register.vue'
+import router from '../../router'
 export default {
     name: "registerDone-page",
     components: {
@@ -18,6 +19,11 @@ export default {
     defaultFooter,
     SuccessRegister
 },
+methods:{
+redirect(){
+   this.$router.push({ name: 'story-writing-add'})
+}
+}
 }
 </script>
 <style lang="scss" scoped>

@@ -14,19 +14,22 @@
                             src="@/assets/images/maximize-circle.png" alt=""></button>
                     <label class="create-new-article__article-edit-image"><img src="@/assets/images/gallery-edit.png"
                             alt="">
-                        <input type="file" class="create-new-article__article-edit-image-input"
+                        <input name="image" type="file" class="create-new-article__article-edit-image-input"
                             @change="setArticleImage($event)" accept="image/png, image/gif, image/jpeg" />
                     </label>
                 </div>
             </div>
-            <input class="create-new-article__article-insert-title" placeholder="عنوان مطلب خود را وارد کنید " />
+            <input name="title" class="create-new-article__article-insert-title"
+                placeholder="عنوان مطلب خود را وارد کنید " />
             <div class="create-new-article__article-tag-section">
-                <p class="create-new-article__article-tag" v-if="selectedTagObject?.value">{{selectedTagObject?.value}}</p>
+                <p class="create-new-article__article-tag" v-if="selectedTagObject?.value">{{ selectedTagObject?.value
+                }}
+                </p>
                 <a id="insertTag" @click="showTagModal = !showTagModal"
                     class="create-new-article__article-tag-editor"><img src="@/assets/images/tag-2.png" alt=""></a>
             </div>
             <div class="create-new-article__article-content-section">
-                <textarea oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                <textarea name="content" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
                     class="create-new-article__article-insert-content"
                     placeholder="متن اصلی خود را وارد کنید..."></textarea>
                 <label class="create-new-article__article-edit-image"><img src="@/assets/images/gallery-edit.png"
@@ -35,7 +38,7 @@
                         @change="setArticleImage($event)" accept="image/png, image/gif, image/jpeg" />
                 </label>
             </div>
-            <button class="create-new-article__article-submit" type="button" disabled>انتشار
+            <button @click="submit()" class="create-new-article__article-submit" type="button">انتشار
                 مطلب</button>
         </div>
 
@@ -50,7 +53,7 @@
 import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSelectInput from '@/components/inputs/default-select-input.vue'
 import DefaultForm from '@/components/forms/default-form.vue'
-
+import { useToast } from "vue-toastification";
 export default {
     name: "create-new-article",
     components: {
@@ -60,6 +63,7 @@ export default {
     },
     data() {
         return {
+            toast: useToast(),
             selectedTagKey: '',
             selectedTagObject: '',
             articleImage: '/src/assets/images/Group 254.png',
@@ -93,9 +97,40 @@ export default {
             }
         },
         getTag(e) {
-          this.selectedTagObject=  this.$refs.tag.options.filter(
+            this.selectedTagObject = this.$refs.tag.options.filter(
                 (option) => option.key == this.selectedTagKey
             )[0]
+        },
+        async submit() {
+
+            let data = new FormData()
+            data.append('image', document.getElementsByName("image")[0].files[0])
+            data.append('title', document.getElementsByName("title")[0].value)
+            data.append('content', document.getElementsByName("content")[0].value)
+            data.append('tags', [this.selectedTagObject?.key])
+
+            let resp = await fetch('http://87.107.30.143:3003/articles', {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Accept': 'application/json',
+                    'Authorization': localStorage.getItem("accessToken")
+
+                },
+                body: data,
+            })
+            let respData = await resp.json()
+            if (resp.status == 400 || resp.status == 500 || resp.status == 401) {
+                if (Array.isArray(respData.message)) {
+                    respData.message.forEach(message => this.toast.error(message))
+                } else {
+                    this.toast.error(respData.message)
+                }
+
+
+            } else if (resp.status == 200 || resp.status == 201) {
+                this.toast.success(respData.message)
+
+            }
         }
     }
 }

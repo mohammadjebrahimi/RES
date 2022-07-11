@@ -4,9 +4,10 @@
         </default-header>
         <nav></nav>
         <SingelCard :showClose="false" :showOk="false">
-            <DefaultForm :schema="schema" :="formData">
-                <DefaultTextInput :="phoneInput" />
-                <DefaultTextInput :="nameInput" />
+            <DefaultForm @submitForm="getdata($event)" :schema="schema" :="formData">
+                <DefaultTextInput v-model:value="defaultPhone" :="phoneInput" />
+                <DefaultTextInput :="fnameInput" />
+                <DefaultTextInput :="lnameInput" />
                 <DefaultTextInput :="emailInput" />
             </DefaultForm>
         </SingelCard>
@@ -24,10 +25,12 @@ export default {
     name: "register2-page",
     data() {
         return {
+            defaultPhone: this.$route.query['phone_number'],
             schema: Yup.object().shape({
-                'Phon-Number': Yup.string().required('فیلد ضروری است'),
+                'Phon-Number': Yup.number('فیلد از نوع عددی است').required('فیلد ضروری است'),
                 'Email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
-                'name': Yup.string().required('فیلد ضروری است'),
+                'fName': Yup.string().required('فیلد ضروری است'),
+                'lName': Yup.string().required('فیلد ضروری است'),
             }),
             formData: {
                 title: 'شما هنوز در هلیوم ثبت نام نکرده اید.',
@@ -45,12 +48,22 @@ export default {
                 ltr: true,
                 type: 'tel',
             },
-            nameInput: {
-                name: 'name',
-                id: 'name',
-                label: 'نام و نام خانوادگی',
+            fnameInput: {
+                name: 'fName',
+                id: 'fName',
+                label: 'نام',
                 placeHolder: [
-                    'نام و نام خانوادگی',
+                    'نام',
+                ],
+                type: 'text',
+                equired: true,
+            },
+            lnameInput: {
+                name: 'lName',
+                id: 'lName',
+                label: ' نام خانوادگی',
+                placeHolder: [
+                    ' نام خانوادگی', ,
                 ],
                 type: 'text',
                 equired: true,
@@ -77,6 +90,12 @@ export default {
         DefaultForm,
         DefaultTextInput
     },
+    methods: {
+        getdata(e) {
+            this.$router.push({ name: 'register3', query: e })
+        }
+    },
+
 }
 </script>
 <style lang="scss" scoped>

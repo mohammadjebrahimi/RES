@@ -4,12 +4,16 @@
                 <img src="@/assets/images/Group 284.png" alt="register done">
             </figure>
             <p class="success-register__text">ثبت نام شما با موفقیت انجام شد.</p>
-            <button class="success-register__submit">ورود به سایت</button>
+            <button class="success-register__submit" @click="btnCllicked()">ورود به سایت</button>
         </section>
 </template>
 <script>
 export default{
-
+methods:{
+  btnCllicked(){
+    this.$emit('btnClicked')
+  }
+}
 }
 </script>
 <style lang="scss">

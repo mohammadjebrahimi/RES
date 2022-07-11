@@ -2,7 +2,7 @@
     <main class="main">
         <default-header class="main__header">
             <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
-            <button class="header__button">ورود/ثبت نام</button>
+            <button @click="redirect()" class="header__button">ورود/ثبت نام</button>
         </default-header>
         <default-carousel :carouselDatas="carouselDatas" />
         <horizontal-card-container :cards="cards" />
@@ -175,7 +175,12 @@ export default {
                 }
             ]
         }
-    }
+    },
+methods:{
+    redirect(){
+   this.$router.push({ name: 'register1'})
+}
+}
 }
 </script>
 <style lang="scss" scoped>
