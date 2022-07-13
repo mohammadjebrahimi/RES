@@ -9,6 +9,9 @@
                 <DefaultTextInput :="passwordInput" />
             </DefaultForm>
         </SingelCard>
+        <EmptyModal v-model:show="showModal">
+            <Circle size="80px" />
+        </EmptyModal>
     </main>
     <default-footer />
 </template>
@@ -20,12 +23,15 @@ import DefaultForm from '../../components/forms/default-form.vue'
 import DefaultTextInput from '../../components/inputs/default-text-input.vue'
 import { useToast } from "vue-toastification";
 import * as Yup from "yup";
+import EmptyModal from '../../components/modals/empty-modal.vue'
+import Circle from '../../components/loading/circle.vue'
 
 export default {
     name: "register1-page",
     data() {
         return {
-            phoneNumber:this.$route.query['phone_number'],
+            showModal: false,
+            phoneNumber: this.$route.query['phone_number'],
             toast: useToast(),
             schema: Yup.object().shape({
                 'phone_number': Yup.number().typeError('فیلد از نوع عددی است').required('فیلد ضروری است'),
@@ -68,12 +74,14 @@ export default {
         defaultFooter,
         SingelCard,
         DefaultForm,
-        DefaultTextInput
+        DefaultTextInput,
+        EmptyModal,
+        Circle
     },
     methods: {
 
         async handelLoginAPI(e) {
-            console.log(e);
+            this.showModal = true
             let resp = await fetch('http://87.107.30.143:3003/auth/login', {
                 method: 'POST', // or 'PUT'
                 headers: {
@@ -82,6 +90,7 @@ export default {
                 body: JSON.stringify(e),
             })
             let respData = await resp.json()
+            this.showModal = false
             if (resp.status >= 400) {
                 this.toast.error(respData.message)
 
@@ -89,9 +98,11 @@ export default {
                 this.toast.success('لاگین شدید.')
                 localStorage.setItem("accessToken", respData.accessToken);
                 this.$router.push({ name: 'profile' })
+
             }
 
-        }
+        },
+  
 
     }
 }

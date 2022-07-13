@@ -4,7 +4,7 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/singel',
+      path: '/singel/:id',
       name: 'singel',
       component: () => import('../views/singel/singel.vue')
     },
@@ -24,7 +24,7 @@ const router = createRouter({
       path: '/register1',
       name: 'register1',
       component: () => import('../views/register1/register1.vue')
-    }, 
+    },
     {
       path: '/login',
       name: 'login',
@@ -58,9 +58,9 @@ const router = createRouter({
 
 
 })
-let tokenPage = ['profile', 'register-done', 'story-writing-add', 'singel']
-console.log(!localStorage.getItem("accessToken"));
-router.beforeEach((to, from) => {
+let tokenPage = ['profile', 'story-writing-add', 'singel']
+router.beforeEach(async (to, from) => {
+  await checkToken()
   if (!localStorage.getItem("accessToken") && tokenPage.includes(to.name)) {
     router.push({ name: 'register' })
   } else if (localStorage.getItem("accessToken") && !tokenPage.includes(to.name)) {
@@ -71,4 +71,22 @@ router.beforeEach((to, from) => {
 router.afterEach((to, from) => {
   document.title = to.name;
 });
+
+// delete accessToken from localStorage if not valid
+async function checkToken() {
+  let token = localStorage.getItem("accessToken")
+  if (token) {
+    let resp = await fetch('http://87.107.30.143:3003/user', {
+      method: 'GET', // or 'PUT'
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': token
+      },
+
+    })
+    if (resp.status >= 400 && resp.status <= 500) {
+      localStorage.removeItem("accessToken");
+    }
+  }
+}
 export default router

@@ -11,6 +11,11 @@
                 <DefaultFileInput :="fileInput" />
             </DefaultForm>
         </SingelCard>
+        <EmptyModal v-model:show="showLoading">
+            <Circle size="80px" />
+        </EmptyModal>
+
+
     </main>
     <default-footer />
 </template>
@@ -24,10 +29,14 @@ import DefaultTextInput from '@/components/inputs/default-text-input.vue'
 import DefaultFileInput from '@/components/inputs/default-file-input.vue'
 import { useToast } from "vue-toastification";
 
+import Circle from "../../components/loading/circle.vue";
+import EmptyModal from "../../components/modals/empty-modal.vue";
+
 export default {
     name: "register3-page",
     data() {
         return {
+            showLoading: false,
             toast: useToast(),
             schema: Yup.object().shape({
                 userName: Yup.string().required('فیلد ضروری است'),
@@ -91,79 +100,43 @@ export default {
         SingelCard,
         DefaultForm,
         DefaultTextInput,
-        DefaultFileInput
+        DefaultFileInput,
+        Circle,
+        EmptyModal
     },
     methods: {
         async handelUserSignUpAPI(e) {
-
-            // let data = {
-            //     username: e.userName,
-            //     password: e.password,
-            //     image: 'jjj',
-            //     phone_number: this.$route.query['Phon-Number'],
-            //     email: this.$route.query.Email,
-            //     last_name: this.$route.query.lName,
-            //     first_name: 'لققلثقل',
-            // }
             let data = new FormData()
-            // data.append( 'username', 'amirhossein')
-            // data.append( 'password', '123456' )
-            // data.append( 'image', document.getElementsByName("file")[0].files[0] )
-            // data.append( 'phone_number', '09155602894')
-            // data.append( 'email', 'amirhossein.shahraki@pm.me')
-            // data.append( 'last_name', 'شهرکی')
-            // data.append( 'first_name', 'امیرحسین')
+            data.append('username', e.userName)
+            data.append('password', e.password)
+            data.append('image', document.getElementsByName("file")[0].files[0])
+            data.append('phone_number', this.$route.query['Phon-Number'])
+            data.append('email', this.$route.query.Email)
+            data.append('last_name', this.$route.query.lName)
+            data.append('first_name', this.$route.query.fName)
 
-            data.append( 'username', e.userName)
-            data.append( 'password', e.password )
-            data.append( 'image', document.getElementsByName("file")[0].files[0] )
-            data.append( 'phone_number',  this.$route.query['Phon-Number'])
-            data.append( 'email', this.$route.query.Email)
-            data.append( 'last_name',  this.$route.query.lName)
-            data.append( 'first_name',  this.$route.query.fName)
-
-
+            this.showLoading = true
             let resp = await fetch('http://87.107.30.143:3003/auth/signup', {
                 method: 'POST', // or 'PUT'
                 headers: {
-                   'Accept': 'application/json'
+                    'Accept': 'application/json'
                 },
                 body: data,
             })
             let respData = await resp.json()
-            if (resp.status == 400 ||resp.status == 500) {
+            this.showLoading = false
+            if (resp.status >= 400) {
                 if (Array.isArray(respData.message)) {
                     respData.message.forEach(message => this.toast.error(message))
                 } else {
                     this.toast.error(respData.message)
                 }
-
-
-            } else if (resp.status == 200||resp.status == 201) {
-
-                let respLogin = await fetch('http://87.107.30.143:3003/auth/login', {
-                    method: 'POST', // or 'PUT'
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        "phone_number": this.$route.query['Phon-Number'],
-                        "password": e.password 
-                    }),
-                })
-                let respDataLogin = await respLogin.json()
-                if (respLogin.status == 400) {
-                    this.toast.error(respDataLogin.message)
-
-                } else if (respLogin.status == 200) {
-                    this.toast.success('لاگین شدید.')
-                    localStorage.setItem("accessToken", respDataLogin.accessToken);
-                    this.$router.push({ name: 'register-done' })
-                }
-
+            } else {
+                this.$router.push({ name: 'register-done' })
             }
 
-        }
+        },
+
     }
 }
 </script>

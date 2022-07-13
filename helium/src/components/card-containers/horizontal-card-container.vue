@@ -7,7 +7,7 @@
                 <default-card class="horizontal-card-container__card" v-bind="data" />
             </template>
         </div>
-        <button v-if="buttonText" class="horizontal-card-container__see-more">{{buttonText}}</button>
+        <button @click="btnClick()" v-if="buttonText" class="horizontal-card-container__see-more">{{buttonText}}</button>
     </section>
 </template>
 <script>
@@ -20,6 +20,11 @@ export default {
         'label':String,
         'buttonText':String,
     },
+    methods:{
+        btnClick(){
+            this.$emit('btnClick')
+        }
+    }
 
 }
 </script>
@@ -32,7 +37,7 @@ export default {
     &__cards {
         @include flex-direction();
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         gap: 2em;
         flex-wrap: wrap;
 

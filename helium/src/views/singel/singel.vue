@@ -73,9 +73,13 @@
                 </p>
             </div>
         </default-article>
-        <horizontal-card-container class="singel__horizontal-card-containe" label="از همین نویسنده" :cards="cards"></horizontal-card-container>
-        <DefaultCommentContainer  class="singel__comments" label="نظرات" :comments="comments" />
+        <horizontal-card-container class="singel__horizontal-card-containe" label="از همین نویسنده" :cards="cards">
+        </horizontal-card-container>
+        <DefaultCommentContainer class="singel__comments" label="نظرات" :comments="comments" />
         <DefaultCommentForm action="" label="نظر دادن" />
+        <EmptyModal v-model:show="showLoader">
+            <Circle size="80px" />
+        </EmptyModal>
     </main>
     <default-footer />
 </template>
@@ -86,6 +90,9 @@ import defaultFooter from '@/components/footers/default-footer.vue'
 import HorizontalCardContainer from '@/components/card-containers/horizontal-card-container.vue'
 import DefaultCommentContainer from '@/components/comment-containers/default-comment-container.vue'
 import DefaultCommentForm from '@/components/comment-form/default-comment-form.vue'
+import EmptyModal from '../../components/modals/empty-modal.vue'
+import Circle from '../../components/loading/circle.vue'
+import { useToast } from "vue-toastification";
 export default {
     name: "singel-page",
     components: {
@@ -94,10 +101,14 @@ export default {
         defaultFooter,
         HorizontalCardContainer,
         DefaultCommentContainer,
-        DefaultCommentForm
+        DefaultCommentForm,
+        EmptyModal,
+        Circle
     },
     data() {
         return {
+            toast: useToast(),
+            showLoader: false,
             articleDetail: {
                 'title': `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف برای ارتش
             جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
@@ -178,6 +189,42 @@ export default {
             },]
 
         }
+    },
+    methods: {
+        async handelArticleAPI(token, id) {
+            this.showLoader = true
+            let resp = await fetch(`http://87.107.30.143:3003/articles?id=${id}`, {
+                method: 'GET', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+
+            })
+            let article = await resp.json()
+            if (resp.status < 300) {
+
+                if (article.data) {
+                    this.toast.success('مقاله لود شد')
+                    this.showLoader = false
+                } else {
+                    this.toast.error('موردی برای نمایش نیست')
+                }
+                return article
+            } else {
+                this.toast.error(article.message)
+            }
+
+        },
+    },
+    async created() {
+        let article = await this.handelArticleAPI(localStorage.getItem("accessToken"), this.$route.params.id).data
+        console.log(article);
+                    this.articleDetail={
+                'title':article.title,
+                'studyDuration': `${article.read_time_minutes} دقیقه مطالعه`,
+                'tags': article.tags,
+            }
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <a :href="href" class="card">
+    <router-link  :to="link"  class="card">
         <div class="card__header">
             <figure class="card__auth-figure">
                 <img :src="authFigure" :alt="authorName">
@@ -17,11 +17,12 @@
         <div class="card__footer">
             <div class="card__study-duration">{{ studyDuration }} </div>
             .
-            <span class="card__tag">{{ tag }}</span>
+            <span v-for="(tag, index) in tags" :key="`tag-${index}`" class="card__tag">{{ tag?.name }}</span>
         </div>
-    </a>
+    </router-link>
 </template>
 <script>
+import { RouterLink } from 'vue-router'
 export default {
     name: "default-card",
     props: {
@@ -31,13 +32,13 @@ export default {
         'title': String,
         'summery': String,
         'studyDuration': String,
-        'tag': String,
+        'tags': Array,
         'image': String,
-        'href': {
-            type: String,
-            default: "#"
+        'link': {
+            default: "/#"
         }
     },
+    components:{RouterLink}
 
 }
 </script>
@@ -118,15 +119,27 @@ export default {
         font-weight: 600;
         font-size: 18px;
         color: #243447;
+        overflow-wrap: break-word;
     }
 
 
 
     &__summery {
+        overflow-wrap: break-word;
         width: 100%;
         font-weight: 400;
         font-size: 16px;
         color: #445161;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -moz-box-orient: vertical;
+        -ms-box-orient: vertical;
+        box-orient: vertical;
+        -webkit-line-clamp: 5;
+        -moz-line-clamp: 5;
+        -ms-line-clamp: 5;
+        line-clamp: 5;
+        overflow: hidden;
     }
 
 
@@ -136,6 +149,7 @@ export default {
         width: 100%;
         align-items: baseline;
         gap: 10px;
+        flex-wrap: wrap;
     }
 
 

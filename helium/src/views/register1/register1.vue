@@ -8,6 +8,10 @@
                 <DefaultTextInput :="phoneInput" />
             </DefaultForm>
         </SingelCard>
+
+        <EmptyModal v-model:show="showModal">
+            <Circle size="80px" />
+        </EmptyModal>
     </main>
     <default-footer />
 </template>
@@ -19,14 +23,17 @@ import DefaultForm from '../../components/forms/default-form.vue'
 import DefaultTextInput from '../../components/inputs/default-text-input.vue'
 import { useToast } from "vue-toastification";
 import * as Yup from "yup";
+import EmptyModal from '../../components/modals/empty-modal.vue'
+import Circle from '../../components/loading/circle.vue'
 
 export default {
     name: "register1-page",
     data() {
         return {
+            showModal: false,
             toast: useToast(),
             schema: Yup.object().shape({
-                'Phon-Number': Yup.number('فیلد از نوع عددی است').required('فیلد ضروری است'),
+                'Phon-Number': Yup.number().typeError('فیلد از نوع عددی است').required('فیلد ضروری است'),
             }),
             formData: {
                 title: 'ورود/ثبت نام',
@@ -53,12 +60,14 @@ export default {
         defaultFooter,
         SingelCard,
         DefaultForm,
-        DefaultTextInput
+        DefaultTextInput,
+        EmptyModal,
+        Circle
     },
     methods: {
 
         async handelUserExistAPI(e) {
-
+            this.showModal = true
             let resp = await fetch('http://87.107.30.143:3003/auth/user-exist', {
                 method: 'POST', // or 'PUT'
                 headers: {
@@ -67,6 +76,7 @@ export default {
                 body: JSON.stringify({ 'phone_number': e['Phon-Number'] }),
             })
             let respData = await resp.json()
+            this.showModal=false
             if (resp.status == 400) {
                 this.toast.error(respData.message)
 
@@ -76,7 +86,7 @@ export default {
                 if (respData.isUserExist) {
                     this.toast.success('شما قبلا ثبت نام کرده اید')
                     this.$router.push({ name: 'login', query: { 'phone_number': e['Phon-Number'] } })
-                     this.toast.info('وارد صفحه لاگین می شوید')
+                    this.toast.info('وارد صفحه لاگین می شوید')
                 } else {
                     this.toast.error('لطفا ثبت نام کنید')
                     this.$router.push({ name: 'register2', query: { 'phone_number': e['Phon-Number'] } })

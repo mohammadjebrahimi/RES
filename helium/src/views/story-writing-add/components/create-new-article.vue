@@ -22,9 +22,13 @@
             <input name="title" class="create-new-article__article-insert-title"
                 placeholder="عنوان مطلب خود را وارد کنید " />
             <div class="create-new-article__article-tag-section">
-                <p class="create-new-article__article-tag" v-if="selectedTagObject?.value">{{ selectedTagObject?.value
-                }}
-                </p>
+                <template v-for="(tag, index) in tags" :key="`tag-${index}`">
+                    <p class="create-new-article__article-tag" v-if="tag.name">{{
+                            tag.name
+                    }}
+                    </p>
+                </template>
+
                 <a id="insertTag" @click="showTagModal = !showTagModal"
                     class="create-new-article__article-tag-editor"><img src="@/assets/images/tag-2.png" alt=""></a>
             </div>
@@ -44,9 +48,13 @@
 
         <DefaultModal @ok="getTag()" v-model:show="showTagModal">
             <DefaultForm class="modal__form" v-bind="foemData">
-                <DefaultSelectInput v-model:value="selectedTagKey" v-bind="selectInputData" ref="tag" />
+                <DefaultSelectInput v-model:value="selectedTags" v-bind="selectInputData" ref="tag" />
             </DefaultForm>
         </DefaultModal>
+
+        <EmptyModal v-model:show="showLoading">
+            <Circle size="80px" />
+        </EmptyModal>
     </div>
 </template>
 <script>
@@ -54,27 +62,29 @@ import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSelectInput from '@/components/inputs/default-select-input.vue'
 import DefaultForm from '@/components/forms/default-form.vue'
 import { useToast } from "vue-toastification";
+import EmptyModal from '../../../components/modals/empty-modal.vue';
+import Circle from '../../../components/loading/circle.vue';
 export default {
     name: "create-new-article",
     components: {
         DefaultModal,
         DefaultSelectInput,
-        DefaultForm
+        DefaultForm,
+        EmptyModal,
+        Circle
     },
     data() {
         return {
             toast: useToast(),
-            selectedTagKey: '',
-            selectedTagObject: '',
+            tags: [],
+            selectedTags: [],
+            tagsString: null,
             articleImage: '/src/assets/images/Group 254.png',
             showTagModal: false,
+            showLoading: false,
             selectInputData: {
-                options: [
-                    { key: '01', value: 'نانو تکنولوژی ' },
-                    { key: '02', value: ' تکنولوژی ' },
-                    { key: '03', value: 'نانو ' },
-                    { key: '04', value: 'هویچ' },
-                ],
+                optionValue:'name',
+                options: [],
                 name: 'tag',
                 id: 'tag',
                 label: 'لطفا دسته بندی موضوعی خود را وارد کنید',
@@ -96,18 +106,18 @@ export default {
                 return
             }
         },
-        getTag(e) {
-            this.selectedTagObject = this.$refs.tag.options.filter(
-                (option) => option.key == this.selectedTagKey
-            )[0]
+        getTag() {
+            this.tags = this.selectedTags
+            this.tagsString = this.tags.map(({ id, name }) => (id))
+                .join(',');
         },
         async submit() {
-
+            this.showLoading = true
             let data = new FormData()
             data.append('image', document.getElementsByName("image")[0].files[0])
             data.append('title', document.getElementsByName("title")[0].value)
             data.append('content', document.getElementsByName("content")[0].value)
-            data.append('tags', [this.selectedTagObject?.key])
+            data.append('tags', [this.tagsString])
 
             let resp = await fetch('http://87.107.30.143:3003/articles', {
                 method: 'POST', // or 'PUT'
@@ -119,6 +129,7 @@ export default {
                 body: data,
             })
             let respData = await resp.json()
+            this.showLoading = false
             if (resp.status == 400 || resp.status == 500 || resp.status == 401) {
                 if (Array.isArray(respData.message)) {
                     respData.message.forEach(message => this.toast.error(message))
@@ -131,7 +142,30 @@ export default {
                 this.toast.success(respData.message)
 
             }
-        }
+        },
+        async handelTagAPI(token) {
+            this.showLoader = true
+            let resp = await fetch(`http://87.107.30.143:3003/tags`, {
+                method: 'GET', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+
+            })
+            let tags = await resp.json()
+            if (resp.status < 300) {
+                this.showLoader = false
+                return tags
+            } else {
+                this.toast.error(articles.message)
+            }
+
+        },
+    },
+    async mounted() {
+        let options = await this.handelTagAPI(localStorage.getItem("accessToken"))
+        this.selectInputData.options = options.data
     }
 }
 </script>

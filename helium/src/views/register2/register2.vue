@@ -27,10 +27,10 @@ export default {
         return {
             defaultPhone: this.$route.query['phone_number'],
             schema: Yup.object().shape({
-                'Phon-Number': Yup.number('فیلد از نوع عددی است').required('فیلد ضروری است'),
+                'Phon-Number': Yup.number().typeError('فیلد از نوع عددی است').required('فیلد ضروری است'),
                 'Email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
-                'fName': Yup.string().required('فیلد ضروری است'),
-                'lName': Yup.string().required('فیلد ضروری است'),
+                'fName': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+                'lName': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
             }),
             formData: {
                 title: 'شما هنوز در هلیوم ثبت نام نکرده اید.',

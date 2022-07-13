@@ -21,7 +21,7 @@ export default {
 },
 methods:{
 redirect(){
-   this.$router.push({ name: 'story-writing-add'})
+   this.$router.push({ name: 'login'})
 }
 }
 }

@@ -1,6 +1,8 @@
 <template>
     <div class="select-box">
-        <select @change="selectItem($event)" :placeholder="placeHolder" class="select-box__select-option"
+        <v-select v-model="value" :label="optionValue" :reduce="(option) => option" :options="options" multiple
+            class="select-box__v-select" />
+        <!-- <select @change="selectItem($event)" :placeholder="placeHolder" class="select-box__select-option"
             :class="{ 'select-box__select-option--direction-ltr': ltr }" :id="id">
             <option v-if="value == ''" value="" :key='`option`' selected>انتخاب کنید</option>
             <template v-for="(option, index) in options">
@@ -9,11 +11,13 @@
                 <option v-else :value="option.key" :key='`selectedOption-${index}`'>{{ option.value
                 }} </option>
             </template>
-        </select>
+        </select> -->
         <label :for="id" class="select-box__input-label">{{ label }}</label>
     </div>
 </template>
 <script>
+import vSelect from 'vue-select'
+import 'vue-select/dist/vue-select.css';
 export default {
     props: {
         options: Array,
@@ -28,11 +32,14 @@ export default {
             type: Boolean,
             default: false
         },
-        value: String,
+        value: Array,
+        optionValue:String,
     },
-    methods: {
-        selectItem(e) {
-            this.$emit('update:value', e.target.value)
+    components: { vSelect },
+    watch: {
+        value() {
+            console.log(this.value)
+            this.$emit('update:value', this.value)
         }
     },
 
@@ -44,10 +51,9 @@ export default {
     width: 100%;
 
 
-    &__select-option {
+    &__v-select {
         border-bottom: 1px solid;
         height: 46px;
-        padding: 0 5%;
         direction: rtl;
         font-family: 'KalamehFarsiNumber';
         z-index: 1;
@@ -60,13 +66,11 @@ export default {
         font-size: 16px;
         color: #8593A6;
 
-        &:required~.select-box__input-label::after {
-            content: "*";
+        & .vs__dropdown-toggle {
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
-    }
-
-    &__select-option--direction-ltr {
-        direction: ltr;
     }
 
     &__input-label {

@@ -5,7 +5,7 @@
         <div class="article__footer">
             <div class="article__study-duration">{{studyDuration}}</div>
             .
-            <span class="article__tag">{{tag}}</span>
+             <span v-for="(tag, index) in tags" :key="`tag-${index}`" class="card__tag">{{ tag?.name }}</span>
         </div>
         <slot>
 
@@ -19,7 +19,7 @@ export default {
     props: {
         'title': String,
         'studyDuration': String,
-        'tag': String,
+        'tags': Array,
     },
 
 }

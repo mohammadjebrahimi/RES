@@ -75,29 +75,6 @@ export default {
         width: 100%;
         height: 744px;
 
-        .animated {
-            transition: all 400ms;
-            position: absolute;
-            transform: translate(-50%, -50%);
-        }
-
-        .slide-in {
-            opacity: 0;
-            transform: translate(-40%, -50%);
-        }
-
-        .slide-in-active {
-            transition-delay: 150ms;
-        }
-
-        .slide-out {
-            opacity: 1;
-        }
-
-        .slide-out-active {
-            opacity: 0;
-            transform: translate(-60%, -50%);
-        }
     }
 
     &__figure {
