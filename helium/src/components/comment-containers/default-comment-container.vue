@@ -1,23 +1,23 @@
 <template>
     <section class="comment-container">
-        <h3 class="comment-container__title ">{{label}}</h3>
+        <h3 class="comment-container__title ">{{ label }}</h3>
         <hr class="comment-container__seperator">
-        <div class="comment-container__card"  v-for="(data, index) in comments" :key="`comment-${index}`">
+        <div class="comment-container__card" v-for="(data, index) in comments" :key="`comment-${index}`">
             <div class="comment-container__card-detail">
-                <p class="comment-container__card-author-name">{{data.authorName}}</p>
-                <p class="comment-container__card-date">{{data.date}} </p>
+                <p class="comment-container__card-author-name">{{ data.authorName }}</p>
+                <p class="comment-container__card-date">{{ data.date }} </p>
             </div>
-            <p class="comment-container__card-body">{{data.comment}}</p>
+            <p class="comment-container__card-body">{{ data.comment }}</p>
         </div>
 
     </section>
 </template>
 <script>
-export default{
-    name:"default-comment-container",
-    props:{
+export default {
+    name: "default-comment-container",
+    props: {
         'comments': Object,
-        'label':String
+        'label': String
     },
 }
 </script>
@@ -25,6 +25,7 @@ export default{
 .comment-container {
     @include flex-direction(column);
     max-width: 798px;
+    width: 100%;
 
     &__title {
         font-weight: 700;

@@ -93,6 +93,7 @@ import DefaultCommentForm from '@/components/comment-form/default-comment-form.v
 import EmptyModal from '../../components/modals/empty-modal.vue'
 import Circle from '../../components/loading/circle.vue'
 import { useToast } from "vue-toastification";
+import getPersianDate from "@/mixins/date.js"
 export default {
     name: "singel-page",
     components: {
@@ -109,50 +110,8 @@ export default {
         return {
             toast: useToast(),
             showLoader: false,
-            articleDetail: {
-                'title': `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف برای ارتش
-            جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                'studyDuration': '۷ دقیقه مطالعه',
-                'tag': `تکنولوژی`,
-            },
-            cards: [
-                {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": "محمدسبحان سجایی فر",
-                    "date": "۲۸ تیر ۱۴۰۰",
-                    "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                    "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                    "studyDuration": "۷ دقیقه مطالعه",
-                    "tag": "تکنولوژی",
-                    "image": "/src/assets/images/Rectangle%207.png"
-                },
-                {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": "محمدسبحان سجایی فر",
-                    "date": "۲۸ تیر ۱۴۰۰",
-                    "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                    "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                    "studyDuration": "۷ دقیقه مطالعه",
-                    "tag": "تکنولوژی",
-                    "image": "/src/assets/images/Rectangle%207.png"
-                },
-                {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": "محمدسبحان سجایی فر",
-                    "date": "۲۸ تیر ۱۴۰۰",
-                    "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                    "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                    "studyDuration": "۷ دقیقه مطالعه",
-                    "tag": "تکنولوژی",
-                    "image": "/src/assets/images/Rectangle%207.png"
-                }
-            ],
+            articleDetail: {},
+            cards: [],
             comments: [{
                 authorName: "سروش صفایی زاده",
                 date: "۲۸ تیر ۱۴۰۰",
@@ -218,13 +177,34 @@ export default {
         },
     },
     async created() {
-        let article = await this.handelArticleAPI(localStorage.getItem("accessToken"), this.$route.params.id).data
-        console.log(article);
-                    this.articleDetail={
-                'title':article.title,
-                'studyDuration': `${article.read_time_minutes} دقیقه مطالعه`,
-                'tags': article.tags,
+        let article = await this.handelArticleAPI(localStorage.getItem("accessToken"), this.$route.params.id)
+        let articleData = article.data
+        console.log(articleData);
+        this.articleDetail = {
+            'title': articleData.title,
+            'studyDuration': `${articleData.read_time_minutes} دقیقه مطالعه`,
+            'tags': articleData.tags,
+        }
+        this.cards = articleData.fromThisUser.map((current) => {
+            return {
+                "authFigure": "/src/assets/images/Ellipse 1.png",
+                "authorName": this?.userDetail?.name,
+                "date": getPersianDate(current.created_at),
+                "title": current.title,
+                "summery": current.content,
+                "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
+                "tags": current.tags,
+                "image": "/src/assets/images/Rectangle%207.png",
+                "href": `/singel/${current.id}`
             }
+        })
+        this.comments = articleData.comments.map((current) => {
+            return {
+                authorName: `${current.first_name} ${current.last_name}`,
+                date: getPersianDate(current.created_at),
+                comment: current.content
+            }
+        })
     }
 }
 </script>
