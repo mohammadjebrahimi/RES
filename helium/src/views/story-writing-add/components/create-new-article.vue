@@ -48,7 +48,8 @@
 
         <DefaultModal @ok="getTag()" v-model:show="showTagModal">
             <DefaultForm class="modal__form" v-bind="foemData">
-                <DefaultSelectInput v-model:value="selectedTags" v-bind="selectInputData" ref="tag" />
+                <DefaultSelectInput @OptionBtnClicked="OptionBtnClicked($event)" v-model:value="selectedTags"
+                    v-bind="selectInputData" ref="tag" />
             </DefaultForm>
         </DefaultModal>
 
@@ -83,7 +84,7 @@ export default {
             showTagModal: false,
             showLoading: false,
             selectInputData: {
-                optionValue:'name',
+                optionValue: 'name',
                 options: [],
                 name: 'tag',
                 id: 'tag',
@@ -155,13 +156,41 @@ export default {
             })
             let tags = await resp.json()
             if (resp.status < 300) {
-                this.showLoader = false
+
                 return tags
             } else {
-                this.toast.error(articles.message)
+                this.toast.error(tags.message)
+            }
+            this.showLoader = false
+        },
+        async handelAddTagAPI(token, tag_name) {
+            this.showLoader = true
+            let resp = await fetch(`http://87.107.30.143:3003/tags`, {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+                body: JSON.stringify({ tag_name })
+            })
+            this.showLoader = false
+            let tag = await resp.json()
+            if (resp.status < 300) {
+                this.toast.success(tag.message)
+
+                return tag
+            } else {
+                this.toast.error(tag.message)
+                return false
             }
 
         },
+        async OptionBtnClicked(e) {
+            let tag = await this.handelAddTagAPI(localStorage.getItem("accessToken"), e)
+            if (tag) {
+                this.selectInputData.options.push(tag.data)
+            }
+        }
     },
     async mounted() {
         let options = await this.handelTagAPI(localStorage.getItem("accessToken"))
