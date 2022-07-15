@@ -129,7 +129,7 @@ export default {
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
                     "image": "/src/assets/images/Rectangle%207.png",
-                    "href": `/singel/${current.id}`
+                    "link": { name: 'singel', params: { id: current.id } }
                 }
             })
             this.comments = articleData.comments.map((current) => {
