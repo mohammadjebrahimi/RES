@@ -1,6 +1,5 @@
 <template>
-    <Form @submit="submit($event)" :validationSchema="schema" :action="action"
-        class="form singel-card__form">
+    <Form @submit="submit($event)" :validationSchema="schema" :action="action" class="form">
         <div class="form__detail">
             <h3 class="form__title">{{ title }}</h3>
             <p class="form__description">{{ description }}</p>
@@ -63,9 +62,16 @@ export default {
     }
 
     &__input-container {
-        @include flex-direction(column);
+        @include flex-direction();
         gap: 36px;
         width: 100%;
+        flex-wrap: wrap;
+
+        @include breakpoint_max(medium) {
+            @include flex-direction(column);
+        }
+
+
     }
 
     &__submit {

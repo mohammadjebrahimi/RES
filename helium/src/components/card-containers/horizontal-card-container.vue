@@ -43,6 +43,7 @@ export default {
 
         @include breakpoint_max(small) {
             @include flex-direction(column);
+            align-items: center;
         }
     }
 
@@ -73,6 +74,7 @@ export default {
 
     &__card {
         max-width: 378px;
+        width: 100%;
         box-shadow: none;
         background: transparent;
         padding: 0;

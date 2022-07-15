@@ -3,7 +3,8 @@
     <figure class="card-2__outer-image">
       <img :src="image" alt="inner-image">
     </figure>
-    <default-card :authFigure="authFigure" :authorName="authorName" :tag="tag" :studyDuration="studyDuration" :summery="summery" :title="title" :date="date" :href="href">
+    <default-card class="card-2__card" :authFigure="authFigure" :authorName="authorName" :tags="tags"
+      :studyDuration="studyDuration" :summery="summery" :title="title" :date="date" :link="link">
     </default-card>
   </a>
 </template>
@@ -12,7 +13,7 @@ import defaultCard from './default-card.vue'
 export default {
   name: "card2",
   components: { defaultCard },
-  
+
   props: {
     'authFigure': String,
     'authorName': String,
@@ -20,11 +21,10 @@ export default {
     'title': String,
     'summery': String,
     'studyDuration': String,
-    'tag': String,
+    'tags': Array,
     'image': String,
-    'href': {
-      type: String,
-      default: "#"
+    'link': {
+      default: "/#"
     }
   },
 
@@ -37,9 +37,11 @@ export default {
   text-decoration: none;
 
   &__outer-image {
+    display: flex;
     position: relative;
     margin: 0 0 0 2em;
-    height: fit-content;
+     width: 30%;
+    height: 100%;
 
     &:before {
       position: absolute;
@@ -49,17 +51,17 @@ export default {
       display: block;
       width: 100%;
       height: 100%;
-      background-color:#208bee40;
+      background-color: #208bee40;
       transform-origin: 0 bottom 0;
       transform: scaleY(0);
       transition: .4s ease-out;
+      
     }
 
     &>img {
       width: 100%;
-      height: auto;
-      max-width: 586px;
-      max-height: 387px;
+      height: 100%;
+      object-fit: cover;
     }
 
   }
@@ -69,17 +71,18 @@ export default {
   }
 
   &__card {
-    max-width: 735px;
-    width: 100%;
+    width: 70%;
     box-shadow: none;
     background: transparent;
     backdrop-filter: none;
   }
 
-  @include breakpoint_max(small) {
+  @include breakpoint_max(medium) {
     @include flex-direction(column);
+    align-items: center;
 
     &__outer-image {
+      width:70%;
       margin: 0;
     }
   }

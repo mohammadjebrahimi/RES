@@ -4,7 +4,7 @@
         </default-header>
         <nav></nav>
         <SingelCard :showClose="false" :showOk="false">
-            <DefaultForm :schema="schema" :="formData" @submitForm="handelLoginAPI($event)">
+            <DefaultForm  :schema="schema" :="formData" @submitForm="handelLoginAPI($event)">
                 <DefaultTextInput v-model:value="phoneNumber" :="phoneInput" />
                 <DefaultTextInput :="passwordInput" />
             </DefaultForm>

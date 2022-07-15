@@ -1,15 +1,18 @@
 <template>
-    <div class="input-box" @input="input($event)">
-        <Field @input="input($event)" :name="name" placeholder=" " class="input-box__input"
-            :class="{ 'input-box__input--direction-ltr': ltr, 'input-box__input--error': errorMessage }" :type="type"
-            :id="id" :required="required" />
+    <div class="textarea" @input="input($event)">
 
-        <label :for="id" v-if="label" class="input-box__input-label">{{ label }}</label>
+        <Field  as="textarea" @input="input($event)" :name="name"
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' id="form-suggest"
+            placeholder=" " class="textarea__input"
+            :class="{ 'textarea__input--direction-ltr': ltr, 'textarea__input--error': errorMessage }" 
+            :id="id" :required="required"/>
 
-        <div class="input-box__input-placeholder">
+        <label :for="id" v-if="label" class="textarea__input-label">{{ label }}</label>
+
+        <div class="textarea__input-placeholder">
             <span v-for="(data, index) in placeHolder " :key="`place-${index}`">{{ data }}</span>
         </div>
-        <ErrorMessage class="input-box__error" :name="name" />
+        <ErrorMessage class="textarea__error" :name="name" />
     </div>
 
 </template>
@@ -40,7 +43,6 @@ export default {
             type: Boolean,
             default: false
         },
-        type: String,
         value: String,
     },
     components: { Field, ErrorMessage },
@@ -56,7 +58,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.input-box {
+.textarea {
     @include flex-direction(column);
     position: relative;
     width: 100%;
@@ -97,11 +99,11 @@ export default {
         z-index: 1;
         order: 2;
 
-        &:not(:placeholder-shown)~.input-box__input-placeholder {
+        &:not(:placeholder-shown)~.textarea__input-placeholder {
             display: none;
         }
 
-        &:required~.input-box__input-label:after {
+        &:required~.textarea__input-label:after {
             content: "*";
         }
 
@@ -118,6 +120,7 @@ export default {
     &__input--error {
         border-bottom: 3px solid #E53222;
     }
+
 
 }
 </style>

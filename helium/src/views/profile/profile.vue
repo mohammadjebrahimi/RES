@@ -122,7 +122,7 @@ export default {
         }
     },
     async created() {
-        let { created_at, email, first_name, id, image_url, last_name, phone_number, username, } = await this.handelUserAPI(localStorage.getItem("accessToken"))
+        let { created_at, email, first_name, id, image_url, last_name, phone_number, username } = await this.handelUserAPI(localStorage.getItem("accessToken"))
 
         this.userDetail = {
             name: `${first_name} ${last_name}`,
@@ -166,7 +166,7 @@ export default {
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
                 "image": "/src/assets/images/Rectangle%207.png",
-                "link": { name: 'singel', params: { id: current.id }}
+                "link": { name: 'singel', params: { id: current.id } }
             }
         })
 
@@ -179,7 +179,11 @@ export default {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
-    padding: 1em;
+
+    @include breakpoint_max(medium) {
+        padding: 1em;
+    }
+
     margin-top: 63px;
     flex-grow: 1;
 

@@ -1,26 +1,35 @@
 <template>
-    <article class="article">
+  <article class="article">
 
-        <div class="article__title">{{title}}</div>
-        <div class="article__footer">
-            <div class="article__study-duration">{{studyDuration}}</div>
-            .
-             <span v-for="(tag, index) in tags" :key="`tag-${index}`" class="card__tag">{{ tag?.name }}</span>
-        </div>
-        <slot>
+    <div class="article__title">{{ title }}</div>
+    <div class="article__footer">
+      <div class="article__study-duration">{{ studyDuration }}</div>
+      .
+      <span v-for="(tag, index) in tags" :key="`tag-${index}`" class="card__tag">{{ tag?.name }}</span>
+    </div>
+    <!--متن مقاله-->
+    <figure class="article__image">
+      <img class="image" :src="image_url" alt="image">
+    </figure>
 
-        </slot>
 
-    </article>
+    <div class="article__text">
+      <p> {{content}}<br></p>
+    </div>
+
+  </article>
 </template>
 <script>
 export default {
-    name: "default-article",
-    props: {
-        'title': String,
-        'studyDuration': String,
-        'tags': Array,
-    },
+  name: "default-article",
+  props: {
+    'title': String,
+    'read_time_minutes': String,
+    'tags': Array,
+    'image_url': String,
+    'content': String,
+    studyDuration:String
+  },
 
 }
 </script>
@@ -28,6 +37,7 @@ export default {
 .article {
   margin: auto;
   max-width: 798px;
+  width: 100%;
 
   &__header {
     @include flex-direction();

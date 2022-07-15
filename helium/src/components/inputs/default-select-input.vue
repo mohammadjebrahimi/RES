@@ -42,13 +42,13 @@ export default {
     components: { vSelect },
     watch: {
         value() {
-            console.log(this.value)
+
             this.$emit('update:value', this.value)
         }
     },
     methods: {
         btnClicked(e) {
-            console.log(e);
+
             this.$emit('OptionBtnClicked', e)
         }
     }
@@ -62,7 +62,7 @@ export default {
 
     &__v-select {
         border-bottom: 1px solid;
-        height: 46px;
+        min-height: 46px;
         direction: rtl;
         font-family: 'KalamehFarsiNumber';
         z-index: 1;

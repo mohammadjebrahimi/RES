@@ -4,7 +4,7 @@
         </default-header>
         <nav></nav>
         <SingelCard :showClose="false" :showOk="false">
-            <DefaultForm :schema="schema" :="formData" @submitForm="handelUserExistAPI($event)">
+            <DefaultForm  :schema="schema" :="formData" @submitForm="handelUserExistAPI($event)">
                 <DefaultTextInput :="phoneInput" />
             </DefaultForm>
         </SingelCard>

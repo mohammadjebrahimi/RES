@@ -17,6 +17,8 @@ import DefaultCarousel from "@/components/carousels/default-carousel.vue";
 import HorizontalCardContainer from "@/components/card-containers/horizontal-card-container.vue";
 import VerticalCardContainer from "@/components/card-containers/vertical-card-container.vue";
 import DefaultFooter from "@/components/footers/default-footer.vue";
+import { useToast } from "vue-toastification";
+import getPersianDate from "@/mixins/date.js"
 export default {
     name: "register-page",
     components: {
@@ -28,6 +30,7 @@ export default {
     },
     data() {
         return {
+            toast: useToast(),
             "carouselDatas": [
                 {
                     "carouselImage": '/src/assets/images/unsplash_NnRv949hZ1Q.png',
@@ -40,7 +43,10 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
@@ -55,7 +61,10 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
@@ -70,7 +79,10 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
@@ -85,7 +97,10 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
@@ -100,7 +115,10 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
@@ -115,7 +133,10 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
@@ -130,56 +151,64 @@ export default {
                         برای
                         ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
                         "studyDuration": "۷ دقیقه مطالعه",
-                        "tag": "تکنولوژی",
+                        "tags": [{
+                            "id": 1,
+                            "name": "علمی"
+                        }],
                         "image": ""
                     }
                 },
             ],
 
-            cards: [
-                {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": "محمدسبحان سجایی فر",
-                    "date": "۲۸ تیر ۱۴۰۰",
-                    "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                    "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                    "studyDuration": "۷ دقیقه مطالعه",
-                    "tag": "تکنولوژی",
-                    "image": "/src/assets/images/Rectangle%207.png"
-                },
-                {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": "محمدسبحان سجایی فر",
-                    "date": "۲۸ تیر ۱۴۰۰",
-                    "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                    "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                    "studyDuration": "۷ دقیقه مطالعه",
-                    "tag": "تکنولوژی",
-                    "image": "/src/assets/images/Rectangle%207.png"
-                },
-                {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": "محمدسبحان سجایی فر",
-                    "date": "۲۸ تیر ۱۴۰۰",
-                    "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                    "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                    "studyDuration": "۷ دقیقه مطالعه",
-                    "tag": "تکنولوژی",
-                    "image": "/src/assets/images/Rectangle%207.png"
-                }
-            ]
+            cards: []
         }
     },
     methods: {
         redirect() {
             this.$router.push({ name: 'register1' })
-        }
+        },
+        async handelArticlesAPI(token, page) {
+            this.showLoader = true
+            let resp = await fetch(`http://87.107.30.143:3003/articles?page=${page}`, {
+                method: 'GET', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                },
+
+            })
+            let articles = await resp.json()
+            if (resp.status < 300) {
+                this.showLoader = false
+                if (articles.data.length > 0) {
+                    this.toast.success('مقالات لود شدند')
+
+                } else {
+                    this.toast.error('موردی برای نمایش نیست')
+                }
+                return articles
+            } else {
+                this.toast.error(articles.message)
+            }
+
+        },
+    },
+    async created() {
+        let articles = await this.handelArticlesAPI(localStorage.getItem("accessToken"), 1)
+
+        this.cards = articles.data.map((current) => {
+            return {
+                "authFigure": "/src/assets/images/Ellipse 1.png",
+                "authorName": `${current.author_first_name} ${current.author_last_name}`,
+                "date": getPersianDate(current.created_at),
+                "title": current.title,
+                "summery": current.content,
+                "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
+                "tags": current.tags,
+                "image": "/src/assets/images/Rectangle%207.png",
+                "link": { name: 'singel', params: { id: current.id } }
+            }
+        })
     }
 }
 </script>
@@ -188,7 +217,12 @@ export default {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;
-    padding: 0 1em;
+
+    @include breakpoint_max(medium) {
+        padding: 0 1em;
+    }
+
+    flex-grow: 1;
 
     @include breakpoint_max(small) {
 

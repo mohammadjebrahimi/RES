@@ -2,7 +2,14 @@
     <section class="comment-form">
         <h3 class="comment-form__title">{{ label }}</h3>
         <div>
-            <form class="comment-form__form" :action="action">
+            <DefaultForm @submitForm="submitForm($event)" class="comment-form__form" :schema="schema" :alignToEnd="true"
+                submitText="ثبت نظر">
+                <DefaultTextInput class="comment-form__input-box1" :="fnameInput" />
+                <DefaultTextInput class="comment-form__input-box2" :="lnameInput" />
+                <DefaultTextInput class="comment-form__input-box3" :="emailInput" />
+                <DefaultTextAreaInput class="comment-form__textarea4" :="suggestInput" />
+            </DefaultForm>
+            <!-- <form class="comment-form__form" :action="action">
                 <div class="comment-form__form-row">
 
                     <input type="text" id="form-fname" placeholder="نام*" class="input comment-form__fname-input">
@@ -15,12 +22,16 @@
                 <textarea oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
                     id="form-suggest" placeholder="نظردادن*" class="input comment-form__suggest-input"></textarea>
                 <input type="submit" value="ثبت نظر" class="comment-form__submit">
-            </form>
+            </form> -->
 
         </div>
     </section>
 </template>
 <script>
+import DefaultForm from '../forms/default-form.vue';
+import DefaultTextInput from '../inputs/default-text-input.vue';
+import DefaultTextAreaInput from '../inputs/default-text-area-input.vue';
+import * as Yup from "yup";
 export default {
     name: "default-comment-form",
     props: {
@@ -32,6 +43,70 @@ export default {
             type: String,
             default: ""
         },
+        replyTo: {
+            default: null
+        },
+        articleId: {
+            type: Number,
+        },
+    },
+    data() {
+        return {
+
+            schema: Yup.object().shape({
+                'content': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC \n]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+                'email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
+                'first_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+                'last_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+            }),
+            fnameInput: {
+                name: 'first_name',
+                id: 'first_name',
+                placeHolder: [
+                    '*نام',
+                ],
+                type: 'text',
+                required: true,
+            },
+            lnameInput: {
+                name: 'last_name',
+                id: 'last_name',
+                placeHolder: [
+                    '*نام خانوادگی',
+                ],
+                type: 'text',
+                required: true,
+            },
+            emailInput: {
+                name: 'email',
+                id: 'email',
+                placeHolder: [
+                    '*پست الکترونیکی'
+                ],
+                ltr: true,
+                type: 'Email',
+                required: true,
+            },
+
+            suggestInput: {
+                name: 'content',
+                id: 'content',
+                placeHolder: [
+                    '*نطر دادن'
+                ],
+                ltr: false,
+                required: true,
+            },
+        }
+    },
+
+    components: { DefaultForm, DefaultTextInput, DefaultTextAreaInput },
+    methods: {
+        submitForm(e) {
+            e['reply_to']=JSON.parse(this.replyTo)
+            e['article_id']=+this.articleId
+            this.$emit('submitComment', e)
+        }
     }
 }
 </script>
@@ -48,7 +123,95 @@ export default {
     }
 
     &__form {
-        @include flex-direction(column);
+        gap: 0px;
+
+        .form__input-container {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            grid-template-rows: repeat(2, auto);
+            grid-column-gap: 5px;
+            grid-row-gap: 15px;
+
+            @include breakpoint_max(medium) {
+                grid-template-columns: 1fr;
+                grid-template-rows: repeat(4, auto);
+                grid-column-gap: 5px;
+                grid-row-gap: 5px;
+            }
+        }
+
+        .form__submit {
+            margin: 20px 0 60px;
+        }
+
+
+    }
+
+
+
+    &__input-box1 {
+        grid-area: 1 / 1 / 2 / 3;
+
+        @include breakpoint_max(medium) {
+            grid-area: 1 / 1 / 2 / 2;
+        }
+
+        .input-box__input {
+            padding: 0%;
+        }
+
+        .input-box__input-placeholder {
+            padding: 0%;
+        }
+
+    }
+
+    &__input-box2 {
+        grid-area: 1 / 3 / 2 / 5;
+
+        @include breakpoint_max(medium) {
+            grid-area: 2 / 1 / 3 / 2;
+        }
+
+        .input-box__input {
+            padding: 0%;
+        }
+
+        .input-box__input-placeholder {
+            padding: 0%;
+        }
+    }
+
+    &__input-box3 {
+        grid-area: 1 / 5 / 2 / 8;
+
+        @include breakpoint_max(medium) {
+            grid-area: 3 / 1 / 4/ 2;
+        }
+
+        .input-box__input {
+            padding: 0%;
+        }
+
+        .input-box__input-placeholder {
+            padding: 0%;
+        }
+    }
+
+    &__textarea4 {
+        grid-area: 2 / 1 / 3 / 8;
+
+        @include breakpoint_max(medium) {
+            grid-area: 4 / 1 /5 / 2;
+        }
+
+        .textarea__input {
+            padding: 0%;
+        }
+
+        .textarea__input-placeholder {
+            padding: 0%;
+        }
     }
 
     &__suggest-input {
