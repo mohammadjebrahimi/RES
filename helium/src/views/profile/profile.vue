@@ -107,14 +107,14 @@ export default {
 
             let cards = articles.data.map((current) => {
                 return {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
+                    "authFigure":  this.userDetail.Image,
                     "authorName": this?.userDetail?.name,
                     "date": getPersianDate(current.created_at),
                     "title": current.title,
                     "summery": current.content,
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
-                    "image": "/src/assets/images/Rectangle%207.png",
+                    "image":  current.image_url.replace('192.168.53.150', '87.107.30.143'),
                     "href": `/singel/${current.id}`
                 }
             })
@@ -126,13 +126,13 @@ export default {
 
         this.userDetail = {
             name: `${first_name} ${last_name}`,
-            Image: '/src/assets/images/23.png',
+            Image: image_url.replace('192.168.53.150', '87.107.30.143'),
             socialId: username,
             buttonText: 'اطلاعات کامل ارتباطی'
         }
         this.person = {
             name: `${first_name} ${last_name}`,
-            image: '/src/assets/images/23.png',
+            image: image_url.replace('192.168.53.150', '87.107.30.143'),
             specifications: [
                 {
                     image: '/src/assets/images/user-square.png',
@@ -158,14 +158,14 @@ export default {
 
         this.cards = articles.data.map((current) => {
             return {
-                "authFigure": "/src/assets/images/Ellipse 1.png",
+                "authFigure": image_url.replace('192.168.53.150', '87.107.30.143'),
                 "authorName": `${first_name} ${last_name}`,
                 "date": getPersianDate(current.created_at),
                 "title": current.title,
                 "summery": current.content,
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
-                "image": "/src/assets/images/Rectangle%207.png",
+                "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
                 "link": { name: 'singel', params: { id: current.id } }
             }
         })

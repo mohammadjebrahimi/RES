@@ -198,14 +198,14 @@ export default {
 
         this.cards = articles.data.map((current) => {
             return {
-                "authFigure": "/src/assets/images/Ellipse 1.png",
+                "authFigure": current.auther_profile_image.replace('192.168.53.150', '87.107.30.143'),
                 "authorName": `${current.author_first_name} ${current.author_last_name}`,
                 "date": getPersianDate(current.created_at),
                 "title": current.title,
                 "summery": current.content,
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
-                "image": "/src/assets/images/Rectangle%207.png",
+                "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
                 "link": { name: 'singel', params: { id: current.id } }
             }
         })

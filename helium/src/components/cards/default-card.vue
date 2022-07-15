@@ -1,5 +1,5 @@
 <template>
-    <router-link  :to="link"  class="card">
+    <router-link :to="link" class="card">
         <div class="card__header">
             <figure class="card__auth-figure">
                 <img :src="authFigure" :alt="authorName">
@@ -38,7 +38,7 @@ export default {
             default: "/#"
         }
     },
-    components:{RouterLink}
+    components: { RouterLink }
 
 }
 </script>
@@ -64,7 +64,15 @@ export default {
     }
 
     &__auth-figure {
+        height: 36px;
+        width: 36px;
         margin: 0 0 0 12px;
+
+        & img {
+            height: 100%;
+            width: 100%;
+            object-fit: contain;
+        }
     }
 
     &__header-right {
@@ -77,6 +85,7 @@ export default {
     }
 
     &__inner-image {
+        height: 250px;
         width: 100%;
         margin: 0;
         @include flex-direction();
@@ -99,7 +108,8 @@ export default {
 
         &>img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
         }
     }
 

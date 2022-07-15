@@ -116,19 +116,19 @@ export default {
                 'title': articleData.title,
                 'studyDuration': `${articleData.read_time_minutes} دقیقه مطالعه`,
                 'tags': articleData.tags,
-                'image_url': '/src/assets/images/Rectangle 13.png',
+                'image_url': articleData.image_url.replace('192.168.53.150', '87.107.30.143'),
                 'content': articleData.content,
             }
             this.cards = articleData.fromThisUser.map((current) => {
                 return {
-                    "authFigure": "/src/assets/images/Ellipse 1.png",
-                    "authorName": this?.userDetail?.name,
+                    "authFigure": articleData.auther_profile_image.replace('192.168.53.150', '87.107.30.143'),
+                    "authorName": `${articleData.author_first_name} ${articleData.author_last_name}`,
                     "date": getPersianDate(current.created_at),
                     "title": current.title,
                     "summery": current.content,
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
-                    "image": "/src/assets/images/Rectangle%207.png",
+                    "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
                     "link": { name: 'singel', params: { id: current.id } }
                 }
             })
