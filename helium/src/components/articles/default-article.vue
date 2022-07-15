@@ -98,7 +98,9 @@ export default {
       height: auto;
     }
   }
-
+&__text{
+      word-break: break-all;
+}
   &__tag {
     @include tag()
   }
