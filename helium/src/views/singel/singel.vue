@@ -95,18 +95,18 @@ export default {
                     comments.message.forEach(message => this.toast.error(message))
                 } else {
                     this.toast.error(comments.message)
-                } 
+                }
                 return false
             }
 
 
         },
         async submitComment(e) {
-        
-           let comment= await this.handelAddCommentsAPI(localStorage.getItem("accessToken"), e)
-           if(comment){
-            await this.pageLoader()
-           }
+
+            let comment = await this.handelAddCommentsAPI(localStorage.getItem("accessToken"), e)
+            if (comment) {
+                await this.pageLoader()
+            }
         },
         async pageLoader() {
             let article = await this.handelArticleAPI(localStorage.getItem("accessToken"), this.$route.params.id)
@@ -118,6 +118,9 @@ export default {
                 'tags': articleData.tags,
                 'image_url': articleData.image_url.replace('192.168.53.150', '87.107.30.143'),
                 'content': articleData.content,
+                date: getPersianDate(articleData.created_at),
+                authFigure: articleData.auther_profile_image.replace('192.168.53.150', '87.107.30.143'),
+                authorName: `${articleData.author_first_name} ${articleData.author_last_name}`,
             }
             this.cards = articleData.fromThisUser.map((current) => {
                 return {

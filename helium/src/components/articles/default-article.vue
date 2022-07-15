@@ -1,6 +1,14 @@
 <template>
   <article class="article">
-
+    <div class="article__header">
+      <figure class="article__auth-figure">
+        <img :src="authFigure" :alt="authorName">
+      </figure>
+      <div class="article__header-right">
+        <div class="article__author-name ">{{ authorName }}</div>
+        <div class="article__date "> {{ date }}</div>
+      </div>
+    </div>
     <div class="article__title">{{ title }}</div>
     <div class="article__footer">
       <div class="article__study-duration">{{ studyDuration }}</div>
@@ -14,7 +22,7 @@
 
 
     <div class="article__text">
-      <p> {{content}}<br></p>
+      <p> {{ content }}<br></p>
     </div>
 
   </article>
@@ -28,7 +36,10 @@ export default {
     'tags': Array,
     'image_url': String,
     'content': String,
-    studyDuration:String
+    date: String,
+    authFigure: String,
+    authorName: String,
+    studyDuration: String
   },
 
 }
@@ -42,11 +53,20 @@ export default {
   &__header {
     @include flex-direction();
     align-items: center;
-    width: 100%
+    width: 100%;
+    margin-bottom: 20px
   }
 
   &__auth-figure {
+    height: 36px;
+    width: 36px;
     margin: 0 0 0 12px;
+
+    & img {
+      height: 100%;
+      width: 100%;
+      object-fit: contain;
+    }
   }
 
   &__header-left {
@@ -98,9 +118,11 @@ export default {
       height: auto;
     }
   }
-&__text{
-      word-break: break-all;
-}
+
+  &__text {
+    word-break: break-all;
+  }
+
   &__tag {
     @include tag()
   }
