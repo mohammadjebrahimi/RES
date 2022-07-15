@@ -1,0 +1,44 @@
+@mixin z-index-group($z) {
+
+
+    @if $z==1 {
+        z-index: 1000
+    }
+
+    @else if $z==2 {
+        z-index: 2000
+    }
+
+    @else if $z==3 {
+        z-index: 3000
+    }
+
+    @else if $z==4 {
+        z-index: 4000
+    }
+
+    @else if $z==5 {
+        z-index: 5000
+    }
+
+    @else if $z==6 {
+        z-index: 6000
+    }
+
+    @else if $z==7 {
+        z-index: 7000
+    }
+
+    @else if $z==8 {
+        z-index: 8000
+    }
+
+    @else if $z==9 {
+        z-index: 9000
+    }
+
+    @else if $z==10 {
+        z-index: 10000
+    }
+
+}
