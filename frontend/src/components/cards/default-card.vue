@@ -1,5 +1,5 @@
 <template>
-    <div @click="pushToRoute()" class="card">
+    <RouterLink :to="link"  target="_blank" class="card">
         <div class="card__header">
             <figure class="card__auth-figure">
                 <img :src="authFigure" :alt="authorName">
@@ -19,7 +19,7 @@
             .
             <span v-for="(tag, index) in tags" :key="`tag-${index}`" class="card__tag">{{ tag?.name }}</span>
         </div>
-    </div>
+    </RouterLink>
 </template>
 <script>
 import { RouterLink } from 'vue-router'
@@ -39,11 +39,7 @@ export default {
         }
     },
     components: { RouterLink },
-    methods:{
-        pushToRoute(){
-            this.$router.push(this.link)
-        }
-    }
+
 }
 </script>
 <style lang="scss">
