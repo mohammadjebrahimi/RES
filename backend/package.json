@@ -1,0 +1,39 @@
+{
+  "name": "javascript-graphql",
+  "scripts": {
+    "dev": " node ./src/server.js",
+    "graphql:codegen": "graphql codegen",
+    "graphql:coverage": "graphql coverage",
+    "graphql:validate": "graphql validate",
+    "graphql:diff": "graphql diff",
+    "graphql:similar": "graphql similar"
+  },
+  "prettier": {
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "all"
+  },
+  "dependencies": {
+    "@prisma/client": "4.13.0",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
+    "graphql": "16.6.0",
+    "graphql-scalars": "1.21.3",
+    "graphql-yoga": "3.9.1",
+    "http-server": "^14.1.1",
+    "reading-time": "^1.5.0",
+    "shortid": "^2.2.16"
+  },
+  "devDependencies": {
+    "@graphql-cli/codegen": "3.0.4",
+    "@graphql-cli/coverage": "2.1.0",
+    "@graphql-cli/diff": "2.1.0",
+    "@graphql-cli/similar": "2.1.0",
+    "@graphql-cli/validate": "2.1.0",
+    "graphql-cli": "4.1.0",
+    "prisma": "4.13.0"
+  },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+}
