@@ -7,5 +7,7 @@ in `backend` folder
 * in `backend/prisma/schema.prisma` can change your db provider
 * at `backend` folder run `npm i` and `npx prisma migrate dev --name init`
 * so can run `npm run dev`
+
+
 in `frontend` folder
 * at `frontend` folder run `npm i` and `npm run dev`
