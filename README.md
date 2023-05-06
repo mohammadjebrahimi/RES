@@ -11,3 +11,16 @@ in `backend` folder
 
 in `frontend` folder
 * at `frontend` folder run `npm i` and `npm run dev`
+* email: 'guest@guest.com',
+* password: 'guest1'
+
+
+
+## Pages
+* `/` home
+* `/singel/1` show first article
+* `/register1` to registering
+* `/login`      
+* `/profile` displayed after login 
+* `/story-writing-add`  add article
+
