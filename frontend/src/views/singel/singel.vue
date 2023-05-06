@@ -103,7 +103,7 @@ export default {
                 method: 'POSt', // or 'PUT'
                 headers: {
                     'Content-Type': 'application/json',
-                
+
                 },
                 body: JSON.stringify({
                     query: `query($authorId:Int){
@@ -140,6 +140,7 @@ export default {
 
         },
         async handelAddCommentsAPI(token, body) {
+    
             this.showLoader = true
             let resp = await fetch(`http://localhost:4000`, {
                 method: 'POSt', // or 'PUT'
@@ -148,23 +149,19 @@ export default {
                     'Authorization': token
                 },
                 body: JSON.stringify({
-                    query: `query($id:Int){
-  articles(id:$id){
-    created_at,id,image_url,author{
-        username
-        image_url
-    },tags {
-        name
-        id
-    },read_time_minutes,content,title 
-  }
-}`,
+                    query: `mutation($article_id: Int!,$content:String,$last_name:String,$first_name:String,$email:String!){
+                   
+                   createComment(article_id:$article_id,first_name:$first_name,last_name:$last_name,content:$content,email:$email){
+                     __typename
+                   }
+                 
+                 }`,
                     variables: {
-                        content: content,
-                        last_name: last_name,
-                        first_name: first_name,
-                        email: email,
-                        article_id: article_id
+                        content: body.content,
+                        last_name: body.last_name,
+                        first_name: body.first_name,
+                        email: body.email,
+                        article_id: body.article_id
                     }
                 }),
             })
@@ -204,20 +201,20 @@ export default {
                 authFigure: articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
                 authorName: `${articleData.author.username} ${articleData.author_last_name}`,
             }
-           const articleOfThisAuthor = await this.handelOtherArticleOfThisAuthorAPI(articleData.author.id)
-            this.cards =  articleOfThisAuthor.map((current) => {
-                    return {
-                        "authFigure": articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
-                        "authorName": `${articleData.author.username} ${articleData.author_last_name}`,
-                        "date": getPersianDate(current.created_at),
-                        "title": current.title,
-                        "summery": current.content,
-                        "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
-                        "tags": current.tags,
-                        "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
-                        "link": { name: 'singel', params: { id: current.id } }
-                    }
-                })
+            const articleOfThisAuthor = await this.handelOtherArticleOfThisAuthorAPI(articleData.author.id)
+            this.cards = articleOfThisAuthor.map((current) => {
+                return {
+                    "authFigure": articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
+                    "authorName": `${articleData.author.username} ${articleData.author_last_name}`,
+                    "date": getPersianDate(current.created_at),
+                    "title": current.title,
+                    "summery": current.content,
+                    "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
+                    "tags": current.tags,
+                    "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
+                    "link": { name: 'singel', params: { id: current.id } }
+                }
+            })
             this.comments = articleData.comments.map((current) => {
                 return {
                     authorName: `${current.first_name} ${current.last_name}`,
