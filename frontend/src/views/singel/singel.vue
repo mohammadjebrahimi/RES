@@ -199,7 +199,7 @@ export default {
                 'content': articleData.content,
                 date: getPersianDate(articleData.created_at),
                 authFigure: articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
-                authorName: `${articleData.author.username} ${articleData.author_last_name}`,
+                authorName: `${articleData.author.username}`,
             }
             const articleOfThisAuthor = await this.handelOtherArticleOfThisAuthorAPI(articleData.author.id)
             this.cards = articleOfThisAuthor.map((current) => {
