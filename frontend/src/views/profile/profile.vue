@@ -114,7 +114,7 @@ export default {
                     this.toast.error(respData.errors[0].message)
                 }
                else if (respData.data.articles.length > 0) {
-                    this.toast.success('مقالات لود شدند')
+                    // this.toast.success('مقالات لود شدند')
 
                 } else {
                     this.toast.error('موردی برای نمایش نیست')
