@@ -1,10 +1,6 @@
 <template>
     <main class="profile">
-        <default-header class="profile__header">
-            <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
-            <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
-            <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
-        </default-header>
+        <default-header class="profile__header"/>
         <UserDetail @btnClick="showSpecification()" :="userDetail" />
         <HorizontalCardContainer @btnClick="showMore()" class="profile__horizontal-card-container" label="مقالات"
             :cards='cards' buttonText="مشاهده بیشتر" />
@@ -25,6 +21,7 @@ import HorizontalCardContainer from '@/components/card-containers/horizontal-car
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import DefaultModal from '@/components/modals/default-modal.vue'
+
 import VisitCard from './components/visit-card.vue';
 import EmptyModal from '../../components/modals/empty-modal.vue';
 import Circle from '../../components/loading/circle.vue';
@@ -52,7 +49,7 @@ export default {
         HorizontalCardContainer,
         VisitCard,
         EmptyModal,
-        Circle
+        Circle,
     },
     methods: {
         showSpecification() {

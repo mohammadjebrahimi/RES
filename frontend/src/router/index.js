@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useHeliumStore } from '@/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,6 +8,11 @@ const router = createRouter({
     return { top: 0 }
   },
   routes: [
+    {
+      path: '/test',
+      name: 'test',
+      component: () => import('../components/searchbar/default-searchbar.vue')
+    },
     {
       path: '/singel/:id',
       name: 'singel',
@@ -79,6 +85,7 @@ router.afterEach((to, from) => {
 
 // delete accessToken from localStorage if not valid
 async function checkToken() {
+  const store = useHeliumStore()
   let token = localStorage.getItem("accessToken")
   if (token) {
     let resp = await fetch('http://localhost:4000', {
@@ -91,6 +98,11 @@ async function checkToken() {
         query: `query{
           getUserByToken{
             username
+            first_name
+            last_name
+            image_url
+            email
+            phone_number
           }
         }`
       }),
@@ -99,10 +111,14 @@ async function checkToken() {
     let respData = await resp.json()
     if (resp.status >= 400 && resp.status <= 500) {
       localStorage.removeItem("accessToken");
+      store.setCurrentUser({})
     }
     if (resp.status <= 300) {
       if (respData.errors) {
         localStorage.removeItem("accessToken");
+        store.setCurrentUser({})
+      } else {
+        store.setCurrentUser(respData.data.getUserByToken)
       }
     }
   }

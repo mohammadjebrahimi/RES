@@ -1,6 +1,6 @@
 let actions = {
-    increment() {
-        this.count++
+    setCurrentUser(user) {
+        this.currentUser=user
     },
 }
 export default actions

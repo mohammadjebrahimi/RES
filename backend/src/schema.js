@@ -15,6 +15,9 @@ type Query {
   tags: [Tag]!
   comments:[Comment]!
   users (email:String!) : [User]!
+  searchUser(userName:String!):[User]!
+  searchTag(name:String!):[Tag]!
+  searchArticle(title:String!):[Article]!
 }
    type Mutation {
      login(email: String!,password:     String!) : AuthPayload!
@@ -112,6 +115,41 @@ type Query {
 
 const resolvers = {
   Query: {
+    searchUser: (_parent, args, context) => {
+      return context.prisma.user.findMany({
+        where: {
+          username: {
+            search: args.userName,
+          },
+        },
+        include: {
+          articles: true
+        },
+      })
+    },
+
+    searchTag: (_parent, args, context) => {
+      return context.prisma.tag.findMany({
+        where: {
+          name: {
+            search: args.name,
+          },
+        },
+        include: {
+          articles: { include: { article: true } }
+        },
+      })
+    },
+
+    searchArticle: (_parent, args, context) => {
+      return context.prisma.article.findMany({
+        where: {
+          title: {
+            search: args.title
+          },
+        }
+      })
+    },
 
     users: (_parent, args, context) => {
       return context.prisma.user.findMany({
@@ -133,11 +171,6 @@ const resolvers = {
           )
         )
       }
-
-
-
-
-
       return currentUser
     },
 
@@ -152,15 +185,15 @@ const resolvers = {
         where.authorId = authorId
       }
 
-     const articles=  await context.prisma.article.findMany({
+      const articles = await context.prisma.article.findMany({
 
         where,
         skip: (page - 1) * per_page,
         take: per_page,
         include: {
           author: true,
-          comments:true,
-          tags: { include: { tag: true } } 
+          comments: true,
+          tags: { include: { tag: true } }
         },
       })
 
@@ -275,7 +308,7 @@ const resolvers = {
             `No such user found'.`
           )
         )
-       
+
       }
 
       // 2

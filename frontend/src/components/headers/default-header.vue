@@ -3,23 +3,37 @@
         <div class="header__container">
             <default-brand />
             <div class="header__left">
-                <slot></slot>
+                <slot>
+                    <search/>
+                    <img class="header__notification" src="@/assets/images/notification.png" alt="notification" />
+                    <member :currentUser="store.currentUser" class="header__member" />
+                </slot>
             </div>
         </div>
     </header>
 </template>
 <script>
-import DefaultBrand from "../brands/default-brand.vue";
+import DefaultBrand from "@/components/brands/default-brand.vue";
+import member from '@/components/member/default-member.vue'
+import search from '@/components/search/default-search.vue'
+import { useHeliumStore } from '@/store'
 export default {
     name: "default-header",
     components: {
         DefaultBrand,
+        member,
+        search
+    },
+    data() {
+        return {
+            store: useHeliumStore()
+        }
     }
 }
 </script>
 <style lang="scss" >
 .header {
-   @include flex-direction();
+    @include flex-direction();
     background-color: $headColor;
     justify-content: space-around;
     align-items: center;
@@ -45,6 +59,7 @@ export default {
     &__search {
         height: fit-content;
     }
+
 
     &__button {
         font-weight: 700;

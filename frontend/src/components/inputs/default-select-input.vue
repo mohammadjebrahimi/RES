@@ -1,21 +1,11 @@
 <template>
     <div class="select-box">
-        <v-select v-model="value" :label="optionValue" :reduce="(option) => option" :options="options" multiple
-            class="select-box__v-select">
+        <v-select @search="onSearch($event)" v-model="value" :label="optionValue" :reduce="(option) => option"
+            :options="options" multiple class="select-box__v-select">
             <template #no-options="{ search, searching, loading }">
                 <button @click="btnClicked(search)" class="select-box__button">افزوده شود</button>
             </template>
         </v-select>
-        <!-- <select @change="selectItem($event)" :placeholder="placeHolder" class="select-box__select-option"
-            :class="{ 'select-box__select-option--direction-ltr': ltr }" :id="id">
-            <option v-if="value == ''" value="" :key='`option`' selected>انتخاب کنید</option>
-            <template v-for="(option, index) in options">
-                <option v-if="option.key == value" :value="option.key" :key='`option-${index}`' selected>{{ option.value
-                }} </option>
-                <option v-else :value="option.key" :key='`selectedOption-${index}`'>{{ option.value
-                }} </option>
-            </template>
-        </select> -->
         <label :for="id" class="select-box__input-label">{{ label }}</label>
     </div>
 </template>
@@ -38,6 +28,10 @@ export default {
         },
         value: Array,
         optionValue: String,
+        onSearch: {
+            type: Function,
+            default: () => { }
+        }
     },
     components: { vSelect },
     watch: {

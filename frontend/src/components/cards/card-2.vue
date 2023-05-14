@@ -41,7 +41,7 @@ export default {
     position: relative;
     margin: 0 0 0 2em;
      width: 30%;
-    height: 100%;
+    min-height: 100%;
 
     &:before {
       position: absolute;

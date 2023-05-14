@@ -1,11 +1,10 @@
 
-let user = await this.handelUserAPI(respData.accessToken)
 
 
 
 let state = () => {
     return {
-        user: {}
+        currentUser: {}
     }
 }
 export default state
