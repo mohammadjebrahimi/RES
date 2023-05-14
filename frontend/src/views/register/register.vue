@@ -1,9 +1,7 @@
 <template>
     <main class="register">
-        <default-header class="register__header">
-            <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
-            <button @click="redirect()" class="header__button">ورود/ثبت نام</button>
-        </default-header>
+        <default-header class="register__header"/>
+
         <default-carousel :carouselDatas="carouselDatas" />
         <horizontal-card-container class="register__horizontal-card-container" :cards="cards" />
         <vertical-card-container class="register__vertical-card-container" :cards="cards" />
@@ -164,9 +162,7 @@ export default {
         }
     },
     methods: {
-        redirect() {
-            this.$router.push({ name: 'register1' })
-        },
+
         async handelArticlesAPI(token, page) {
             this.showLoader = true
             let resp = await fetch(`http://localhost:4000`, {
@@ -261,8 +257,6 @@ export default {
         top: 0px;
         @include z-index-group(2);
     }
-    .header__button{
-        cursor: pointer;
-    }
+  
 }
 </style>

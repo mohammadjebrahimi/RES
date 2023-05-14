@@ -1,10 +1,6 @@
 <template>
     <main class="story-writing-add-page">
-        <default-header class="story-writing-add-page__header">
-            <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
-            <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
-            <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
-        </default-header>
+        <default-header class="story-writing-add-page__header"/>
         <CreateNewArticle class="story-writing-add-page__create-new-article"></CreateNewArticle>
     </main>
     <default-footer />

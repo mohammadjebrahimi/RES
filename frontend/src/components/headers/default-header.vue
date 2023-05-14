@@ -4,9 +4,16 @@
             <default-brand />
             <div class="header__left">
                 <slot>
-                    <search/>
-                    <img class="header__notification" src="@/assets/images/notification.png" alt="notification" />
-                    <member :currentUser="store.currentUser" class="header__member" />
+                    <search />
+
+                    <template v-if="store.currentUser.username">
+                        <img class="header__notification" src="@/assets/images/notification.png" alt="notification" />
+                        <member :currentUser="store.currentUser" class="header__member" />
+                    </template>
+                    <template v-else>
+                        <button @click="redirect()" class="header__button">ورود/ثبت نام</button>
+                    </template>
+
                 </slot>
             </div>
         </div>
@@ -28,6 +35,11 @@ export default {
         return {
             store: useHeliumStore()
         }
+    },
+    methods:{
+        redirect() {
+            this.$router.push({ name: 'register1' })
+        },
     }
 }
 </script>

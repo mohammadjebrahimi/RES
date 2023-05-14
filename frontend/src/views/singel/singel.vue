@@ -1,10 +1,6 @@
 <template>
     <main class="singel">
-        <default-header class="singel__header">
-            <img class="header__search" src="@/assets/images/search-normal.png" alt="search" />
-            <img class="header__search" src="@/assets/images/notification.png" alt="notification" />
-            <img class="header__search" src="@/assets/images/Ellipse s2.png" alt="admin" />
-        </default-header>
+        <default-header class="singel__header"/>
         <default-article :="articleDetail" />
         <horizontal-card-container class="singel__horizontal-card-containe" label="از همین نویسنده" :cards="cards">
         </horizontal-card-container>

@@ -37,7 +37,7 @@ export default {
         name: 'search',
         id: 'search',
         placeHolder: [
-          'کاوش کنید',
+          'کاوش کنید Advan* +dog -cat ',
         ],
         type: 'text',
       },
@@ -84,7 +84,7 @@ export default {
       const articleTab = {
         header: {
           count: respData.data.searchArticle.length,
-          icon: '',
+          icon: '/src/assets/images/article.png',
           name: 'Article'
         },
         body: {
@@ -102,7 +102,7 @@ export default {
       const tagTab = {
         header: {
           count: respData.data.searchTag.length,
-          icon: '',
+          icon: "/src/assets/images/tag.png",
           name: 'Tag'
         },
         body: {
@@ -120,8 +120,8 @@ export default {
       const userTab = {
         header: {
           count: respData.data.searchUser.length,
-          icon: '',
-          name: 'peopel'
+          icon: "/src/assets/images/peopel.png",
+          name: 'Peopel'
         },
         body: {
           component: shallowRef(defaultSearchResultCards),
@@ -140,8 +140,8 @@ export default {
           count: [...userTab.body.props,
           ...tagTab.body.props,
           ...articleTab.body.props,].length,
-          icon: '',
-          name: 'all'
+          icon: "/src/assets/images/all.png",
+          name: 'All'
         },
         body: {
           component: shallowRef(defaultSearchResultCards),
