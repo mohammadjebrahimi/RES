@@ -29,134 +29,134 @@ export default {
     data() {
         return {
             toast: useToast(),
-            "carouselDatas": [
-                {
-                    "carouselImage": '/src/assets/images/unsplash_NnRv949hZ1Q.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-                {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-                {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-                {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-                {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-                {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-                {
-                    "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
-                    "cardData": {
-                        "authFigure": "/src/assets/images/Ellipse 1.png",
-                        "authorName": "محمدسبحان سجایی فر",
-                        "date": "۲۸ تیر ۱۴۰۰",
-                        "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
-                        "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
-                        برای
-                        ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
-                        "studyDuration": "۷ دقیقه مطالعه",
-                        "tags": [{
-                            "id": 1,
-                            "name": "علمی"
-                        }],
-                        "image": ""
-                    }
-                },
-            ],
+             "carouselDatas": [],
+            //    [] {
+            //         "carouselImage": '/src/assets/images/unsplash_NnRv949hZ1Q.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            //     {
+            //         "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            //     {
+            //         "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            //     {
+            //         "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            //     {
+            //         "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            //     {
+            //         "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            //     {
+            //         "carouselImage": '/src/assets/images/unsplash_Im7lZjxeLhg.png',
+            //         "cardData": {
+            //             "authFigure": "/src/assets/images/Ellipse 1.png",
+            //             "authorName": "محمدسبحان سجایی فر",
+            //             "date": "۲۸ تیر ۱۴۰۰",
+            //             "title": "کنترل کننده زیردریایی طراحی شده در دانشگاه صنعتی شریف در بین ۱۰ زیردریایی برتر جهان قرار گرفت.",
+            //             "summery": `کنترل کننده زیردریایی طراحی شده توسط دانشجویان دانشگاه صنعتی شریف
+            //             برای
+            //             ارتش جمهوری اسلامی ایران در بین ۱۰ زیردریایی برتر جهان قرار گرفت.`,
+            //             "studyDuration": "۷ دقیقه مطالعه",
+            //             "tags": [{
+            //                 "id": 1,
+            //                 "name": "علمی"
+            //             }],
+            //             "image": ""
+            //         }
+            //     },
+            // ],
 
             cards: []
         }
@@ -221,6 +221,20 @@ export default {
                 "tags": current.tags,
                 "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
                 "link": { name: 'singel', params: { id: current.id } }
+            }
+        })
+
+        this.carouselDatas=articles.map((current) => {
+            return {
+                "carouselImage":  current.image_url.replace('192.168.53.150', '87.107.30.143'),
+                "cardData": {    "authFigure": current.author.image_url.replace('192.168.53.150', '87.107.30.143'),
+                "authorName": `${current.author.username}`,
+                "date": getPersianDate(current.created_at),
+                "title": current.title,
+                "summery": current.content,
+                "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
+                "tags": current.tags,
+                "link": { name: 'singel', params: { id: current.id } }}
             }
         })
     }
