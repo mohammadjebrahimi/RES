@@ -81,6 +81,7 @@ export default {
         border: 1px solid rgba(36, 52, 71, 0.15);
         border-radius: 4px;
         padding: 8px 24px;
+        cursor: pointer;
     }
 }
 </style>
