@@ -1,14 +1,6 @@
 <template>
   <article class="article">
-    <div class="article__header">
-      <figure class="article__auth-figure">
-        <img :src="authFigure" :alt="authorName">
-      </figure>
-      <div class="article__header-right">
-        <div class="article__author-name ">{{ authorName }}</div>
-        <div class="article__date "> {{ date }}</div>
-      </div>
-    </div>
+    <SimpelCard :image="authFigure" :title="authorName" :description="date"/>
     <div class="article__title">{{ title }}</div>
     <div class="article__footer">
       <div class="article__study-duration">{{ studyDuration }}</div>
@@ -28,20 +20,22 @@
   </article>
 </template>
 <script>
-export default {
-  name: "default-article",
-  props: {
-    'title': String,
-    'read_time_minutes': String,
-    'tags': Array,
-    'image_url': String,
-    'content': String,
-    date: String,
-    authFigure: String,
-    authorName: String,
-    studyDuration: String
-  },
+import SimpelCard from '../cards/simpel-card.vue';
 
+export default {
+    name: "default-article",
+    props: {
+        "title": String,
+        "read_time_minutes": String,
+        "tags": Array,
+        "image_url": String,
+        "content": String,
+        date: String,
+        authFigure: String,
+        authorName: String,
+        studyDuration: String
+    },
+    components: { SimpelCard }
 }
 </script>
 <style lang="scss">
@@ -50,39 +44,13 @@ export default {
   max-width: 798px;
   width: 100%;
 
-  &__header {
-    @include flex-direction();
-    align-items: center;
-    width: 100%;
-    margin-bottom: 20px
-  }
 
-  &__auth-figure {
-    height: 36px;
-    width: 36px;
-    margin: 0 0 0 12px;
-
-    & img {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
 
   &__header-left {
     @include flex-direction(column);
   }
 
-  &__author-name {
-    font-size: 14px;
-    color: #28394F;
-  }
 
-  &__date {
-    color: #8593A6;
-    font-weight: 600;
-    font-size: 11px;
-  }
 
   &__title {
     font-size: 32px;
