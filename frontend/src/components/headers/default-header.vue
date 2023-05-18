@@ -7,7 +7,7 @@
                     <search />
 
                     <template v-if="store.currentUser.username">
-                        <img class="header__notification" src="@/assets/images/notification.png" alt="notification" />
+                        <default-notification />
                         <member :currentUser="store.currentUser" class="header__member" />
                     </template>
                     <template v-else>
@@ -24,19 +24,21 @@ import DefaultBrand from "@/components/brands/default-brand.vue";
 import member from '@/components/member/default-member.vue'
 import search from '@/components/search/default-search.vue'
 import { useHeliumStore } from '@/store'
+import DefaultNotification from "../notification/default-notification.vue";
 export default {
     name: "default-header",
     components: {
         DefaultBrand,
         member,
-        search
+        search,
+        DefaultNotification
     },
     data() {
         return {
             store: useHeliumStore()
         }
     },
-    methods:{
+    methods: {
         redirect() {
             this.$router.push({ name: 'register1' })
         },

@@ -80,7 +80,6 @@ export default {
         }),
       })
       let respData = await resp.json()
-      console.log(respData);
       const articleTab = {
         header: {
           count: respData.data.searchArticle.length,
@@ -90,7 +89,6 @@ export default {
         body: {
           component: shallowRef(defaultSearchResultCards),
           props: respData.data.searchArticle.map((article) => {
-            console.log(article);
             return {
               icon: article['image_url'],
               title: article['title'],

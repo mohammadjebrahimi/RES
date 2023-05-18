@@ -11,7 +11,7 @@ const router = createRouter({
     {
       path: '/test',
       name: 'test',
-      component: () => import('../components/searchbar/default-searchbar.vue')
+      component: () => import('../components/notificationbar/default-notificationbar.vue')
     },
     {
       path: '/singel/:id',

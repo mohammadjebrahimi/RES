@@ -22,8 +22,10 @@ const storeUpload = async (blobPart, mimetype) => {
   );
 };
 const processUpload = async (upload) => {
-  const { blobParts, type } = await upload;
-  const { id } = await storeUpload(blobParts[0], type);
+  const { type } = await upload;
+  const buffer = Buffer.from(await upload.arrayBuffer());
+
+  const { id } = await storeUpload(buffer, type);
   return id;
 }
 module.exports = { processUpload };

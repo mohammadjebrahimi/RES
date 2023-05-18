@@ -3,17 +3,17 @@ const { processUpload } = require("./processUpload");
 const { createSchema } = require('graphql-yoga')
 const { DateTimeResolver } = require('graphql-scalars')
 const { hash, compare } = require('bcryptjs')
-const { sign } = require('jsonwebtoken')
+const { sign ,verify} = require('jsonwebtoken')
 const { GraphQLError } = require('graphql')
 const readingTime = require('reading-time');
 
 
-const typeDefs = `
+const typeDefs =/* GraphQL */ `
 type Query {
   getUserByToken:User
   articles (id: Int, authorId: Int, page: Int,per_page:Int): [Article]!
   tags: [Tag]!
-  notifications:[Notification]!
+  notifications (is_seen:Boolean) :[Notification]!
   comments:[Comment]!
   users (email:String!) : [User]!
   searchUser(userName:String!):[User]!
@@ -33,11 +33,17 @@ type Query {
      createArticle (content: String  , title: String!,image: Upload,tags:[ID]!): Article!
      createTag (name: String!): Tag!
      createComment (article_id: Int!,content:String,last_name:String,first_name:String,email:String!): Comment!
-   }
+
+     makeAllNotifAsRead:Count
+    }
  
    type Subscription {
-    newNotification(roomId: ID!): Notification!
+    newNotification(token:String!): Notification!
   }
+  
+type Count {
+  count: Int
+}
 
    type Article {
      author: User
@@ -51,6 +57,7 @@ type Query {
      tags: [Tag]
      comments:[Comment]
    }
+   
    type Notification {
     title :      String!
     image_url :  String!
@@ -177,7 +184,11 @@ const resolvers = {
       return context.prisma.tag.findMany()
     },
     notifications: (_parent, args, context) => {
-      return context.prisma.notification.findMany()
+      return context.prisma.notification.findMany({
+        where: {
+          is_seen: args.is_seen,
+        }
+      })
     },
     getUserByToken: async (_parent, args, context) => {
       const currentUser = await context.currentUser(context.request)
@@ -240,7 +251,16 @@ const resolvers = {
         },
       })
     },
-
+    makeAllNotifAsRead: (_parent, args, context) => {
+      return context.prisma.notification.updateMany({
+        where: {
+          is_seen: false,
+        },
+        data: {
+          is_seen: true,
+        },
+      })
+    },
     createComment: async (_parent, args, context) => {
       return context.prisma.comment.create({
         data: {
@@ -280,7 +300,7 @@ const resolvers = {
         }]
       }, [])
 
-      const newArticle = context.prisma.article.create({
+      const newArticle = await context.prisma.article.create({
         data: {
 
           content: args.content,
@@ -352,8 +372,18 @@ const resolvers = {
   },
   Subscription: {
     newNotification: {
-      subscribe: (_, { roomId }, { pubSub }) =>
-        pubSub.subscribe("newNotification", roomId),
+      subscribe: async(_,args , context) => {
+        const tokenPayload = verify(args.token, process.env.SECRET_KEY)
+        const userId = tokenPayload.userId
+        if (!userId) {
+          return Promise.reject(
+            new GraphQLError(
+              `Unauthenticated!'.`
+            )
+          )
+        }
+        return context.pubSub.subscribe("newNotification", userId)
+      },
       resolve: (payload) => payload,
     },
   },

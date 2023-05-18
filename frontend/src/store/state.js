@@ -4,7 +4,8 @@
 
 let state = () => {
     return {
-        currentUser: {}
+        currentUser: {},
+        showNotificationAlert:false
     }
 }
 export default state

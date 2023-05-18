@@ -4,12 +4,12 @@
     <defaultTabHeader v-model:selestedTabIndex="selestedTabIndex" :tabs="tabs" />
     <div class="tab-body">
       <div class="tab-body__content">
-  
+
         <component v-if="tabs[selestedTabIndex]?.body?.props?.length" v-bind:is="tabs[selestedTabIndex].body.component"
           :props="tabs[selestedTabIndex].body.props">
         </component>
         <div v-else>موردی یافت نشد!</div>
-       
+
       </div>
     </div>
   </div>
@@ -43,13 +43,13 @@ export default {
 }
 
 .tab-body {
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   max-height: 600px;
-  padding: 0 1rem;
+  padding: 0 5%;
 
   &::-webkit-scrollbar {
     width: 8px;

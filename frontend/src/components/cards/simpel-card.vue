@@ -29,8 +29,9 @@ export default {
 
     &__figure {
         height: 36px;
-        width: 36px;
         margin: 0 0 0 12px;
+        min-width: 36px;
+        width: 36px;
 
         & img {
             height: 100%;
@@ -38,6 +39,7 @@ export default {
             object-fit: cover;
         }
     }
+
     &__header-right {
         @include flex-direction(column);
     }
@@ -50,7 +52,8 @@ export default {
     &__description {
         font-size: 11px;
         color: #8593A6;
-
+        max-width: 100%;
+        line-break: anywhere;
     }
 }
 </style>
