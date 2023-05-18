@@ -1,14 +1,6 @@
 <template>
     <RouterLink :to="link"  target="_blank" class="card">
-        <div class="card__header">
-            <figure class="card__auth-figure">
-                <img :src="authFigure" :alt="authorName">
-            </figure>
-            <div class="card__header-right">
-                <div class="card__author-name ">{{ authorName }}</div>
-                <div class="card__date "> {{ date }}</div>
-            </div>
-        </div>
+        <SimpelCard :title="authorName" :description="date" :image="authFigure"/>
         <figure class="card__inner-image" v-if="image">
             <img :src="image" alt="inner-image">
         </figure>
@@ -23,6 +15,7 @@
 </template>
 <script>
 import { RouterLink } from 'vue-router'
+import SimpelCard from './simpel-card.vue';
 export default {
     name: "default-card",
     props: {
@@ -38,7 +31,7 @@ export default {
             default: "/#"
         }
     },
-    components: { RouterLink },
+    components: { RouterLink, SimpelCard },
 
 }
 </script>
@@ -57,32 +50,8 @@ export default {
     text-decoration: none;
     box-shadow: none;
 
-    &__header {
-        @include flex-direction();
-        align-items: center;
-        width: 100%
-    }
 
-    &__auth-figure {
-        height: 36px;
-        width: 36px;
-        margin: 0 0 0 12px;
 
-        & img {
-            height: 100%;
-            width: 100%;
-            object-fit: cover;
-        }
-    }
-
-    &__header-right {
-        @include flex-direction(column);
-    }
-
-    &__author-name {
-        font-size: 14px;
-        color: #28394F;
-    }
 
     &__inner-image {
         height: 250px;
@@ -117,11 +86,6 @@ export default {
         transform: scaleY(1);
     }
 
-    &__date {
-        font-size: 11px;
-        color: #8593A6;
-
-    }
 
 
     &__title {

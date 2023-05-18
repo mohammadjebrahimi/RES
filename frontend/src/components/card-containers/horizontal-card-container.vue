@@ -11,7 +11,7 @@
     </section>
 </template>
 <script>
-import defaultCard from '../cards/default-card.vue'
+import defaultCard from '@/components/cards/default-card.vue'
 export default {
     name: "horizontal-card-container",
     components: { defaultCard },
