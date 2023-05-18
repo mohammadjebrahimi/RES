@@ -13,6 +13,7 @@ type Query {
   getUserByToken:User
   articles (id: Int, authorId: Int, page: Int,per_page:Int): [Article]!
   tags: [Tag]!
+  notifications:[Notification]!
   comments:[Comment]!
   users (email:String!) : [User]!
   searchUser(userName:String!):[User]!
@@ -34,6 +35,10 @@ type Query {
      createComment (article_id: Int!,content:String,last_name:String,first_name:String,email:String!): Comment!
    }
  
+   type Subscription {
+    newNotification(roomId: ID!): Notification!
+  }
+
    type Article {
      author: User
      content: String
@@ -45,6 +50,15 @@ type Query {
      image_url:    String  
      tags: [Tag]
      comments:[Comment]
+   }
+   type Notification {
+    title :      String!
+    image_url :  String!
+    is_seen :    Boolean 
+    created_at : DateTime! 
+    description : String
+    updated_at :  DateTime! 
+    user :       User   
    }
    
    type Tag {
@@ -95,6 +109,7 @@ type Query {
      username  :   String
      articles: [Article]
      comments:[Comment]
+     notifications:[Notification]
      }
  
  
@@ -161,7 +176,9 @@ const resolvers = {
     tags: (_parent, args, context) => {
       return context.prisma.tag.findMany()
     },
-
+    notifications: (_parent, args, context) => {
+      return context.prisma.notification.findMany()
+    },
     getUserByToken: async (_parent, args, context) => {
       const currentUser = await context.currentUser(context.request)
       if (!currentUser) {
@@ -263,8 +280,7 @@ const resolvers = {
         }]
       }, [])
 
-
-      return context.prisma.article.create({
+      const newArticle = context.prisma.article.create({
         data: {
 
           content: args.content,
@@ -275,6 +291,8 @@ const resolvers = {
           tags: { create: articleTags },
         },
       })
+      context.makeNonification({ title: `مقاله ${args.title} با موفقیت افزوده شد`, description: args.content, image_url, user_id: currentUser.id })
+      return newArticle
     },
 
 
@@ -331,6 +349,13 @@ const resolvers = {
     },
 
 
+  },
+  Subscription: {
+    newNotification: {
+      subscribe: (_, { roomId }, { pubSub }) =>
+        pubSub.subscribe("newNotification", roomId),
+      resolve: (payload) => payload,
+    },
   },
   DateTime: DateTimeResolver,
 }
