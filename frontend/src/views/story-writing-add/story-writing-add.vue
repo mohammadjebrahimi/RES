@@ -1,6 +1,7 @@
 <template>
     <main class="story-writing-add-page">
-        <default-header class="story-writing-add-page__header"/>
+       
+        <default-header class="story-writing-add-page__header" />
         <CreateNewArticle class="story-writing-add-page__create-new-article"></CreateNewArticle>
     </main>
     <default-footer />
@@ -15,6 +16,7 @@ export default {
         defaultHeader,
         defaultFooter,
         CreateNewArticle,
+ 
     },
     data() {
         return {

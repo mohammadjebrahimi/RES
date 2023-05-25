@@ -218,7 +218,6 @@ export default {
                     comment: current.content
                 }
             })
-            console.log(this.comments);
 
         }
 

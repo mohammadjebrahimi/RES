@@ -10,6 +10,7 @@ import 'floating-vue/dist/style.css'
 import "vue-toastification/dist/index.css";
 
 const app = createApp(App)
+app.config.unwrapInjectedRef = true
 const pinia = createPinia()
 
 app.use(pinia)

@@ -1,6 +1,6 @@
 <template>
   <article class="article">
-    <SimpelCard :image="authFigure" :title="authorName" :description="date"/>
+    <SimpelCard :image="authFigure" :title="authorName" :description="date" />
     <div class="article__title">{{ title }}</div>
     <div class="article__footer">
       <div class="article__study-duration">{{ studyDuration }}</div>
@@ -14,28 +14,31 @@
 
 
     <div class="article__text">
-      <p> {{ content }}<br></p>
+
+      <tiptapEditor v-model=content />
+      <!-- <p> {{ content }}<br></p> -->
     </div>
 
   </article>
 </template>
 <script>
 import SimpelCard from '../cards/simpel-card.vue';
+import tiptapEditor from '@/components/tiptap-editor/index.vue'
 
 export default {
-    name: "default-article",
-    props: {
-        "title": String,
-        "read_time_minutes": String,
-        "tags": Array,
-        "image_url": String,
-        "content": String,
-        date: String,
-        authFigure: String,
-        authorName: String,
-        studyDuration: String
-    },
-    components: { SimpelCard }
+  name: "default-article",
+  props: {
+    "title": String,
+    "read_time_minutes": String,
+    "tags": Array,
+    "image_url": String,
+    "content": String,
+    date: String,
+    authFigure: String,
+    authorName: String,
+    studyDuration: String
+  },
+  components: { SimpelCard, tiptapEditor }
 }
 </script>
 <style lang="scss">

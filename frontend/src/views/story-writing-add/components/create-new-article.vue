@@ -33,9 +33,11 @@
                         src="@/assets/images/tag-2.png" alt=""></a>
             </div>
             <div class="create-new-article__article-content-section">
-                <textarea name="content" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+                <!-- <textarea name="content" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
                     class="create-new-article__article-insert-content"
-                    placeholder="متن اصلی خود را وارد کنید..."></textarea>
+                    placeholder="متن اصلی خود را وارد کنید..."></textarea> -->
+                   <tiptapEditor v-model="editorValue" :editable="true" class="create-new-article__tiptap"/>
+                    
                 <label class="create-new-article__article-edit-image"><img src="@/assets/images/gallery-edit.png" alt="">
                     <input type="file" class="create-new-article__article-edit-image-input"
                         @change="setArticleImage($event)" accept="image/png, image/gif, image/jpeg" />
@@ -58,6 +60,7 @@
     </div>
 </template>
 <script>
+import tiptapEditor from '@/components/tiptap-editor/index.vue'
 import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSelectInput from '@/components/inputs/default-select-input.vue'
 import DefaultForm from '@/components/forms/default-form.vue'
@@ -71,11 +74,13 @@ export default {
         DefaultSelectInput,
         DefaultForm,
         EmptyModal,
-        Circle
+        Circle,
+        tiptapEditor
     },
     data() {
         return {
             toast: useToast(),
+            editorValue:'',
             tags: [],
             selectedTags: [],
             tagsId: [],
@@ -126,7 +131,7 @@ export default {
 ){  
                       __typename  }}`;
 
-            const content = document.getElementsByName("content")[0].value
+            const content = this.editorValue
             const title = document.getElementsByName("title")[0].value
             const image = document.getElementsByName("image")[0].files[0]
             const tags = this.tagsId
@@ -264,7 +269,9 @@ export default {
         @include flex-direction();
         align-items: baseline;
     }
-
+&__tiptap{
+    margin: 28px 0 16px 0;
+}
     &__icon {
         width: 24px;
         height: 24px;
