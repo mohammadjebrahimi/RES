@@ -77,6 +77,8 @@ import EmptyModal from '../../../components/modals/empty-modal.vue';
 import Circle from '../../../components/loading/circle.vue';
 import DefaultTextInput from '../../../components/inputs/default-text-input.vue';
 import DefaultTextAreaInput from '../../../components/inputs/default-text-area-input.vue';
+import { readImageAsBase64 } from '@/components/tiptap-editor/upload/default-uploader'
+
 import * as Yup from "yup";
 
 export default {
@@ -141,11 +143,14 @@ export default {
         }
     },
     methods: {
-        setArticleImage(event) {
+        async setArticleImage(event) {
+            console.log(event);
             let image = event.target.value
             if (image === '' || image === 'undefined') {
                 return
             }
+            const img = await readImageAsBase64(event.target.files[0])
+            this.articleImage = img.src
         },
         getTag() {
             this.tags = this.selectedTags
