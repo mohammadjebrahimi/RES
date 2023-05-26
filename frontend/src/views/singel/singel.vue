@@ -110,7 +110,7 @@ export default {
     },tags {
         name
         id
-    },read_time_minutes,content,title,  comments {
+    },read_time_minutes,content,summery,title,  comments {
       content
       last_name
       first_name
@@ -204,7 +204,7 @@ export default {
                     "authorName": `${articleData.author.username} ${articleData.author_last_name}`,
                     "date": getPersianDate(current.created_at),
                     "title": current.title,
-                    "summery": current.content,
+                    "summery": current.summery,
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
                     "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),

@@ -30,7 +30,7 @@ type Query {
       username  :   String!,
       image: Upload): User!
     
-     createArticle (content: String  , title: String!,image: Upload,tags:[ID]!): Article!
+     createArticle (content: String  , title: String!, summery: String!,image: Upload,tags:[ID]!): Article!
      createTag (name: String!): Tag!
      createComment (article_id: Int!,content:String,last_name:String,first_name:String,email:String!): Comment!
 
@@ -51,6 +51,7 @@ type Count {
      created_at: DateTime!
      id: Int!
      title: String!
+     summery: String!
      updated_at: DateTime!
      read_time_minutes: String  
      image_url:    String  
@@ -306,13 +307,14 @@ const resolvers = {
 
           content: args.content,
           title: args.title,
+          summery: args.summery,
           read_time_minutes: `${readingTimeStats}`,
           author: { connect: { id: currentUser.id } },
           image_url: image_url,
           tags: { create: articleTags },
         },
       })
-      context.makeNonification({ title: `مقاله ${args.title} با موفقیت افزوده شد`, description: args.content, image_url, user_id: currentUser.id })
+      context.makeNonification({ title: `مقاله ${args.title} با موفقیت افزوده شد`, description: args.summery, image_url, user_id: currentUser.id })
       return newArticle
     },
 

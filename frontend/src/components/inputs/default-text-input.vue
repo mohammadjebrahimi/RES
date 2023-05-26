@@ -86,6 +86,7 @@ export default {
     }
 
     &__input {
+        outline: none;
         background-color: transparent;
         border: none;
         border-bottom: 1px solid;

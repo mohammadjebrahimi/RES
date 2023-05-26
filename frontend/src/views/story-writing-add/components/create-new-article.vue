@@ -4,7 +4,25 @@
             <figure class="create-new-article__icon"><img src="@/assets/images/Edit.png" alt=""></figure>
             <p class="create-new-article__title">ایجاد مطلب جدید</p>
         </div>
-        <div class="create-new-article__article">
+        <!-- <div class="create-new-article__article">
+      
+            <input name="title" class="create-new-article__article-insert-title"
+                placeholder="عنوان مطلب خود را وارد کنید " />
+
+            <div class="create-new-article__article-summery-section">
+                <textarea name="summery" class="create-new-article__article-insert-summery"
+                    placeholder="خلاصه متن  را وارد  ..."></textarea>
+
+
+
+            </div>
+
+
+            <button @click="submit()" class="create-new-article__article-submit" type="button">انتشار
+                مطلب</button>
+        </div> -->
+
+        <DefaultForm @submitForm="submit()" class="create-new-article__article" :schema="schema" submitText="انتشار مطلب">
             <div class="create-new-article__article-image-section">
                 <figure class="create-new-article__article-image">
                     <img :src="articleImage" alt="">
@@ -19,8 +37,7 @@
                     </label>
                 </div>
             </div>
-            <input name="title" class="create-new-article__article-insert-title"
-                placeholder="عنوان مطلب خود را وارد کنید " />
+            <DefaultTextInput class="create-new-article__article-title" :="titleInput" />
             <div class="create-new-article__article-tag-section">
                 <template v-for="(tag, index) in tags" :key="`tag-${index}`">
                     <p class="create-new-article__article-tag" v-if="tag.name">{{
@@ -32,20 +49,11 @@
                 <a id="insertTag" @click="showTagModal = !showTagModal" class="create-new-article__article-tag-editor"><img
                         src="@/assets/images/tag-2.png" alt=""></a>
             </div>
-            <div class="create-new-article__article-content-section">
-                <!-- <textarea name="content" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
-                    class="create-new-article__article-insert-content"
-                    placeholder="متن اصلی خود را وارد کنید..."></textarea> -->
-                   <tiptapEditor v-model="editorValue" :editable="true" class="create-new-article__tiptap"/>
-                    
-                <label class="create-new-article__article-edit-image"><img src="@/assets/images/gallery-edit.png" alt="">
-                    <input type="file" class="create-new-article__article-edit-image-input"
-                        @change="setArticleImage($event)" accept="image/png, image/gif, image/jpeg" />
-                </label>
-            </div>
-            <button @click="submit()" class="create-new-article__article-submit" type="button">انتشار
-                مطلب</button>
-        </div>
+            <DefaultTextAreaInput class="create-new-article__article-summery" :="summeryInput" />
+            <DefaultForm>
+                <tiptapEditor v-model="editorValue" :editable="true" class="create-new-article__tiptap" />
+            </DefaultForm>
+        </DefaultForm>
 
         <DefaultModal @ok="getTag()" v-model:show="showTagModal">
             <DefaultForm class="modal__form" v-bind="foemData">
@@ -67,6 +75,10 @@ import DefaultForm from '@/components/forms/default-form.vue'
 import { useToast } from "vue-toastification";
 import EmptyModal from '../../../components/modals/empty-modal.vue';
 import Circle from '../../../components/loading/circle.vue';
+import DefaultTextInput from '../../../components/inputs/default-text-input.vue';
+import DefaultTextAreaInput from '../../../components/inputs/default-text-area-input.vue';
+import * as Yup from "yup";
+
 export default {
     name: "create-new-article",
     components: {
@@ -75,12 +87,36 @@ export default {
         DefaultForm,
         EmptyModal,
         Circle,
-        tiptapEditor
+        tiptapEditor,
+        DefaultTextInput,
+        DefaultTextAreaInput
     },
     data() {
         return {
+            schema: Yup.object().shape({
+                summery: Yup.string().required('فیلد ضروری است'),
+                title: Yup.string().required('فیلد ضروری است'),
+            }),
+            titleInput: {
+                name: 'title',
+                id: 'title',
+                placeHolder: [
+                    'عنوان مطلب خود را وارد کنید',
+                ],
+                type: 'text',
+                required: true,
+            },
+            summeryInput: {
+                name: 'summery',
+                id: 'summery',
+                placeHolder: [
+                    'خلاصه متن  را وارد  ...',
+                ],
+                ltr: false,
+                required: true,
+            },
             toast: useToast(),
-            editorValue:'',
+            editorValue: '',
             tags: [],
             selectedTags: [],
             tagsId: [],
@@ -117,14 +153,17 @@ export default {
 
         },
         async submit() {
+            console.log('sssssssssssssssssssssssssssssss');
             this.showLoading = true
             const query = `mutation(    
                   $title : String! 
                   $content : String 
+                  $summery:String!
                   $image : Upload 
                   $tags : [ID]!
                   ){  createArticle(      
                     title : $title
+                    summery: $summery
                     content : $content
                   image : $image 
                   tags : $tags
@@ -133,6 +172,7 @@ export default {
 
             const content = this.editorValue
             const title = document.getElementsByName("title")[0].value
+            const summery = document.getElementsByName("summery")[0].value
             const image = document.getElementsByName("image")[0].files[0]
             const tags = this.tagsId
 
@@ -140,13 +180,15 @@ export default {
             data.append("operations", JSON.stringify({ query }));
             data.append('map', `{ "0": ["variables.content"],
              "1": ["variables.title"],
-             "2": ["variables.image"],
-             "3": ["variables.tags"]
+             "2": ["variables.summery"],
+             "3": ["variables.image"],
+             "4": ["variables.tags"]
  } `)
             data.append('0', content);
             data.append('1', title);
-            data.append('2', image);
-            data.append('3', tags);
+            data.append('2', summery);
+            data.append('3', image);
+            data.append('4', tags);
 
 
 
@@ -258,7 +300,7 @@ export default {
     }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss" >
 .create-new-article {
     @include flex-direction(column);
     margin: auto;
@@ -269,9 +311,11 @@ export default {
         @include flex-direction();
         align-items: baseline;
     }
-&__tiptap{
-    margin: 28px 0 16px 0;
-}
+
+    &__tiptap {
+        margin: 28px 0 16px 0;
+    }
+
     &__icon {
         width: 24px;
         height: 24px;
@@ -285,6 +329,66 @@ export default {
 
     &__article {
         @include flex-direction(column);
+
+        .form__input-container {}
+
+        &-title {
+            & input.input-box__input {
+                border: 0;
+                padding: 0%;
+                outline: 0;
+                border: none;
+                font-weight: 600;
+                font-size: 18px;
+                line-height: 36px;
+                color: #8593A6;
+
+                &::placeholder {
+                    color: #8593A6;
+                }
+
+                &:focus {
+                    color: #0D0D0D;
+                }
+            }
+
+            & .input-box__input-placeholder {
+                padding: 0%;
+            }
+        }
+
+        &-summery {
+            & textarea.textarea__input {
+                border: 0;
+                padding: 0%;
+                outline: 0;
+                width: 100%;
+                border: none;
+                resize: none;
+                box-sizing: border-box;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 32px;
+                color: #8593A6;
+
+                &::placeholder {
+                    color: #8593A6;
+                }
+
+                &:focus {
+                    color: #0D0D0D;
+                }
+            }
+
+            & .textarea__input-placeholder {
+                padding: 0%;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 32px;
+                align-items: baseline
+            }
+
+        }
     }
 
     &__article-image {
@@ -300,6 +404,7 @@ export default {
         @include flex-direction;
         position: relative;
         height: 496px;
+        width: 100%;
         justify-content: center;
         align-items: center;
         overflow: hidden
@@ -350,19 +455,26 @@ export default {
     }
 
     &__article-insert-title {
+        outline: 0;
         border: none;
         margin: 28px 0 16px 0;
         font-weight: 600;
         font-size: 18px;
         line-height: 36px;
+        color: #8593A6;
 
         &::placeholder {
 
             color: #8593A6;
         }
+
+        &:focus {
+            color: #0D0D0D;
+        }
     }
 
-    &__article-insert-content {
+    &__article-insert-summery {
+        outline: 0;
         width: 100%;
         height: 40px;
         border: none;
@@ -370,11 +482,16 @@ export default {
         resize: none;
         box-sizing: border-box;
         font-weight: 400;
-        font-size: 16px;
+        font-size: 12px;
         line-height: 32px;
+        color: #8593A6;
 
         &::placeholder {
             color: #8593A6;
+        }
+
+        &:focus {
+            color: #0D0D0D;
         }
     }
 

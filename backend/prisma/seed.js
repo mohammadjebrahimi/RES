@@ -30,6 +30,9 @@ const userData = [
                     mode is similar in shape to the displacement profile and suppresses all higher modes of
                     vibrations.`,
                     read_time_minutes: '0.005',
+                    summery:`Seismic loading is a function of building mass and stiffness. The conventional triangular
+                    distribution suggested by most codes of practice, e.g. ASCE/SEI 7-10, may or may not
+                    correspond to the physical realities of a given structure. `,
                     image_url: 'http://127.0.0.1:5000/0jGnggeQA.png',
                     tags: {
                         create: {
@@ -46,6 +49,9 @@ const userData = [
                     title: 'Numerical Assessment of Time-Dependent Deformation of a Road Tunnel—a Case Study',
                     content: `Numerical analysis is performed to analyze the creep behaviour in the tunnel subjected to anisotropic stress condition. This study highlights the necessity of considering time-dependent phenomena in the selection of support systems. A case-study of Atal Tunnel,India is considered for the same.`,
                     read_time_minutes: '0.005',
+                    summery:`Seismic loading is a function of building mass and stiffness. The conventional triangular
+                    distribution suggested by most codes of practice, e.g. ASCE/SEI 7-10, may or may not
+                    correspond to the physical realities of a given structure. `,
                     image_url: 'http://127.0.0.1:5000/Numerical-model-of-tunnel_W640.jpg',
                     tags: {
                         create: {

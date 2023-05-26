@@ -99,7 +99,7 @@ export default {
     created_at,id,image_url,tags {
         name
         id
-    },read_time_minutes,content,title 
+    },read_time_minutes,summery,content,title 
   }
 }`,
                     variables: {
@@ -135,7 +135,7 @@ export default {
                     "authorName": this?.userDetail?.name,
                     "date": getPersianDate(current.created_at),
                     "title": current.title,
-                    "summery": current.content,
+                    "summery": current.summery,
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
                     "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
@@ -186,7 +186,7 @@ export default {
                 "authorName": `${first_name} ${last_name}`,
                 "date": getPersianDate(current.created_at),
                 "title": current.title,
-                "summery": current.content,
+                "summery": current.summery,
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
                 "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),

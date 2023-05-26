@@ -1,7 +1,14 @@
 <template>
   <div class="editor" :class="{ 'editor--show': !editable }" v-if="editor">
+
     <menu-bar v-if="editable" class="editor__header" :editor="editor" />
-    <editor-content class="editor__content" :editor="editor" />
+    <div class="editor__content-wrapper">
+      <editor-content class="editor__content" :editor="editor" />
+      <div v-if="modelValue == '' || modelValue == '<p></p>'" class="editor__content-placeholder">
+        متن خود را وارد کنید ...
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -74,14 +81,14 @@ export default {
         }),
       ],
       content: this.modelValue,
-      // onUpdate: ({ editor }) => {
-      //   const html = editor.getHTML()
-      //   this.$emit('update:modelValue', html)
-      //   console.log('update:modelValue', html);
-      // },
+      onUpdate: ({ editor }) => {
+        const html = editor.getHTML()
+        this.$emit('update:modelValue', html)
+        console.log(html);
+      },
       editable: this.editable,
     })
-    console.log('ssssssssssssssss', this.modelValue);
+    console.log('ssssssssssssssss', this.modelValue == "");
   },
 
   beforeUnmount() {
@@ -89,28 +96,28 @@ export default {
   },
   watch: {
     modelValue(value) {
-            // assumes that value is the HTML value, keeps the cursor at the same position
-            if (value === this.editor.getHTML()) {
-                return;
-            }
-            // a change as happened, update the content, cursor is at the start of the editor,
-           // however, that is no big deal, assume it's a different content anyways.
-            this.editor.commands.setContent(value);
-        }
-}
+      console.log('dvsdvsvdsdv');
+      // assumes that value is the HTML value, keeps the cursor at the same position
+      if (value === this.editor.getHTML()) {
+        return;
+      }
+      // a change as happened, update the content, cursor is at the start of the editor,
+      // however, that is no big deal, assume it's a different content anyways.
+      this.editor.commands.setContent(value);
+    }
+  }
 }
 
 </script>
 
-<style lang="scss">
+<style  lang="scss">
 .editor {
   background-color: #FFF;
-  border: 3px solid #6D6C80;
-  border-radius: 0.75rem;
+  // border: 3px solid #6D6C80;
+  // border-radius: 0.75rem;
   color: #0D0D0D;
   display: flex;
   flex-direction: column;
-  max-height: 26rem;
 
   &__header {
     align-items: center;
@@ -124,12 +131,37 @@ export default {
     padding: 0.25rem;
   }
 
+  &__content-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    max-height: 26rem;
+  }
+
   &__content {
     flex: 1 1 auto;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 1.25rem 1rem;
+    padding: 2.25em 0;
     -webkit-overflow-scrolling: touch;
+    z-index: 2;
+
+    &-placeholder {
+      position: absolute;
+      outline: 0;
+      width: 100%;
+      height: 40px;
+      border: none;
+      margin: 2.7em 0;
+      resize: none;
+      box-sizing: border-box;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 32px;
+      z-index: 1;
+      bottom: 0;
+      color: #8593A6;
+    }
   }
 
 }
@@ -137,9 +169,13 @@ export default {
 
 /* Basic editor styles */
 .ProseMirror {
+
+  opacity: 0.75;
+
   &-focused {
-    border: none;
     outline: none;
+    border: none;
+    opacity: 1;
   }
 
   >*+* {
@@ -232,8 +268,6 @@ export default {
   pointer-events: none;
   height: 0;
 }
-
-
 
 
 .editor.editor--show {

@@ -13,7 +13,8 @@ model Article {
   created_at        DateTime         @default(now())
   updated_at        DateTime         @updatedAt
   title             String
-  content           String?
+  summery           String
+  content           String
   read_time_minutes String
   author            User             @relation(fields: [authorId], references: [id])
   authorId          Int
