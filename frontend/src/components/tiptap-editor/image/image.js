@@ -10,7 +10,8 @@ export const inputRegex = /(?:^|\s)(!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\
 
 export const Image = Node.create({
     name: "image",
-    content: 'paragraph*',
+    content: 'text*',
+    isolating:true,
     inline() {
         return this.options.inline
     },
@@ -37,7 +38,7 @@ export const Image = Node.create({
    
     addOptions() {
         return {
-            inline: true,
+            inline: false,
             allowBase64: false,
             HTMLAttributes: {},
         }

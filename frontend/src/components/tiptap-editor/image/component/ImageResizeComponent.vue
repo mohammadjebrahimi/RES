@@ -46,7 +46,7 @@ export default {
         this.resizeObserve.unobserve(this.$refs['tiptap-image__figure-ref'])
 
     },
-    
+
 }
 </script>
 <style scoped lang="scss">

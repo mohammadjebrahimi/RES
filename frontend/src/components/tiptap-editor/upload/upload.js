@@ -29,11 +29,11 @@ const findPlaceholder = (state, id) => {
 const handleUpload = (view, event, files, editor) => {
     if (!files || files.length <= 0)
         return false
-console.log('event',event.clientX);
+    console.log('event', event.clientX);
     const id = Symbol('upload symbol')
     const { schema } = editor
     const { tr } = view.state
-    const insertPos = event.clientX && event.clientY 
+    const insertPos = event.clientX && event.clientY
         ? view.posAtCoords({ left: event.clientX, top: event.clientY })?.pos ?? tr.selection.from
         : tr.selection.from
     view.dispatch(tr.setMeta(pluginKey, { add: { id, pos: insertPos } }))
@@ -66,7 +66,7 @@ export const Upload = Extension.create({
                 init() {
                     return DecorationSet.empty
                 },
-                apply( tr, set) {
+                apply(tr, set) {
                     const _set = set.map(tr.mapping, tr.doc)
                     const action = tr.getMeta(this)
                     if (!action)
@@ -94,7 +94,7 @@ export const Upload = Extension.create({
                     const { enableHtmlFileUploader } = uploadConfig
                     if (!event)
                         return false
-console.log('event',event);
+                    console.log('event', event);
                     if (!enableHtmlFileUploader && event.clipboardData?.getData('text/html'))
                         return false
 
