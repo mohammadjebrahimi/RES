@@ -329,8 +329,7 @@ export default {
 
     &__article {
         @include flex-direction(column);
-
-        .form__input-container {}
+        margin: 0 0 140px;
 
         &-title {
             & input.input-box__input {
