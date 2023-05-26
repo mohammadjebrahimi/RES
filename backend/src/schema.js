@@ -3,7 +3,7 @@ const { processUpload } = require("./processUpload");
 const { createSchema } = require('graphql-yoga')
 const { DateTimeResolver } = require('graphql-scalars')
 const { hash, compare } = require('bcryptjs')
-const { sign ,verify} = require('jsonwebtoken')
+const { sign, verify } = require('jsonwebtoken')
 const { GraphQLError } = require('graphql')
 const readingTime = require('reading-time');
 
@@ -283,12 +283,13 @@ const resolvers = {
           )
         )
       }
-      const id = args.image ? await processUpload(args.image) : null;
+      console.log('args.image', args.image != 'undefined');
+      const id = args.image != 'undefined' && args.image ? await processUpload(args.image) : 'article.jpg';
       const image_url = `http://${process.env.FILE_SERVER_URL}:${process.env.FILE_SERVER_PORT}/${id}`
 
       const readingTimeStats = readingTime(args.content).minutes;
 
-      const tags = args.tags[0].split(",")
+      const tags = args.tags[0]?args.tags[0].split(","):[]
 
       const articleTags = await tags.reduce((accumulator, currentValue) => {
         return [...accumulator, {
@@ -299,7 +300,7 @@ const resolvers = {
           },
         }]
       }, [])
-
+      console.log('articleTags', articleTags);
       const newArticle = await context.prisma.article.create({
         data: {
 
@@ -372,7 +373,7 @@ const resolvers = {
   },
   Subscription: {
     newNotification: {
-      subscribe: async(_,args , context) => {
+      subscribe: async (_, args, context) => {
         const tokenPayload = verify(args.token, process.env.SECRET_KEY)
         const userId = tokenPayload.userId
         if (!userId) {
