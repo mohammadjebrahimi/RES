@@ -84,11 +84,9 @@ export default {
       onUpdate: ({ editor }) => {
         const html = editor.getHTML()
         this.$emit('update:modelValue', html)
-        console.log(html);
       },
       editable: this.editable,
     })
-    console.log('ssssssssssssssss', this.modelValue == "");
   },
 
   beforeUnmount() {
@@ -96,7 +94,6 @@ export default {
   },
   watch: {
     modelValue(value) {
-      console.log('dvsdvsvdsdv');
       // assumes that value is the HTML value, keeps the cursor at the same position
       if (value === this.editor.getHTML()) {
         return;

@@ -17,7 +17,6 @@ const eventsource = new EventSource(URLInstance.toString(), {
 eventsource.onmessage = function (event) {
     const data = JSON.parse(event.data)
     CLB(event)
-    console.log(data)
 }
 eventsource.onerror = (e) => {
     console.log("An error occurred while attempting to connect.");

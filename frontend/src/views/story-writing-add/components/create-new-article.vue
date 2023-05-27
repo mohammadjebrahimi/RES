@@ -144,7 +144,6 @@ export default {
     },
     methods: {
         async setArticleImage(event) {
-            console.log(event);
             let image = event.target.value
             if (image === '' || image === 'undefined') {
                 return
@@ -158,7 +157,6 @@ export default {
 
         },
         async submit() {
-            console.log('sssssssssssssssssssssssssssssss');
             this.showLoading = true
             const query = `mutation(    
                   $title : String! 

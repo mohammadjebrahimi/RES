@@ -34,7 +34,6 @@ export const defaultUploader = async (files, schema) => {
 
     imgs.push(file)
   }
-console.log('a',schema.nodes);
   const { image } = schema.nodes
   if (!image)
     throw "missingNodeInSchema('image')"

@@ -29,7 +29,6 @@ const findPlaceholder = (state, id) => {
 const handleUpload = (view, event, files, editor) => {
     if (!files || files.length <= 0)
         return false
-    console.log('event', event.clientX);
     const id = Symbol('upload symbol')
     const { schema } = editor
     const { tr } = view.state
@@ -94,7 +93,6 @@ export const Upload = Extension.create({
                     const { enableHtmlFileUploader } = uploadConfig
                     if (!event)
                         return false
-                    console.log('event', event);
                     if (!enableHtmlFileUploader && event.clipboardData?.getData('text/html'))
                         return false
 

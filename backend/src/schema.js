@@ -284,7 +284,6 @@ const resolvers = {
           )
         )
       }
-      console.log('args.image', args.image != 'undefined');
       const id = args.image != 'undefined' && args.image ? await processUpload(args.image) : 'article.jpg';
       const image_url = `http://${process.env.FILE_SERVER_URL}:${process.env.FILE_SERVER_PORT}/${id}`
 
@@ -301,7 +300,6 @@ const resolvers = {
           },
         }]
       }, [])
-      console.log('articleTags', articleTags);
       const newArticle = await context.prisma.article.create({
         data: {
 

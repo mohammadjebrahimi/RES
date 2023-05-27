@@ -80,7 +80,6 @@ export const Image = Node.create({
             height: {
                 default: 'auto',
                 renderHTML: (attributes) => {
-                    console.log('attributesattributesattributes', attributes);
                     return {
                         height: attributes.height
                     };
@@ -98,7 +97,6 @@ export const Image = Node.create({
     },
 
     renderHTML({ HTMLAttributes }) {
-        console.log('dddddddddd', HTMLAttributes);
 
         return ['image-resizer', mergeAttributes(this.options.HTMLAttributes, HTMLAttributes)
             , 0

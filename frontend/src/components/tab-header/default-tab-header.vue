@@ -23,7 +23,7 @@ export default {
   methods: {
     emitSlectedTab(e) {
       this.$emit('update:selestedTabIndex', e)
-      
+
     }
   }
 
@@ -48,6 +48,7 @@ export default {
   }
 
   &__tablinks {
+
     display: flex;
     flex-direction: row;
     max-width: 100%;
@@ -71,6 +72,7 @@ export default {
   }
 
   &__tablink {
+    cursor: pointer;
     display: flex;
     gap: 0.25rem;
     align-items: center;
