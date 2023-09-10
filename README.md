@@ -4,12 +4,12 @@
 in `backend` folder
 * insert your initial information of your app in `backend/.env`
 * in `backend/prisma/schema.prisma` can change your db provider
-* at `backend` folder run `npm i` and `npx prisma migrate dev --name init`
+* at `backend` folder run `yarn` and `npx prisma migrate dev --name init`
 * so can run `npm run dev`
 
 
 in `frontend` folder
-* at `frontend` folder run `npm i` and `npm run dev`
+* at `frontend` folder run `yarn` and `npm run dev`
 * email: 'guest@guest.com',
 * password: 'guest1'
 
