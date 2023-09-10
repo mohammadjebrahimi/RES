@@ -14,9 +14,9 @@ const router = createRouter({
       component: () => import('../components/notificationbar/default-notificationbar.vue')
     },
     {
-      path: '/singel/:id',
-      name: 'singel',
-      component: () => import('../views/singel/singel.vue')
+      path: '/single/:id',
+      name: 'single',
+      component: () => import('../views/single/single.vue')
     },
     {
       path: '/',

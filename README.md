@@ -17,7 +17,7 @@ in `frontend` folder
 
 ## Pages
 * `/` home
-* `/singel/1` show first article
+* `/single/1` show first article
 * `/register1` to registering
 * `/login`      
 * `/profile` displayed after login 

@@ -1,12 +1,12 @@
 <template >
     <div class="modal" v-if="show">
-        <SingelCard :outLineBtn="outLineBtn" :buttonText="buttonText" :showClose="showClose" :showOk="showOk" @ok="ok()" @close="close()">
+        <singleCard :outLineBtn="outLineBtn" :buttonText="buttonText" :showClose="showClose" :showOk="showOk" @ok="ok()" @close="close()">
             <slot></slot>
-        </SingelCard>
+        </singleCard>
     </div>
 </template>
 <script>
-import SingelCard from '../cards/singel-card.vue'
+import singleCard from '../cards/single-card.vue'
 export default {
     name: "default-modal",
     props: {
@@ -41,7 +41,7 @@ export default {
             this.$emit("update:show", false);
         }
     },
-    components: { SingelCard }
+    components: { singleCard }
 }
 </script>
 <style lang="scss">

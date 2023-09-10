@@ -3,12 +3,12 @@
         <default-header class="main__header">
         </default-header>
         <nav></nav>
-        <SingelCard :showClose="false" :showOk="false">
+        <singleCard :showClose="false" :showOk="false">
             <DefaultForm :schema="schema" :="formData" @submitForm="handelLoginAPI($event)">
                 <DefaultTextInput v-model:value="defaultEmail" :="emailInput" />
                 <DefaultTextInput   :="passwordInput" />
             </DefaultForm>
-        </SingelCard>
+        </singleCard>
         <EmptyModal v-model:show="showModal">
             <Circle size="80px" />
         </EmptyModal>
@@ -18,7 +18,7 @@
 <script>
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
-import SingelCard from '@/components/cards/singel-card.vue'
+import singleCard from '@/components/cards/single-card.vue'
 import DefaultForm from '../../components/forms/default-form.vue'
 import DefaultTextInput from '../../components/inputs/default-text-input.vue'
 import { useToast } from "vue-toastification";
@@ -72,7 +72,7 @@ export default {
     components: {
         defaultHeader,
         defaultFooter,
-        SingelCard,
+        singleCard,
         DefaultForm,
         DefaultTextInput,
         EmptyModal,

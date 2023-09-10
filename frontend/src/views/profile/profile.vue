@@ -139,7 +139,7 @@ export default {
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
                     "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
-                    "href": `/singel/${current.id}`
+                    "href": `/single/${current.id}`
                 }
             })
             this.cards.push(...cards)
@@ -190,7 +190,7 @@ export default {
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
                 "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
-                "link": { name: 'singel', params: { id: current.id } }
+                "link": { name: 'single', params: { id: current.id } }
             }
         })
 

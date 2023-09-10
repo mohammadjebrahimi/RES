@@ -1,8 +1,8 @@
 <template >
-    <div class="singel-card">
-        <a class="singel-card__close" v-if="showClose" @click="close()"></a>
+    <div class="single-card">
+        <a class="single-card__close" v-if="showClose" @click="close()"></a>
         <slot></slot>
-        <a class="singel-card__ok" :class="{ 'singel-card__ok--outline': outLineBtn }" v-if="showOk" @click="ok()">{{
+        <a class="single-card__ok" :class="{ 'single-card__ok--outline': outLineBtn }" v-if="showOk" @click="ok()">{{
                 buttonText
         }}</a>
     </div>
@@ -41,7 +41,7 @@ export default {
 }
 </script>
 <style lang="scss">
-.singel-card {
+.single-card {
 
 
     @include flex-direction(column);

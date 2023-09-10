@@ -3,14 +3,14 @@
         <default-header class="main__header">
         </default-header>
         <nav></nav>
-        <SingelCard :showClose="false" :showOk="false">
+        <singleCard :showClose="false" :showOk="false">
             <DefaultForm  @submitForm="getdata($event)" :schema="schema" :="formData">
                 <DefaultTextInput :="phoneInput" />
                 <DefaultTextInput :="fnameInput" />
                 <DefaultTextInput :="lnameInput" />
                 <DefaultTextInput  v-model:value="defaultEmail" :="emailInput" />
             </DefaultForm>
-        </SingelCard>
+        </singleCard>
     </main>
     <default-footer />
 </template>
@@ -18,7 +18,7 @@
 import * as Yup from "yup";
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
-import SingelCard from '@/components/cards/singel-card.vue'
+import singleCard from '@/components/cards/single-card.vue'
 import DefaultForm from '@/components/forms/default-form.vue'
 import DefaultTextInput from '@/components/inputs/default-text-input.vue'
 export default {
@@ -86,7 +86,7 @@ export default {
     components: {
         defaultHeader,
         defaultFooter,
-        SingelCard,
+        singleCard,
         DefaultForm,
         DefaultTextInput
     },

@@ -220,7 +220,7 @@ export default {
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
                 "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
-                "link": { name: 'singel', params: { id: current.id } }
+                "link": { name: 'single', params: { id: current.id } }
             }
         })
 
@@ -234,7 +234,7 @@ export default {
                 "summery": current.summery,
                 "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                 "tags": current.tags,
-                "link": { name: 'singel', params: { id: current.id } }}
+                "link": { name: 'single', params: { id: current.id } }}
             }
         })
     }

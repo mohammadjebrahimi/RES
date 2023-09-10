@@ -3,14 +3,14 @@
         <default-header class="main__header">
         </default-header>
         <nav></nav>
-        <SingelCard :showClose="false" :showOk="false">
+        <singleCard :showClose="false" :showOk="false">
             <DefaultForm @submitForm="handelUserSignUpAPI($event)" :schema="schema" :="formData">
                 <DefaultTextInput :="userName" />
                 <DefaultTextInput :="passwordInput" />
                 <DefaultTextInput :="repeatedPassInput" />
                 <DefaultFileInput :="fileInput" />
             </DefaultForm>
-        </SingelCard>
+        </singleCard>
         <EmptyModal v-model:show="showLoading">
             <Circle size="80px" />
         </EmptyModal>
@@ -23,7 +23,7 @@
 import * as Yup from "yup";
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
-import SingelCard from '@/components/cards/singel-card.vue'
+import singleCard from '@/components/cards/single-card.vue'
 import DefaultForm from '@/components/forms/default-form.vue'
 import DefaultTextInput from '@/components/inputs/default-text-input.vue'
 import DefaultFileInput from '@/components/inputs/default-file-input.vue'
@@ -97,7 +97,7 @@ export default {
     components: {
         defaultHeader,
         defaultFooter,
-        SingelCard,
+        singleCard,
         DefaultForm,
         DefaultTextInput,
         DefaultFileInput,

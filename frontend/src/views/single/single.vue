@@ -1,10 +1,10 @@
 <template>
-    <main class="singel">
-        <default-header class="singel__header"/>
+    <main class="single">
+        <default-header class="single__header"/>
         <default-article :="articleDetail" />
-        <horizontal-card-container class="singel__horizontal-card-containe" label="از همین نویسنده" :cards="cards">
+        <horizontal-card-container class="single__horizontal-card-containe" label="از همین نویسنده" :cards="cards">
         </horizontal-card-container>
-        <DefaultCommentContainer class="singel__comments" label="نظرات" :comments="comments" />
+        <DefaultCommentContainer class="single__comments" label="نظرات" :comments="comments" />
         <DefaultCommentForm @submitComment="submitComment($event)" label="نظر دادن" :articleId=+$route.params.id />
         <EmptyModal v-model:show="showLoader">
             <Circle size="80px" />
@@ -24,7 +24,7 @@ import Circle from '../../components/loading/circle.vue'
 import { useToast } from "vue-toastification";
 import getPersianDate from "@/mixins/date.js"
 export default {
-    name: "singel-page",
+    name: "single-page",
     components: {
         defaultArticle,
         defaultHeader,
@@ -208,7 +208,7 @@ export default {
                     "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
                     "tags": current.tags,
                     "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
-                    "link": { name: 'singel', params: { id: current.id } }
+                    "link": { name: 'single', params: { id: current.id } }
                 }
             })
             this.comments = articleData.comments.map((current) => {
@@ -228,7 +228,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.singel {
+.single {
     @include flex-direction(column);
     justify-content: center;
     align-items: center;

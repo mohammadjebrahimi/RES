@@ -11,7 +11,7 @@ import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import CreateNewArticle from './components/create-new-article.vue'
 export default {
-    name: "singel-page",
+    name: "single-page",
     components: {
         defaultHeader,
         defaultFooter,
