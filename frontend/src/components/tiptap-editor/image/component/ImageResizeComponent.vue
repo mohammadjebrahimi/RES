@@ -29,7 +29,6 @@ const onResize = (e) => {
     }
 
 }
-console.log(tiptap_image__figure_ref);
 
 onMounted(() => {
     if (isEditable.value) {

@@ -19,36 +19,20 @@
     </template>
   </VDropdown>
 </template>
-<script>
+<script setup>
 import {
-  Dropdown,
+  Dropdown as VDropdown,
 } from 'floating-vue'
 import MenuItem from './MenuItem.vue';
 ;
 import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
-export default {
-  name: "profile",
-  components: {
-    Dropdown,
-    MenuItem,
-  },
-  props: {
+
+  defineProps ({
     title:String,
     icon:String,
     items: Array
-  },
-  data() {
-    return {
-      remixiconUrl
-    }
-  },
-  methods: {
+  })
 
-  },
-  mounted() {
-
-  }
-}
 </script>
 <style lang="scss">
 .menu-dropdown {

@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import CharacterCount from '@tiptap/extension-character-count'
 import Highlight from '@tiptap/extension-highlight'
 import TaskItem from '@tiptap/extension-task-item'
@@ -24,6 +24,7 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 import MenuBar from './MenuBar.vue'
 import { Upload } from './upload'
 import { Image } from './image'
+import { ref, onMounted, onBeforeUnmount,toRefs,watch  } from 'vue'
 // import Placeholder from '@tiptap/extension-placeholder'
 // import Document from '@tiptap/extension-document'
 
@@ -32,78 +33,68 @@ import { Image } from './image'
 //   content: 'heading  block*',
 // })
 
-export default {
-  components: {
-    EditorContent,
-    MenuBar,
-  },
-  props: {
-    modelValue: String,
-    editable: {
-      type: Boolean,
-      default: false
-    },
-  },
-  data() {
-    return {
-      editor: null,
-    }
-  },
-
-  mounted() {
-    this.editor = new Editor({
-      extensions: [
-        // CustomDocument,
-        StarterKit.configure({
-          history: false,
-          // document: false,
-        }),
-        // Placeholder.configure({
-        //   placeholder: ({ node }) => {
-        //     if (node.type.name === 'heading') {
-        //       return 'عنوان مطلب خود را وارد کنید'
-        //     }
-
-        //     return 'متن اصلی خود را وارد کنید...'
-        //   },
-        // }),
-        Image,
-        Upload,
-        Highlight,
-        TaskList,
-        TaskItem,
-        history,
-        TextAlign.configure({
-          types: ['heading', 'paragraph'],
-        }),
-        CharacterCount.configure({
-          limit: 10000,
-        }),
-      ],
-      content: this.modelValue,
-      onUpdate: ({ editor }) => {
-        const html = editor.getHTML()
-        this.$emit('update:modelValue', html)
-      },
-      editable: this.editable,
-    })
-  },
-
-  beforeUnmount() {
-    this.editor.destroy()
-  },
-  watch: {
-    modelValue(value) {
-      // assumes that value is the HTML value, keeps the cursor at the same position
-      if (value === this.editor.getHTML()) {
-        return;
-      }
-      // a change as happened, update the content, cursor is at the start of the editor,
-      // however, that is no big deal, assume it's a different content anyways.
-      this.editor.commands.setContent(value);
-    }
+const props = defineProps({
+  modelValue: String,
+  editable: {
+    type: Boolean,
+    default: false
   }
-}
+})
+const emit = defineEmits(['update:modelValue'])
+const { modelValue, editable } = toRefs(props)
+const editor = ref(null)
+onMounted(() => {
+  editor.value = new Editor({
+    extensions: [
+      // CustomDocument,
+      StarterKit.configure({
+        history: false,
+        // document: false,
+      }),
+      // Placeholder.configure({
+      //   placeholder: ({ node }) => {
+      //     if (node.type.name === 'heading') {
+      //       return 'عنوان مطلب خود را وارد کنید'
+      //     }
+
+      //     return 'متن اصلی خود را وارد کنید...'
+      //   },
+      // }),
+      Image,
+      Upload,
+      Highlight,
+      TaskList,
+      TaskItem,
+      history,
+      TextAlign.configure({
+        types: ['heading', 'paragraph'],
+      }),
+      CharacterCount.configure({
+        limit: 10000,
+      }),
+    ],
+    content: modelValue.value,
+    onUpdate: ({ editor }) => {
+      const html = editor.getHTML()
+      emit('update:modelValue', html)
+    },
+    editable: editable.value,
+  })
+})
+
+  onBeforeUnmount(()=> {
+    editor.value.destroy()
+  })
+
+watch(modelValue, async (newValue) => {
+  // assumes that value is the HTML value, keeps the cursor at the same position
+  if (newValue === editor.value.getHTML()) {
+    return;
+  }
+  // a change as happened, update the content, cursor is at the start of the editor,
+  // however, that is no big deal, assume it's a different content anyways.
+  editor.value.commands.setContent(newValue);
+})
 
 </script>
 
