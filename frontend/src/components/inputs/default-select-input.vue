@@ -1,6 +1,6 @@
 <template>
     <div class="select-box">
-        <v-select @search="onSearch($event)" v-model="value" :label="optionValue" :reduce="(option) => option"
+        <v-select @search="onSearch($event)" v-model="selectValue" :label="optionValue" :reduce="(option) => option"
             :options="options" multiple class="select-box__v-select">
             <template #no-options="{ search, searching, loading }">
                 <button @click="btnClicked(search)" class="select-box__button">افزوده شود</button>
@@ -9,43 +9,43 @@
         <label :for="id" class="select-box__input-label">{{ label }}</label>
     </div>
 </template>
-<script>
+<script setup>
+import { ref, toRefs, watch } from 'vue';
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
-export default {
-    props: {
-        options: Array,
-        name: String,
-        id: {
-            type: String,
-            required: true
-        },
-        label: String,
-        placeHolder: String,
-        ltr: {
-            type: Boolean,
-            default: false
-        },
-        value: Array,
-        optionValue: String,
-        onSearch: {
-            type: Function,
-            default: () => { }
-        }
-    },
-    components: { vSelect },
-    watch: {
-        value() {
 
-            this.$emit('update:value', this.value)
-        }
+const emit = defineEmits(['update:value', 'OptionBtnClicked'])
+const props = defineProps({
+    options: Array,
+    name: String,
+    id: {
+        type: String,
+        required: true
     },
-    methods: {
-        btnClicked(e) {
-
-            this.$emit('OptionBtnClicked', e)
-        }
+    label: String,
+    placeHolder: String,
+    ltr: {
+        type: Boolean,
+        default: false
+    },
+    value: {
+        type: Array,
+        default: []
+    },
+    optionValue: String,
+    onSearch: {
+        type: Function,
+        default: () => { }
     }
+})
+const { value } = toRefs(props)
+const selectValue =ref(value.value)
+watch(selectValue, async (newValue) => {
+    emit('update:value', newValue)
+})
+
+const btnClicked = (e) => {
+    emit('OptionBtnClicked', e)
 }
 </script>
 <style lang="scss">

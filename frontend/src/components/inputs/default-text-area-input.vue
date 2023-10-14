@@ -1,11 +1,11 @@
 <template>
     <div class="textarea" @input="input($event)">
 
-        <Field  as="textarea" @input="input($event)" :name="name"
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' id="form-suggest"
-            placeholder=" " class="textarea__input"
-            :class="{ 'textarea__input--direction-ltr': ltr, 'textarea__input--error': errorMessage }" 
-            :id="id" :required="required"/>
+        <Field as="textarea" @input="input($event)" :name="name"
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' id="form-suggest" placeholder=" "
+            class="textarea__input"
+            :class="{ 'textarea__input--direction-ltr': ltr, 'textarea__input--error': errorMessage }" :id="id"
+            :required="required" />
 
         <label :for="id" v-if="label" class="textarea__input-label">{{ label }}</label>
 
@@ -14,47 +14,42 @@
         </div>
         <ErrorMessage class="textarea__error" :name="name" />
     </div>
-
 </template>
-<script>
-import { Field, ErrorMessage } from 'vee-validate';
-import { useField } from "vee-validate";
-export default {
-    data() {
-        return {
-            errorMessage: useField(this.name, undefined, {
-                initialValue: this.value,
-            }).errorMessage,
-        }
+<script setup>
+import { Field, ErrorMessage, useField } from 'vee-validate';
+
+import { toRefs } from 'vue';
+const props = defineProps({
+    name: String,
+    id: {
+        type: String,
+        required: true
     },
-    props: {
-        name: String,
-        id: {
-            type: String,
-            required: true
-        },
-        required: {
-            type: Boolean,
-            default: false
-        },
-        label: String,
-        placeHolder: Array,
-        ltr: {
-            type: Boolean,
-            default: false
-        },
-        value: String,
+    required: {
+        type: Boolean,
+        default: false
     },
-    components: { Field, ErrorMessage },
-    methods: {
-
-        input(e) {
-            this.$emit('update:value', e.target.value)
-        },
-
+    label: String,
+    placeHolder: Array,
+    ltr: {
+        type: Boolean,
+        default: false
     },
+    value: String,
+})
+
+const { name, value } = toRefs(props)
+const errorMessage = useField(name, undefined, {
+    initialValue: value,
+}).errorMessage
+
+const emit = defineEmits(['update:value'])
 
 
+
+
+const input = (e) => {
+    emit('update:value', e.target.value)
 }
 </script>
 <style lang="scss">

@@ -8,27 +8,24 @@
     </default-card>
   </a>
 </template>
-<script>
+<script setup>
 import defaultCard from './default-card.vue'
-export default {
-  name: "card2",
-  components: { defaultCard },
 
-  props: {
-    'authFigure': String,
-    'authorName': String,
-    'date': String,
-    'title': String,
-    'summery': String,
-    'studyDuration': String,
-    'tags': Array,
-    'image': String,
-    'link': {
-      default: "/#"
-    }
-  },
+defineProps({
+  'authFigure': String,
+  'authorName': String,
+  'date': String,
+  'title': String,
+  'summery': String,
+  'studyDuration': String,
+  'tags': Array,
+  'image': String,
+  'link': {
+    default: "/#"
+  }
+})
 
-}
+
 </script>
 <style lang="scss">
 .card-2 {
@@ -40,7 +37,7 @@ export default {
     display: flex;
     position: relative;
     margin: 0 0 0 2em;
-     width: 30%;
+    width: 30%;
     min-height: 100%;
 
     &:before {
@@ -55,7 +52,7 @@ export default {
       transform-origin: 0 bottom 0;
       transform: scaleY(0);
       transition: .4s ease-out;
-      
+
     }
 
     &>img {
@@ -82,7 +79,7 @@ export default {
     align-items: center;
 
     &__outer-image {
-      width:70%;
+      width: 70%;
       margin: 0;
     }
   }

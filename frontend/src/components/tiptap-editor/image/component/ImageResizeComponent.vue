@@ -1,6 +1,6 @@
 <template>
     <NodeViewWrapper class="tiptap-image">
-        <figure ref="tiptap-image__figure-ref" class="tiptap-image__figure">
+        <figure ref="tiptap_image__figure_ref" class="tiptap-image__figure">
             <img :src="node.attrs.src" :alt="node.attrs.alt" :isDraggable="node.attrs.isDraggable"
                 className='tiptap-image__image' />
         </figure>
@@ -8,46 +8,41 @@
         <!-- <div>{{ node.attrs.title }}</div> -->
     </NodeViewWrapper>
 </template>
-<script>
+<script setup>
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
+import {  onBeforeUnmount, onMounted, ref } from 'vue';
 
-export default {
-    components: { NodeViewWrapper, NodeViewContent },
-    props: nodeViewProps,
-    methods: {
-        onResize(e) {
-            if (e[0].target.style.width && e[0].target.style.height) {
-                this.updateAttributes({
-                    width: e[0].target.style.width,
-                    height: e[0].target.style.height
-                })
-            }
+const props = defineProps(nodeViewProps)
 
-        },
+const isEditable = ref(props.editor.options.editable)
+const resizeObserve = ref(null)
+const tiptap_image__figure_ref = ref(null)
 
 
-    },
-    data() {
-        return {
-            isEditable: this.editor.options.editable,
-            resizeObserve: null
-        }
-    },
-    mounted() {
-        if (this.isEditable) {
-            this.resizeObserve = new ResizeObserver(this.onResize)
-            this.resizeObserve.observe(this.$refs['tiptap-image__figure-ref'])
-        }
-
-    },
-
-    beforeUnmount() {
-        this.resizeObserve.unobserve(this.$refs['tiptap-image__figure-ref'])
-
-    },
+const onResize = (e) => {
+    if (e[0].target.style.width && e[0].target.style.height) {
+        this.updateAttributes({
+            width: e[0].target.style.width,
+            height: e[0].target.style.height
+        })
+    }
 
 }
+console.log(tiptap_image__figure_ref);
+
+onMounted(() => {
+    if (isEditable.value) {
+        resizeObserve.value = new ResizeObserver(onResize)
+        resizeObserve.value.observe(tiptap_image__figure_ref.value)
+    }
+
+})
+
+onBeforeUnmount(() => {
+resizeObserve.value.unobserve(tiptap_image__figure_ref.value)
+
+})
 </script>
 <style scoped lang="scss">
 .tiptap-image {
@@ -57,7 +52,7 @@ export default {
     align-items: center;
 
     &__figure {
-        resize: v-bind('editor.options.editable ? "both" : "none"');
+        resize: v-bind('props.editor.options.editable ? "both" : "none"');
         overflow: hidden;
         line-height: 0;
         width: v-bind('node.attrs.width');

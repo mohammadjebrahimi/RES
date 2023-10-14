@@ -1,12 +1,12 @@
 <template>
   <!-- Tab links -->
   <div class="tabbar">
-    <defaultTabHeader v-model:selestedTabIndex="selestedTabIndex" :tabs="tabs" />
+    <defaultTabHeader v-model:selectedTabIndex="selectedTabIndex" :tabs="tabs" />
     <div class="tab-body">
       <div class="tab-body__content">
 
-        <component v-if="tabs[selestedTabIndex]?.body?.props?.length" v-bind:is="tabs[selestedTabIndex].body.component"
-          :props="tabs[selestedTabIndex].body.props">
+        <component v-if="tabs[selectedTabIndex]?.body?.props?.length" v-bind:is="tabs[selectedTabIndex].body.component"
+          :props="tabs[selectedTabIndex].body.props">
         </component>
         <div v-else>موردی یافت نشد!</div>
 
@@ -14,24 +14,19 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import defaultTabHeader from '@/components/tab-header/default-tab-header.vue';
 
-export default {
-  name: "tabbar",
-  components: {
-    defaultTabHeader,
-  },
-  props: {
+
+ defineProps( {
     tabs: Object,
-    selestedTabIndex: {
+    selectedTabIndex: {
       type: Number,
       default: 0
     }
-  },
+  })
 
 
-}
 </script>
 <style lang="scss">
 .tabbar {

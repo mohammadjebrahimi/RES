@@ -4,22 +4,21 @@
             <img :src="image" alt="بارگزاری عکس">
         </figure>
         <input :name="name" type="file" :id="id" class="file-input-box__file-input" :accept="accept">
-        <label :for="id" class="file-input-box__file-input-placeholder">{{label}}</label>
+        <label :for="id" class="file-input-box__file-input-placeholder">{{ label }}</label>
     </div>
 </template>
-<script>
-export default {
-    props: {
-        name: String,
-        id: {
-            type: String,
-            required: true
-        },
-        label: String,
-        accept:String,
-        image:String,
-    }
-}
+<script setup>
+defineProps({
+    name: String,
+    id: {
+        type: String,
+        required: true
+    },
+    label: String,
+    accept: String,
+    image: String,
+})
+
 </script>
 <style lang="scss">
 .file-input-box {

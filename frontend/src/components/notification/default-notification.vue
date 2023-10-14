@@ -14,42 +14,34 @@
     </template>
   </VDropdown>
 </template>
-<script>
+<script setup>
 import {
-  Dropdown,
+  Dropdown as VDropdown,
 } from 'floating-vue'
-import { RouterLink } from 'vue-router';
 import DefaultNotificationbar from '../notificationbar/default-notificationbar.vue';
 import sse from '@/mixins/sse.js'
 import { useHeliumStore } from '@/store'
+import { onMounted } from 'vue';
 
-export default {
-  name: "profile",
-  components: {
-    Dropdown,
-    RouterLink,
-    DefaultNotificationbar
-  },
-  props: {
-    currentUser: Object
-  },
-  data() {
-    return {
-      store: useHeliumStore()
-    }
-  },
-  methods: {
-    async handleNotificationAPI() {
 
-      let token = localStorage.getItem("accessToken")
-      let resp = await fetch('http://localhost:4000', {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-        body: JSON.stringify({
-          query: `
+defineProps({
+  currentUser: Object
+})
+
+const store = useHeliumStore()
+
+
+const  handleNotificationAPI = async () => {
+
+  let token = localStorage.getItem("accessToken")
+  let resp = await fetch('http://localhost:4000', {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    },
+    body: JSON.stringify({
+      query: `
             query{
 
   notseenNotifs:notifications(is_seen:false) {
@@ -62,36 +54,34 @@ export default {
 }
 `,
 
-        }),
-      })
-      let respData = await resp.json()
-      if (respData.data.notseenNotifs.length) {
-        this.store.updateShowNotificationAlert(true)
-  
-      } else {
-        this.store.updateShowNotificationAlert(false)
+    }),
+  })
+  let respData = await resp.json()
+  if (respData.data.notseenNotifs.length) {
+    store.updateShowNotificationAlert(true)
 
-      }
+  } else {
+    store.updateShowNotificationAlert(false)
 
-    },
-    suscribeNotification() {
-      sse({
-        query:/* GraphQL */ `subscription ($token: String!) {
+  }
+
+}
+const subscribeNotification = () => {
+  sse({
+    query:/* GraphQL */ `subscription ($token: String!) {
   newNotification(token: $token){
  title
     description
   }
-}`, variables: { token: localStorage.getItem("accessToken") }, CLB: (e) => { console.log(e); this.store.updateShowNotificationAlert(true) }
-      })
-    },
-
-
-  },
-  mounted() {
-    this.suscribeNotification()
-    this.handleNotificationAPI()
-  }
+}`, variables: { token: localStorage.getItem("accessToken") }, CLB: (e) => { console.log(e); store.updateShowNotificationAlert(true) }
+  })
 }
+onMounted(() => {
+  subscribeNotification()
+  handleNotificationAPI()
+  })
+
+
 </script>
 <style lang="scss">
 .notification {

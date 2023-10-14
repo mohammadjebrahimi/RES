@@ -3,42 +3,39 @@
         <a class="single-card__close" v-if="showClose" @click="close()"></a>
         <slot></slot>
         <a class="single-card__ok" :class="{ 'single-card__ok--outline': outLineBtn }" v-if="showOk" @click="ok()">{{
-                buttonText
+            buttonText
         }}</a>
     </div>
 </template>
-<script>
-export default {
-    name: "default-modal",
-    props: {
-        showClose: {
-            type: Boolean,
-            default: true
-        },
-        showOk: {
-            type: Boolean,
-            default: true
-        },
-        buttonText: {
-            type: String,
-            default: 'تایید'
-        }
-        ,
-        outLineBtn: {
-            type: Boolean,
-            default: false
-        }
+<script setup>
+defineProps({
+    showClose: {
+        type: Boolean,
+        default: true
     },
-
-    methods: {
-        ok() {
-            this.$emit('ok', '')
-        },
-        close() {
-            this.$emit('close', '')
-        }
+    showOk: {
+        type: Boolean,
+        default: true
+    },
+    buttonText: {
+        type: String,
+        default: 'تایید'
     }
+    ,
+    outLineBtn: {
+        type: Boolean,
+        default: false
+    }
+})
+const emit =  defineEmits(["ok","close"])
+
+const ok = () => {
+   emit('ok', '')
 }
+const close = () => {
+   emit('close', '')
+}
+
 </script>
 <style lang="scss">
 .single-card {

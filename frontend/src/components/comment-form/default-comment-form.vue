@@ -27,87 +27,79 @@
         </div>
     </section>
 </template>
-<script>
+<script setup>
 import DefaultForm from '../forms/default-form.vue';
 import DefaultTextInput from '../inputs/default-text-input.vue';
 import DefaultTextAreaInput from '../inputs/default-text-area-input.vue';
 import * as Yup from "yup";
-export default {
-    name: "default-comment-form",
-    props: {
-        action: {
-            type: String,
-            default: ""
-        },
-        label: {
-            type: String,
-            default: ""
-        },
-        replyTo: {
-            default: null
-        },
-        articleId: {
-            type: Number,
-        },
+import { reactive, ref } from 'vue';
+
+defineProps({
+    action: {
+        type: String,
+        default: ""
     },
-    data() {
-        return {
-
-            schema: Yup.object().shape({
-                'content': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC \n]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
-                'email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
-                'first_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
-                'last_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
-            }),
-            fnameInput: {
-                name: 'first_name',
-                id: 'first_name',
-                placeHolder: [
-                    '*نام',
-                ],
-                type: 'text',
-                required: true,
-            },
-            lnameInput: {
-                name: 'last_name',
-                id: 'last_name',
-                placeHolder: [
-                    '*نام خانوادگی',
-                ],
-                type: 'text',
-                required: true,
-            },
-            emailInput: {
-                name: 'email',
-                id: 'email',
-                placeHolder: [
-                    '*پست الکترونیکی'
-                ],
-                ltr: true,
-                type: 'Email',
-                required: true,
-            },
-
-            suggestInput: {
-                name: 'content',
-                id: 'content',
-                placeHolder: [
-                    '*نطر دادن'
-                ],
-                ltr: false,
-                required: true,
-            },
-        }
+    label: {
+        type: String,
+        default: ""
     },
+    replyTo: {
+        default: null
+    },
+    articleId: {
+        type: Number,
+    },
+})
+const emit =  defineEmits(["submitComment"])
+const schema = ref(Yup.object().shape({
+    'content': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC \n]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+    'email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
+    'first_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+    'last_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+}))
+const fnameInput = reactive({
+    name: 'first_name',
+    id: 'first_name',
+    placeHolder: [
+        '*نام',
+    ],
+    type: 'text',
+    required: true,
+})
+const lnameInput = reactive({
+    name: 'last_name',
+    id: 'last_name',
+    placeHolder: [
+        '*نام خانوادگی',
+    ],
+    type: 'text',
+    required: true,
+})
+const emailInput = reactive({
+    name: 'email',
+    id: 'email',
+    placeHolder: [
+        '*پست الکترونیکی'
+    ],
+    ltr: true,
+    type: 'Email',
+    required: true,
+})
 
-    components: { DefaultForm, DefaultTextInput, DefaultTextAreaInput },
-    methods: {
-        submitForm(e) {
-            e['reply_to']=JSON.parse(this.replyTo)
-            e['article_id']=+this.articleId
-            this.$emit('submitComment', e)
-        }
-    }
+const suggestInput = reactive({
+    name: 'content',
+    id: 'content',
+    placeHolder: [
+        '*نطر دادن'
+    ],
+    ltr: false,
+    required: true,
+})
+
+const submitForm = (e) => {
+    e['reply_to'] = JSON.parse(this.replyTo)
+    e['article_id'] = +this.articleId
+    emit('submitComment', e)
 }
 </script>
 <style lang="scss">

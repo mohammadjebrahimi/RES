@@ -1,31 +1,22 @@
 <template>
   <img @click="showSearchModal" class="search__icon" src="@/assets/images/search-normal.png" alt="search" />
- <DefaultModal :outLineBtn="false" :showOk="false" :showClose="true" v-model:show="showModal">
+  <DefaultModal :outLineBtn="false" :showOk="false" :showClose="true" v-model:show="showModal">
     <DefaultSearchbar />
   </DefaultModal>
 </template>
-<script>
+<script setup>
 
 import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSearchbar from '../searchbar/default-searchbar.vue';
-export default {
-  name: "search",
-  components: {
-    DefaultSearchbar,
-    DefaultModal
-  },
-  props: {
-  },
-  data(){return{
-    showModal:false
-  }},
-  methods: {
-    showSearchModal(){
-      this.showModal=true
-    }
-  }
+import { ref } from 'vue';
 
+
+const showModal = ref(false)
+const showSearchModal = () => {
+  showModal.value = true
 }
+
+
 </script>
 <style lang="scss">
 .search {

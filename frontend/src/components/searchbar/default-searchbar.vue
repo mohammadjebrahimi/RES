@@ -8,53 +8,37 @@
       <DefaultTextInput @update:value="search($event)" :="searchInput" />
     </div>
     <hr class="searchbar__seperator" />
-    <DefaultTabbar class="searchbar__tabbar" :tabs="tabs" :selestedTabIndex="selestedTabIndex" />
+    <DefaultTabbar class="searchbar__tabbar" :tabs="tabs" :selectedTabIndex="selectedTabIndex" />
   </div>
 </template>
-<script>
+<script setup>
 
-import defaultSearchResultCards from '@/components/search-result-cards/default-search-result-cards.vue';
-import { shallowRef } from 'vue';
-import DefaultTabbar from '../tabbar/default-tabbar.vue';
+import defaultSearchResultCards from '@/components/search-result-cards/default-search-result-cards.vue'
+import { onMounted, reactive, ref, shallowRef } from 'vue'
+import DefaultTabbar from '@/components/tabbar/default-tabbar.vue'
 import DefaultTextInput from '@/components/inputs/default-text-input.vue'
 
+const selectedTabIndex = ref(0)
+const tabs = ref([])
+const searchInput = reactive({
+  name: 'search',
+  id: 'search',
+  placeHolder: [
+    'کاوش کنید Advan* +dog -cat ',
+  ],
+  type: 'text',
+})
 
-export default {
-  name: "searchbar",
-  components: {
-    DefaultTabbar,
-    DefaultTextInput
-  },
-  props: {
-  },
-  data() {
-    return {
-      defaultSearchResultCards,
-      selestedTabIndex: 0,
-      tabs: [],
-
-      searchInput: {
-        name: 'search',
-        id: 'search',
-        placeHolder: [
-          'کاوش کنید Advan* +dog -cat ',
-        ],
-        type: 'text',
-      },
-
-    }
-  },
-  methods: {
-    async search(e) {
-      let token = localStorage.getItem("accessToken")
-      let resp = await fetch('http://localhost:4000', {
-        method: 'POST', // or 'PUT'
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-        body: JSON.stringify({
-          query: `query($search:String!){
+const search = async (e) => {
+  let token = localStorage.getItem("accessToken")
+  let resp = await fetch('http://localhost:4000', {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    },
+    body: JSON.stringify({
+      query: `query($search:String!){
   searchArticle(title: $search) {
     title
     read_time_minutes
@@ -74,91 +58,90 @@ export default {
     }
   }
 }`,
-          variables: {
-            search: e
-          }
-        }),
+      variables: {
+        search: e
+      }
+    }),
+  })
+  let respData = await resp.json()
+  const articleTab = {
+    header: {
+      count: respData.data.searchArticle.length,
+      icon: '/src/assets/images/article.png',
+      name: 'Article'
+    },
+    body: {
+      component: shallowRef(defaultSearchResultCards),
+      props: respData.data.searchArticle.map((article) => {
+        return {
+          icon: article['image_url'],
+          title: article['title'],
+          description: `${article['read_time_minutes']} دقیقه مطالعه`,
+        }
       })
-      let respData = await resp.json()
-      const articleTab = {
-        header: {
-          count: respData.data.searchArticle.length,
-          icon: '/src/assets/images/article.png',
-          name: 'Article'
-        },
-        body: {
-          component: shallowRef(defaultSearchResultCards),
-          props: respData.data.searchArticle.map((article) => {
-            return {
-              icon: article['image_url'],
-              title: article['title'],
-              description: `${article['read_time_minutes']} دقیقه مطالعه`,
-            }
-          })
-        }
-      }
-      const tagTab = {
-        header: {
-          count: respData.data.searchTag.length,
+    }
+  }
+  const tagTab = {
+    header: {
+      count: respData.data.searchTag.length,
+      icon: "/src/assets/images/tag.png",
+      name: 'Tag'
+    },
+    body: {
+      component: shallowRef(defaultSearchResultCards),
+      props: respData.data.searchTag.map((tag) => {
+        return {
           icon: "/src/assets/images/tag.png",
-          name: 'Tag'
-        },
-        body: {
-          component: shallowRef(defaultSearchResultCards),
-          props: respData.data.searchTag.map((tag) => {
-            return {
-              icon: "/src/assets/images/tag.png",
-              title: tag['name'],
-              description:`تعداد مقالات: ${tag['articles'].length}`,
-            }
-          })
+          title: tag['name'],
+          description: `تعداد مقالات: ${tag['articles'].length}`,
         }
-      }
-
-      const userTab = {
-        header: {
-          count: respData.data.searchUser.length,
-          icon: "/src/assets/images/peopel.png",
-          name: 'Peopel'
-        },
-        body: {
-          component: shallowRef(defaultSearchResultCards),
-          props: respData.data.searchUser.map((user) => {
-            return {
-              icon:  user['image_url'],
-              title: user['username'],
-              description: `تعداد مقالات: ${user['articles'].length} `,
-            }
-          })
-        }
-      }
-
-      const allTab = {
-        header: {
-          count: [...userTab.body.props,
-          ...tagTab.body.props,
-          ...articleTab.body.props,].length,
-          icon: "/src/assets/images/all.png",
-          name: 'All'
-        },
-        body: {
-          component: shallowRef(defaultSearchResultCards),
-          props: [...userTab.body.props,
-          ...tagTab.body.props,
-          ...articleTab.body.props,]
-        }
-      }
-
-      this.tabs=[allTab,userTab,tagTab,articleTab]
-
+      })
     }
-  },
-  async mounted() {
-    await this.search('')
-  
+  }
+
+  const userTab = {
+    header: {
+      count: respData.data.searchUser.length,
+      icon: "/src/assets/images/peopel.png",
+      name: 'Peopel'
+    },
+    body: {
+      component: shallowRef(defaultSearchResultCards),
+      props: respData.data.searchUser.map((user) => {
+        return {
+          icon: user['image_url'],
+          title: user['username'],
+          description: `تعداد مقالات: ${user['articles'].length} `,
+        }
+      })
     }
+  }
+
+  const allTab = {
+    header: {
+      count: [...userTab.body.props,
+      ...tagTab.body.props,
+      ...articleTab.body.props,].length,
+      icon: "/src/assets/images/all.png",
+      name: 'All'
+    },
+    body: {
+      component: shallowRef(defaultSearchResultCards),
+      props: [...userTab.body.props,
+      ...tagTab.body.props,
+      ...articleTab.body.props,]
+    }
+  }
+
+  tabs.value = [allTab, userTab, tagTab, articleTab]
 
 }
+onMounted(async () => {
+  await search('')
+})
+
+
+
 </script>
 <style lang="scss">
 .searchbar {

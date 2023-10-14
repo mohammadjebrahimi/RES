@@ -17,29 +17,22 @@
     </template>
   </VDropdown>
 </template>
-<script>
+<script setup>
 import {
-  Dropdown,
+  Dropdown as VDropdown,
 } from 'floating-vue'
 import { RouterLink } from 'vue-router';
 import { useHeliumStore } from '@/store'
-export default {
-  name: "profile",
-  components: {
-    Dropdown,
-    RouterLink
-  },
-  props: {
-    currentUser: Object
-  },
-  methods: {
-    logout() {
-      const store = useHeliumStore()
-      localStorage.removeItem("accessToken");
-      store.setCurrentUser({})
-    }
-  }
 
+
+defineProps({
+  currentUser: Object
+})
+
+const logout = () => {
+  const store = useHeliumStore()
+  localStorage.removeItem("accessToken");
+  store.setCurrentUser({})
 }
 </script>
 <style lang="scss">
@@ -47,6 +40,7 @@ export default {
   height: 42px;
   width: 42px;
   cursor: pointer;
+
   &__options {
     @include flex-direction(column);
     list-style-type: none;
@@ -71,4 +65,5 @@ export default {
       border-bottom: 0
     }
   }
-}</style>
+}
+</style>

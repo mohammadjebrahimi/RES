@@ -1,20 +1,16 @@
 <template >
     <div class="modal" v-if="show">
-    <slot></slot>
+        <slot></slot>
     </div>
 </template>
-<script>
+<script setup>
 
-export default {
-    name: "default-modal",
-    props: {
-        show: {
-            type: Boolean,
-            default: false
-        },
+defineProps({
+    show: {
+        type: Boolean,
+        default: false
     },
-
-}
+})
 </script>
 <style lang="scss">
 .modal {

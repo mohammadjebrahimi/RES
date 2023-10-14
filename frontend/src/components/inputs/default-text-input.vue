@@ -11,48 +11,40 @@
         </div>
         <ErrorMessage class="input-box__error" :name="name" />
     </div>
-
 </template>
-<script>
-import { Field, ErrorMessage } from 'vee-validate';
-import { useField } from "vee-validate";
-export default {
-    data() {
-        return {
-            errorMessage: useField(this.name, undefined, {
-                initialValue: this.value,
-            }).errorMessage,
-        }
-    },
-    props: {
-        name: String,
-        id: {
-            type: String,
-            required: true
-        },
-        required: {
-            type: Boolean,
-            default: false
-        },
-        label: String,
-        placeHolder: Array,
-        ltr: {
-            type: Boolean,
-            default: false
-        },
+<script setup>
+
+import { Field, ErrorMessage, useField } from 'vee-validate';
+import { toRefs } from 'vue';
+const emit = defineEmits(['update:value'])
+
+const props = defineProps({
+    name: String,
+    id: {
         type: String,
-        value: String,
+        required: true
     },
-    components: { Field, ErrorMessage },
-    methods: {
-
-        input(e) {
-            this.$emit('update:value', e.target.value)
-        },
-
+    required: {
+        type: Boolean,
+        default: false
     },
+    label: String,
+    placeHolder: Array,
+    ltr: {
+        type: Boolean,
+        default: false
+    },
+    type: String,
+    value: String,
+})
+const { name,value } = toRefs(props)
+const errorMessage = useField(name, undefined, {
+    initialValue: value,
+}).errorMessage
 
 
+const input = (e) => {
+    emit('update:value', e.target.value)
 }
 </script>
 <style lang="scss">

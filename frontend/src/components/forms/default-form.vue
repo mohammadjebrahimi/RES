@@ -13,29 +13,27 @@
         </button>
     </Form>
 </template>
-<script>
+<script setup>
 import { Form } from 'vee-validate';
-export default {
-    props: {
-        schema: Object,
-        action: String,
-        title: String,
-        description: String,
-        submitText: String,
-        alignToEnd: {
-            type: Boolean,
-            default: false
-        }
-    },
-    components: { Form },
-    methods: {
-        submit(e) {
-            this.$emit('submitForm', e)
-        },
+const emit = defineEmits(['submitForm'])
 
-
+defineProps({
+    schema: Object,
+    action: String,
+    title: String,
+    description: String,
+    submitText: String,
+    alignToEnd: {
+        type: Boolean,
+        default: false
     }
+})
+
+
+const submit = (e) => {
+    emit('submitForm', e)
 }
+
 </script>
 <style lang="scss">
 .form {

@@ -9,17 +9,14 @@
         </div>
     </div>
 </template>
-<script>
+<script setup>
 
-export default {
-    name: "default-card",
-    props: {
-        'image': String,
-        'title': String,
-        'description': String,
-    },
+defineProps({
+    'image': String,
+    'title': String,
+    'description': String,
+})
 
-}
 </script>
 <style scoped lang="scss">
 .simpel-card {

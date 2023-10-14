@@ -21,25 +21,22 @@
 
   </article>
 </template>
-<script>
+<script setup>
 import SimpelCard from '../cards/simpel-card.vue';
 import tiptapEditor from '@/components/tiptap-editor/index.vue'
 
-export default {
-  name: "default-article",
-  props: {
-    "title": String,
-    "read_time_minutes": String,
-    "tags": Array,
-    "image_url": String,
-    "content": String,
-    date: String,
-    authFigure: String,
-    authorName: String,
-    studyDuration: String
-  },
-  components: { SimpelCard, tiptapEditor }
-}
+defineProps({
+  "title": String,
+  "read_time_minutes": String,
+  "tags": Array,
+  "image_url": String,
+  "content": String,
+  date: String,
+  authFigure: String,
+  authorName: String,
+  studyDuration: String
+})
+
 </script>
 <style lang="scss">
 .article {

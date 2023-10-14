@@ -5,11 +5,10 @@
         </singleCard>
     </div>
 </template>
-<script>
+<script setup>
 import singleCard from '../cards/single-card.vue'
-export default {
-    name: "default-modal",
-    props: {
+
+   defineProps ({
         show: {
             type: Boolean,
             default: false
@@ -30,19 +29,18 @@ export default {
             type: Boolean,
             default: false
         }
-    },
-    methods: {
-        ok() {
-            this.$emit("ok", "");
-            this.$emit("update:show", false);
-        },
-        close() {
-            this.$emit("close", "");
-            this.$emit("update:show", false);
+    })
+
+    const emit =defineEmits(["ok", "update:show","close","update:show"])
+
+       const ok=()=> {
+            emit("ok", "");
+            emit("update:show", false);
         }
-    },
-    components: { singleCard }
-}
+        const close=()=> {
+            emit("close", "");
+            emit("update:show", false);
+        }
 </script>
 <style lang="scss">
 .modal {

@@ -16,14 +16,8 @@
         </div>
     </footer>
 </template>
-<script>
+<script setup>
 import DefaultBrand from "../brands/default-brand.vue";
-export default {
-    name: "default-footer",
-    components: {
-        DefaultBrand,
-    }
-}
 </script>
 <style lang="scss" >
 .footer {

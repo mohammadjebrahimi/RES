@@ -1,8 +1,6 @@
 <template>
     <section class="carousel">
         <div class="carousel__images">
-
-
             <template v-for="(data, index) in carouselDatas" :key="`carousel__figure-{index}`">
                 <transition name="slide-fade">
                     <figure v-if="index + 1 == active" :id="`carousel__figure-{index}`" class="carousel__figure">
@@ -11,10 +9,6 @@
                     </figure>
                 </transition>
             </template>
-
-
-
-
         </div>
         <div class="carousel__content">
             <button ref="left" @click="move(-1)" class="carousel__arrow-left"></button>
@@ -31,33 +25,23 @@
         </div>
     </section>
 </template>
-<script>
+<script setup>
+import { ref, toRefs } from 'vue';
 import DefaultCard from '../cards/default-card.vue'
-export default {
-    name: "default-carousel",
-    components: {
-        DefaultCard
-    },
-    props: ['carouselDatas'],
-    components: { DefaultCard },
-    data() {
-        return {
-            active: 1,
-        }
-    },
-    methods: {
-        move(amount) {
-            let newActive
-            const newIndex = this.active + amount
-            if (newIndex > this.carouselDatas.length) newActive = 1
-            if (newIndex === 0) newActive = this.carouselDatas.length
-            this.active = newActive || newIndex
-        },
-        jump(index) {
-            this.active = index
-        },
-    }
 
+const props = defineProps(['carouselDatas'])
+const {carouselDatas} = toRefs(props)
+const active = ref(1)
+
+const move = (amount) => {
+    let newActive
+    const newIndex = active.value + amount
+    if (newIndex > carouselDatas.value.length) newActive = 1
+    if (newIndex === 0) newActive = carouselDatas.value.length
+    active.value = newActive || newIndex
+}
+const jump = (index) => {
+    active.value = index
 }
 </script>
 <style lang="scss">

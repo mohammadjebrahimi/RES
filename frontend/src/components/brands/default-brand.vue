@@ -7,12 +7,8 @@
         <span class="brand__name">هلیوم+</span>
     </router-link>
 </template>
-<script>
+<script setup>
 import { RouterLink } from 'vue-router'
-export default {
-    name: "default-brand",
-    components: { RouterLink }
-}
 </script>
 <style lang="scss" scoped>
 .brand {

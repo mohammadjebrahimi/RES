@@ -12,14 +12,11 @@
 
     </section>
 </template>
-<script>
-export default {
-    name: "default-comment-container",
-    props: {
-        'comments': Object,
-        'label': String
-    },
-}
+<script setup>
+defineProps({
+    'comments': Object,
+    'label': String
+})
 </script>
 <style lang="scss">
 .comment-container {

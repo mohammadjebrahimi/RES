@@ -1,31 +1,26 @@
 <template>
     <section class="horizontal-card-container">
-        <span v-if="label" class="horizontal-card-container__title">{{label}}</span>
+        <span v-if="label" class="horizontal-card-container__title">{{ label }}</span>
         <hr v-if="label" class="horizontal-card-container__seperator">
         <div class="horizontal-card-container__cards">
             <template v-for="(data, index) in cards" :key="`card-{index}`">
                 <default-card class="horizontal-card-container__card" v-bind="data" />
             </template>
         </div>
-        <button @click="btnClick()" v-if="buttonText" class="horizontal-card-container__see-more">{{buttonText}}</button>
+        <button @click="btnClick()" v-if="buttonText" class="horizontal-card-container__see-more">{{ buttonText }}</button>
     </section>
 </template>
-<script>
+<script setup>
 import defaultCard from '@/components/cards/default-card.vue'
-export default {
-    name: "horizontal-card-container",
-    components: { defaultCard },
-    props: {
-        'cards': Array,
-        'label':String,
-        'buttonText':String,
-    },
-    methods:{
-        btnClick(){
-            this.$emit('btnClick')
-        }
-    }
+defineProps({
+    'cards': Array,
+    'label': String,
+    'buttonText': String,
+})
+const emit = defineEmits(['btnClick'])
 
+const btnClick = () => {
+    emit('btnClick')
 }
 </script>
 <style lang="scss">

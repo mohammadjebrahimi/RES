@@ -9,17 +9,9 @@
 
   </div>
 </template>
-<script>
+<script setup>
 import SimpelCard from '../cards/simpel-card.vue';
-
-
-export default {
-    name: "defaultTabBody",
-    props: {
-        props: Array,
-    },
-    components: { SimpelCard }
-}
+defineProps({props: Array})
 </script>
 <style scoped lang="scss">
 .search-result-card {

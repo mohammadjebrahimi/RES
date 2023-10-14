@@ -19,31 +19,21 @@
         </div>
     </header>
 </template>
-<script>
+<script setup>
 import DefaultBrand from "@/components/brands/default-brand.vue";
 import member from '@/components/member/default-member.vue'
 import search from '@/components/search/default-search.vue'
 import { useHeliumStore } from '@/store'
 import DefaultNotification from "../notification/default-notification.vue";
-export default {
-    name: "default-header",
-    components: {
-        DefaultBrand,
-        member,
-        search,
-        DefaultNotification
-    },
-    data() {
-        return {
-            store: useHeliumStore()
-        }
-    },
-    methods: {
-        redirect() {
-            this.$router.push({ name: 'register1' })
-        },
-    }
+import { useRouter } from "vue-router";
+
+const store = useHeliumStore()
+const router = useRouter()
+
+const redirect = () => {
+    router.push({ name: 'register1' })
 }
+
 </script>
 <style lang="scss" >
 .header {

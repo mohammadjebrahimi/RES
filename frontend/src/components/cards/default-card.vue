@@ -1,6 +1,6 @@
 <template>
-    <RouterLink :to="link"  target="_blank" class="card">
-        <SimpelCard :title="authorName" :description="date" :image="authFigure"/>
+    <RouterLink :to="link" target="_blank" class="card">
+        <SimpelCard :title="authorName" :description="date" :image="authFigure" />
         <figure class="card__inner-image" v-if="image">
             <img :src="image" alt="inner-image">
         </figure>
@@ -13,27 +13,22 @@
         </div>
     </RouterLink>
 </template>
-<script>
+<script setup>
 import { RouterLink } from 'vue-router'
 import SimpelCard from './simpel-card.vue';
-export default {
-    name: "default-card",
-    props: {
-        'authFigure': String,
-        'authorName': String,
-        'date': String,
-        'title': String,
-        'summery': String,
-        'studyDuration': String,
-        'tags': Array,
-        'image': String,
-        'link': {
-            default: "/#"
-        }
-    },
-    components: { RouterLink, SimpelCard },
-
-}
+defineProps({
+    'authFigure': String,
+    'authorName': String,
+    'date': String,
+    'title': String,
+    'summery': String,
+    'studyDuration': String,
+    'tags': Array,
+    'image': String,
+    'link': {
+        default: "/#"
+    }
+})
 </script>
 <style lang="scss">
 .card {

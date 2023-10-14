@@ -2,7 +2,7 @@
   <div class="tab-header">
     <div class="tab-header__tablinks">
       <button v-for="(tab, index) in tabs" class="tab-header__tablink"
-        :class="{ 'tab-header__tablink--selected': index == selestedTabIndex }" @click="emitSlectedTab(index)">
+        :class="{ 'tab-header__tablink--selected': index == selectedTabIndex }" @click="emitSelectedTab(index)">
         <figure v-if="tab.header.icon" class="tab-header__tablink-icon"><img :src="tab.header.icon"
             :alt="tab.header.name"></figure>
         {{ tab.header.name }}
@@ -12,22 +12,15 @@
     <hr class="tab-header__seperator" />
   </div>
 </template>
-<script>
+<script setup>
 
-export default {
-  name: "defaultTabHeader",
-  props: {
-    tabs: Array,
-    selestedTabIndex: Number
-  },
-  methods: {
-    emitSlectedTab(e) {
-      this.$emit('update:selestedTabIndex', e)
-
-    }
-  }
-
-
+defineProps({
+  tabs: Array,
+  selectedTabIndex: Number
+})
+const emit = defineEmits(['update:selectedTabIndex'])
+const emitSelectedTab = (e) => {
+  emit('update:selectedTabIndex', e)
 }
 </script>
 <style scoped lang="scss">
