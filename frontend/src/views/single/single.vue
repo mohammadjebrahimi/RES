@@ -1,18 +1,18 @@
 <template>
     <main class="single">
-        <default-header class="single__header"/>
+        <default-header class="single__header" />
         <default-article :="articleDetail" />
         <horizontal-card-container class="single__horizontal-card-containe" label="از همین نویسنده" :cards="cards">
         </horizontal-card-container>
         <DefaultCommentContainer class="single__comments" label="نظرات" :comments="comments" />
-        <DefaultCommentForm @submitComment="submitComment($event)" label="نظر دادن" :articleId=+$route.params.id />
+        <DefaultCommentForm @submitComment="submitComment($event)" label="نظر دادن" :articleId=+route.params.id />
         <EmptyModal v-model:show="showLoader">
             <Circle size="80px" />
         </EmptyModal>
     </main>
     <default-footer />
 </template>
-<script>
+<script setup>
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultArticle from '@/components/articles/default-article.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
@@ -23,39 +23,28 @@ import EmptyModal from '../../components/modals/empty-modal.vue'
 import Circle from '../../components/loading/circle.vue'
 import { useToast } from "vue-toastification";
 import getPersianDate from "@/mixins/date.js"
-export default {
-    name: "single-page",
-    components: {
-        defaultArticle,
-        defaultHeader,
-        defaultFooter,
-        HorizontalCardContainer,
-        DefaultCommentContainer,
-        DefaultCommentForm,
-        EmptyModal,
-        Circle
-    },
-    data() {
-        return {
-            toast: useToast(),
-            showLoader: false,
-            articleDetail: {},
-            cards: [],
-            comments: []
+import { onBeforeMount, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-        }
-    },
-    methods: {
-        async handelArticleAPI(token, id) {
-            this.showLoader = true
-            let resp = await fetch(`http://localhost:4000`, {
-                method: 'POSt', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: JSON.stringify({
-                    query: `query($id:Int){
+const route =useRoute()
+const toast = useToast()
+const showLoader = ref(false)
+const articleDetail = ref({})
+const cards = ref([])
+const comments = ref([])
+
+
+
+const handelArticleAPI = async (token, id) => {
+    showLoader.value = true
+    let resp = await fetch(`http://localhost:4000`, {
+        method: 'POSt', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({
+            query: `query($id:Int){
   articles(id:$id){
     created_at,id,image_url,author{
         username
@@ -71,38 +60,38 @@ export default {
     } 
   }
 }`,
-                    variables: {
-                        id: +id
-                    }
-                }),
-            })
-            let respData = await resp.json()
-            if (resp.status < 300) {
-                this.showLoader = false
-                if (respData.errors) {
-                    this.toast.error(respData.errors[0].message)
-                }
-                else if (respData.data.articles.length > 0) {
-                    // this.toast.success('مقالات لود شدند')
-                } else {
-                    this.toast.error('موردی برای نمایش نیست')
-                }
-                return respData.data.articles[0]
-            } else {
-                this.toast.error('خطای پیش بینی نشده')
+            variables: {
+                id: +id
             }
+        }),
+    })
+    let respData = await resp.json()
+    if (resp.status < 300) {
+        showLoader.value = false
+        if (respData.errors) {
+            toast.error(respData.errors[0].message)
+        }
+        else if (respData.data.articles.length > 0) {
+            // toast.success('مقالات لود شدند')
+        } else {
+            toast.error('موردی برای نمایش نیست')
+        }
+        return respData.data.articles[0]
+    } else {
+        toast.error('خطای پیش بینی نشده')
+    }
+
+}
+const handelOtherArticleOfThisAuthorAPI = async (authorId) => {
+    showLoader.value = true
+    let resp = await fetch(`http://localhost:4000`, {
+        method: 'POSt', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
 
         },
-        async handelOtherArticleOfThisAuthorAPI(authorId) {
-            this.showLoader = true
-            let resp = await fetch(`http://localhost:4000`, {
-                method: 'POSt', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-
-                },
-                body: JSON.stringify({
-                    query: `query($authorId:Int){
+        body: JSON.stringify({
+            query: `query($authorId:Int){
   articles(authorId:$authorId){
     created_at,id,image_url,author{
         username
@@ -118,114 +107,114 @@ export default {
     } 
   }
 }`,
-                    variables: {
-                        authorId: +authorId
-                    }
-                }),
-            })
-            let respData = await resp.json()
-            if (resp.status < 300) {
-                this.showLoader = false
-                if (respData.errors) {
-                    this.toast.error(respData.errors[0].message)
-                }
-                return respData.data.articles
-            } else {
-                this.toast.error('خطای پیش بینی نشده')
+            variables: {
+                authorId: +authorId
             }
+        }),
+    })
+    let respData = await resp.json()
+    if (resp.status < 300) {
+        showLoader.value = false
+        if (respData.errors) {
+            toast.error(respData.errors[0].message)
+        }
+        return respData.data.articles
+    } else {
+        toast.error('خطای پیش بینی نشده')
+    }
 
+}
+const handelAddCommentsAPI = async (token, body) => {
+
+    showLoader.value = true
+    let resp = await fetch(`http://localhost:4000`, {
+        method: 'POSt', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
         },
-        async handelAddCommentsAPI(token, body) {
-    
-            this.showLoader = true
-            let resp = await fetch(`http://localhost:4000`, {
-                method: 'POSt', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: JSON.stringify({
-                    query: `mutation($article_id: Int!,$content:String,$last_name:String,$first_name:String,$email:String!){
+        body: JSON.stringify({
+            query: `mutation($article_id: Int!,$content:String,$last_name:String,$first_name:String,$email:String!){
                    
                    createComment(article_id:$article_id,first_name:$first_name,last_name:$last_name,content:$content,email:$email){
                      __typename
                    }
                  
                  }`,
-                    variables: {
-                        content: body.content,
-                        last_name: body.last_name,
-                        first_name: body.first_name,
-                        email: body.email,
-                        article_id: body.article_id
-                    }
-                }),
-            })
-            let comments = await resp.json()
-            this.showLoader = false
-            if (resp.status < 300) {
-                this.toast.success('نظر شما ارسال شد')
-                return comments
-            } else {
-                if (Array.isArray(comments.message)) {
-                    comments.message.forEach(message => this.toast.error(message))
-                } else {
-                    this.toast.error(comments.message)
-                }
-                return false
+            variables: {
+                content: body.content,
+                last_name: body.last_name,
+                first_name: body.first_name,
+                email: body.email,
+                article_id: body.article_id
             }
-
-
-        },
-        async submitComment(e) {
-
-            let comment = await this.handelAddCommentsAPI(localStorage.getItem("accessToken"), e)
-            if (comment) {
-                await this.pageLoader()
-            }
-        },
-        async pageLoader() {
-            let article = await this.handelArticleAPI(localStorage.getItem("accessToken"), this.$route.params.id)
-            let articleData = article
-            this.articleDetail = {
-                'title': articleData.title,
-                'studyDuration': `${articleData.read_time_minutes} دقیقه مطالعه`,
-                'tags': articleData.tags,
-                'image_url': articleData.image_url.replace('192.168.53.150', '87.107.30.143'),
-                'content': articleData.content,
-                date: getPersianDate(articleData.created_at),
-                authFigure: articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
-                authorName: `${articleData.author.username}`,
-            }
-            const articleOfThisAuthor = await this.handelOtherArticleOfThisAuthorAPI(articleData.author.id)
-            this.cards = articleOfThisAuthor.map((current) => {
-                return {
-                    "authFigure": articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
-                    "authorName": `${articleData.author.username} ${articleData.author_last_name}`,
-                    "date": getPersianDate(current.created_at),
-                    "title": current.title,
-                    "summery": current.summery,
-                    "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
-                    "tags": current.tags,
-                    "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
-                    "link": { name: 'single', params: { id: current.id } }
-                }
-            })
-            this.comments = articleData.comments.map((current) => {
-                return {
-                    authorName: `${current.first_name} ${current.last_name}`,
-                    date: getPersianDate(current.created_at),
-                    comment: current.content
-                }
-            })
-
+        }),
+    })
+    let comments = await resp.json()
+    showLoader.value = false
+    if (resp.status < 300) {
+        toast.success('نظر شما ارسال شد')
+        return comments
+    } else {
+        if (Array.isArray(comments.message)) {
+            comments.message.forEach(message => toast.error(message))
+        } else {
+            toast.error(comments.message)
         }
+        return false
+    }
 
-    },
-    async created() {
-        await this.pageLoader()
-    },
+
 }
+const submitComment = async (e) => {
+
+    let comment = await handelAddCommentsAPI(localStorage.getItem("accessToken"), e)
+    if (comment) {
+        await pageLoader()
+    }
+}
+const pageLoader = async () => {
+    let article = await handelArticleAPI(localStorage.getItem("accessToken"), route.params.id)
+    let articleData = article
+    articleDetail.value = {
+        'title': articleData.title,
+        'studyDuration': `${articleData.read_time_minutes} دقیقه مطالعه`,
+        'tags': articleData.tags,
+        'image_url': articleData.image_url.replace('192.168.53.150', '87.107.30.143'),
+        'content': articleData.content,
+        date: getPersianDate(articleData.created_at),
+        authFigure: articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
+        authorName: `${articleData.author.username}`,
+    }
+    const articleOfThisAuthor = await handelOtherArticleOfThisAuthorAPI(articleData.author.id)
+    cards.value = articleOfThisAuthor.map((current) => {
+        return {
+            "authFigure": articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
+            "authorName": `${articleData.author.username} ${articleData.author_last_name}`,
+            "date": getPersianDate(current.created_at),
+            "title": current.title,
+            "summery": current.summery,
+            "studyDuration": `${current.read_time_minutes} دقیقه مطالعه`,
+            "tags": current.tags,
+            "image": current.image_url.replace('192.168.53.150', '87.107.30.143'),
+            "link": { name: 'single', params: { id: current.id } }
+        }
+    })
+    comments.value = articleData.comments.map((current) => {
+        return {
+            authorName: `${current.first_name} ${current.last_name}`,
+            date: getPersianDate(current.created_at),
+            comment: current.content
+        }
+    })
+
+}
+
+onBeforeMount(async () => {
+    await pageLoader()
+})
+
+
 </script>
 <style lang="scss" scoped>
 .single {

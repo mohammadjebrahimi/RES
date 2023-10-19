@@ -20,14 +20,14 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    props: {
-        specifications: Array,
-        name: String,
-        image: String,
-    }
-}
+<script setup>
+
+defineProps({
+    specifications: Array,
+    name: String,
+    image: String,
+})
+
 </script>
 <style lang="scss">
 .visit-card {

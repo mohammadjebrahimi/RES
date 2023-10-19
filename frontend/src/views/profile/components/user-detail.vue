@@ -14,22 +14,20 @@
         <button @click="btnClick()" class="user-detail__button">{{ buttonText }}</button>
     </section>
 </template>
-<script>
+<script setup>
 
+defineProps({
+    name: String,
+    Image: String,
+    socialId: String,
+    buttonText: String
+})
+const emit = defineEmits(['btnClick'])
 
-export default {
-    props: {
-        name: String,
-        Image: String,
-        socialId: String,
-        buttonText: String
-    },
-    methods: {
-        btnClick() {
-            this.$emit('btnClick')
-        }
-    }
+const btnClick = () => {
+    emit('btnClick')
 }
+
 </script>
 <style lang="scss">
 .user-detail {

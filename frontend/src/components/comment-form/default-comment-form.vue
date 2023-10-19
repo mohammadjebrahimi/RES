@@ -34,7 +34,7 @@ import DefaultTextAreaInput from '../inputs/default-text-area-input.vue';
 import * as Yup from "yup";
 import { reactive, ref } from 'vue';
 
-defineProps({
+const props =defineProps({
     action: {
         type: String,
         default: ""
@@ -97,8 +97,8 @@ const suggestInput = reactive({
 })
 
 const submitForm = (e) => {
-    e['reply_to'] = JSON.parse(this.replyTo)
-    e['article_id'] = +this.articleId
+    e['reply_to'] = JSON.parse(props.replyTo)
+    e['article_id'] = +props.articleId
     emit('submitComment', e)
 }
 </script>

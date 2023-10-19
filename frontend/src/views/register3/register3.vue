@@ -19,7 +19,7 @@
     </main>
     <default-footer />
 </template>
-<script>
+<script setup>
 import * as Yup from "yup";
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
@@ -31,85 +31,73 @@ import { useToast } from "vue-toastification";
 
 import Circle from "../../components/loading/circle.vue";
 import EmptyModal from "../../components/modals/empty-modal.vue";
+import { useRoute, useRouter } from "vue-router";
+import { ref } from "vue";
 
-export default {
-    name: "register3-page",
-    data() {
-        return {
-            showLoading: false,
-            toast: useToast(),
-            schema: Yup.object().shape({
-                userName: Yup.string().required('فیلد ضروری است'),
-                password: Yup.string().min(6, 'حداقل 6 کاراکتر').required('فیلد ضروری است'),
-                repeatedPass: Yup.string()
-                    .required('فیلد ضروری است')
-                    .oneOf([Yup.ref("password")], "تکرار رمز عبور مطابقت ندارد"),
-            }),
-            formData: {
-                title: 'شما هنوز در هلیوم ثبت نام نکرده اید.',
-                description: 'لطفا اطلاعات زیر را برای ثبت نام کامل کنید.',
-                submitText: 'ادامه'
-            },
-            userName: {
-                name: 'userName',
-                id: 'userName',
-                label: 'نام کاربری',
-                placeHolder: [
-                    'نام کاربری دلخواه خود را به انگلیسی وارد کنید.'
-                ],
-                ltr: true,
-                type: 'text',
-                required: true,
-            },
-            passwordInput: {
-                name: 'password',
-                id: 'password',
-                label: 'رمز عبور',
-                placeHolder: [
-                    'رمز عبور دلخواه را به انگلیسی وارد کنید',
-                ],
-                type: 'password',
-                required: true,
-                ltr: true,
+const route = useRoute()
+const router = useRouter()
+const showLoading = ref(false)
+const toast = useToast()
+const schema = Yup.object().shape({
+    userName: Yup.string().required('فیلد ضروری است'),
+    password: Yup.string().min(6, 'حداقل 6 کاراکتر').required('فیلد ضروری است'),
+    repeatedPass: Yup.string()
+        .required('فیلد ضروری است')
+        .oneOf([Yup.ref("password")], "تکرار رمز عبور مطابقت ندارد"),
+})
+const formData = ref({
+    title: 'شما هنوز در هلیوم ثبت نام نکرده اید.',
+    description: 'لطفا اطلاعات زیر را برای ثبت نام کامل کنید.',
+    submitText: 'ادامه'
+})
+const userName = ref({
+    name: 'userName',
+    id: 'userName',
+    label: 'نام کاربری',
+    placeHolder: [
+        'نام کاربری دلخواه خود را به انگلیسی وارد کنید.'
+    ],
+    ltr: true,
+    type: 'text',
+    required: true,
+})
+const passwordInput = ref({
+    name: 'password',
+    id: 'password',
+    label: 'رمز عبور',
+    placeHolder: [
+        'رمز عبور دلخواه را به انگلیسی وارد کنید',
+    ],
+    type: 'password',
+    required: true,
+    ltr: true,
 
-            },
-            repeatedPassInput: {
-                name: 'repeatedPass',
-                id: 'repeatedPass',
-                label: 'تکرار رمز عبور',
-                placeHolder: [
-                    'رمز عبور خود را مجدد وارد کنید',
-                ],
-                ltr: true,
-                type: 'password',
-                required: true,
-            },
-            fileInput: {
-                name: 'file',
-                id: 'userImage',
-                label: 'بارگزاری تصویر',
-                accept: "image/png, image/gif, image/jpeg",
-                image: '/src/assets/images/Default Avatar.png',
-            },
-        }
-
-    },
-    components: {
-        defaultHeader,
-        defaultFooter,
-        singleCard,
-        DefaultForm,
-        DefaultTextInput,
-        DefaultFileInput,
-        Circle,
-        EmptyModal
-    },
-    methods: {
-        async handelUserSignUpAPI(e) {
-            let data = new FormData()
+})
+const repeatedPassInput = ref({
+    name: 'repeatedPass',
+    id: 'repeatedPass',
+    label: 'تکرار رمز عبور',
+    placeHolder: [
+        'رمز عبور خود را مجدد وارد کنید',
+    ],
+    ltr: true,
+    type: 'password',
+    required: true,
+})
+const fileInput = ref({
+    name: 'file',
+    id: 'userImage',
+    label: 'بارگزاری تصویر',
+    accept: "image/png, image/gif, image/jpeg",
+    image: '/src/assets/images/Default Avatar.png',
+})
 
 
-            const query = `mutation(    
+const handelUserSignUpAPI = async (e) => {
+    let data = new FormData()
+
+
+    const query = `mutation(    
                   $username : String! 
                   $password : String! 
                   $image : Upload 
@@ -127,16 +115,16 @@ export default {
                   first_name : $first_name){  
                       __typename  }}`;
 
-            const username = e.userName
-            const password = e.password
-            const image = document.getElementsByName("file")[0].files[0]
-            const phone_number = this.$route.query['Phon-Number']
-            const email = this.$route.query.Email
-            const last_name = this.$route.query.lName
-            const first_name = this.$route.query.fName
+    const username = e.userName
+    const password = e.password
+    const image = document.getElementsByName("file")[0].files[0]
+    const phone_number = route.query['Phon-Number']
+    const email = route.query.Email
+    const last_name =route.query.lName
+    const first_name = route.query.fName
 
-            data.append("operations", JSON.stringify({ query }));
-            data.append('map', `{ "0": ["variables.username"],
+    data.append("operations", JSON.stringify({ query }));
+    data.append('map', `{ "0": ["variables.username"],
              "1": ["variables.password"],
              "2": ["variables.image"],
              "3": ["variables.phone_number"],
@@ -144,42 +132,40 @@ export default {
              "5": ["variables.last_name"],
              "6": ["variables.first_name"] }
             `)
-            data.append('0', username);
-            data.append('1', password);
-            data.append('2', image);
-            data.append('3', phone_number);
-            data.append('4', email);
-            data.append('5', last_name);
-            data.append('6', first_name);
+    data.append('0', username);
+    data.append('1', password);
+    data.append('2', image);
+    data.append('3', phone_number);
+    data.append('4', email);
+    data.append('5', last_name);
+    data.append('6', first_name);
 
 
-            this.showLoading = true
-            let resp = await fetch('http://localhost:4000', {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Accept': 'application/json',
-
-                },
-                body: data,
-            })
-
-
-            let respData = await resp.json()
-            this.showLoading = false
-            if (resp.status >= 400) {
-                if (Array.isArray(respData.message)) {
-                    respData.message.forEach(message => this.toast.error(message))
-                } else {
-                    this.toast.error(respData.message)
-                }
-            } else {
-                this.$router.push({ name: 'register-done' })
-            }
+    showLoading.value = true
+    let resp = await fetch('http://localhost:4000', {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Accept': 'application/json',
 
         },
+        body: data,
+    })
 
+
+    let respData = await resp.json()
+    showLoading.value = false
+    if (resp.status >= 400) {
+        if (Array.isArray(respData.message)) {
+            respData.message.forEach(message => toast.error(message))
+        } else {
+            toast.error(respData.message)
+        }
+    } else {
+        router.push({ name: 'register-done' })
     }
+
 }
+
 </script>
 <style lang="scss" scoped>
 .main {

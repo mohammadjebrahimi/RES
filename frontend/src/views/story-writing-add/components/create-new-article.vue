@@ -56,7 +56,7 @@
         </DefaultForm>
 
         <DefaultModal @ok="getTag()" v-model:show="showTagModal">
-            <DefaultForm class="modal__form" v-bind="foemData">
+            <DefaultForm class="modal__form" v-bind="formData">
                 <DefaultSelectInput @OptionBtnClicked="OptionBtnClicked($event)" v-model:value="selectedTags"
                     v-bind="selectInputData" ref="tag" />
             </DefaultForm>
@@ -67,7 +67,7 @@
         </EmptyModal>
     </div>
 </template>
-<script>
+<script setup>
 import tiptapEditor from '@/components/tiptap-editor/index.vue'
 import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSelectInput from '@/components/inputs/default-select-input.vue'
@@ -76,89 +76,76 @@ import { useToast } from "vue-toastification";
 import EmptyModal from '../../../components/modals/empty-modal.vue';
 import Circle from '../../../components/loading/circle.vue';
 import DefaultTextInput from '../../../components/inputs/default-text-input.vue';
-import DefaultTextAreaInput from '../../../components/inputs/default-text-area-input.vue';
+import DefaultTextAreaInput from '@/components/inputs/default-text-area-input.vue';
 import { readImageAsBase64 } from '@/components/tiptap-editor/upload/default-uploader'
 
 import * as Yup from "yup";
+import { onMounted, ref } from 'vue';
 
-export default {
-    name: "create-new-article",
-    components: {
-        DefaultModal,
-        DefaultSelectInput,
-        DefaultForm,
-        EmptyModal,
-        Circle,
-        tiptapEditor,
-        DefaultTextInput,
-        DefaultTextAreaInput
-    },
-    data() {
-        return {
-            schema: Yup.object().shape({
-                summery: Yup.string().required('فیلد ضروری است'),
-                title: Yup.string().required('فیلد ضروری است'),
-            }),
-            titleInput: {
-                name: 'title',
-                id: 'title',
-                placeHolder: [
-                    'عنوان مطلب خود را وارد کنید',
-                ],
-                type: 'text',
-                required: true,
-            },
-            summeryInput: {
-                name: 'summery',
-                id: 'summery',
-                placeHolder: [
-                    'خلاصه متن  را وارد  ...',
-                ],
-                ltr: false,
-                required: true,
-            },
-            toast: useToast(),
-            editorValue: '',
-            tags: [],
-            selectedTags: [],
-            tagsId: [],
-            articleImage: '/src/assets/images/Group 254.png',
-            showTagModal: false,
-            showLoading: false,
-            selectInputData: {
-                optionValue: 'name',
-                options: [],
-                name: 'tag',
-                id: 'tag',
-                label: 'لطفا دسته بندی موضوعی خود را وارد کنید',
-                placeHolder: 'انتخاب کنید',
-                ltr: false
-            },
-            foemData: {
-                action: '',
-                title: '',
-                description: '',
-                alignToEnd: true
-            }
-        }
-    },
-    methods: {
-        async setArticleImage(event) {
-            let image = event.target.value
-            if (image === '' || image === 'undefined') {
-                return
-            }
-            const img = await readImageAsBase64(event.target.files[0])
-            this.articleImage = img.src
-        },
-        getTag() {
-            this.tags = this.selectedTags
-            this.tagsId = this.tags.map(({ id, name }) => (id)).join(',')
 
-        },
-        async submit() {
-            this.showLoading = true
-            const query = `mutation(    
+const schema = Yup.object().shape({
+    summery: Yup.string().required('فیلد ضروری است'),
+    title: Yup.string().required('فیلد ضروری است'),
+})
+const titleInput = ref({
+    name: 'title',
+    id: 'title',
+    placeHolder: [
+        'عنوان مطلب خود را وارد کنید',
+    ],
+    type: 'text',
+    required: true,
+})
+const summeryInput = ref({
+    name: 'summery',
+    id: 'summery',
+    placeHolder: [
+        'خلاصه متن  را وارد  ...',
+    ],
+    ltr: false,
+    required: true,
+})
+const toast = useToast()
+const editorValue = ref('')
+const tags = ref([])
+const selectedTags = ref([])
+const tagsId = ref([])
+const articleImage = ref('/src/assets/images/Group 254.png')
+const showTagModal = ref(false)
+const showLoading = ref(false)
+const selectInputData = ref({
+    optionValue: 'name',
+    options: [],
+    name: 'tag',
+    id: 'tag',
+    label: 'لطفا دسته بندی موضوعی خود را وارد کنید',
+    placeHolder: 'انتخاب کنید',
+    ltr: false
+})
+const formData = ref({
+    action: '',
+    title: '',
+    description: '',
+    alignToEnd: true
+})
+
+
+const setArticleImage = async (event)=> {
+    let image = event.target.value
+    if (image === '' || image === 'undefined') {
+        return
+    }
+    const img = await readImageAsBase64(event.target.files[0])
+    articleImage.value = img.src
+}
+const getTag = ()=> {
+    tags.value = selectedTags.value
+    tagsId.value = tags.value.map(({ id, name }) => (id)).join(',')
+
+}
+const submit = async ()=> {
+    showLoading.value = true
+    const query = `mutation(    
                   $title : String! 
                   $content : String 
                   $summery:String!
@@ -173,135 +160,135 @@ export default {
 ){  
                       __typename  }}`;
 
-            const content = this.editorValue
-            const title = document.getElementsByName("title")[0].value
-            const summery = document.getElementsByName("summery")[0].value
-            const image = document.getElementsByName("image")[0].files[0]
-            const tags = this.tagsId
+    const content = editorValue.value
+    const title = document.getElementsByName("title")[0].value
+    const summery = document.getElementsByName("summery")[0].value
+    const image = document.getElementsByName("image")[0].files[0]
+    const tags = tagsId.value
 
-            let data = new FormData()
-            data.append("operations", JSON.stringify({ query }));
-            data.append('map', `{ "0": ["variables.content"],
+    let data = new FormData()
+    data.append("operations", JSON.stringify({ query }));
+    data.append('map', `{ "0": ["variables.content"],
              "1": ["variables.title"],
              "2": ["variables.summery"],
              "3": ["variables.image"],
              "4": ["variables.tags"]
  } `)
-            data.append('0', content);
-            data.append('1', title);
-            data.append('2', summery);
-            data.append('3', image);
-            data.append('4', tags);
+    data.append('0', content);
+    data.append('1', title);
+    data.append('2', summery);
+    data.append('3', image);
+    data.append('4', tags);
 
 
 
 
 
-            let resp = await fetch('http://localhost:4000', {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Accept': 'application/json',
-                    'Authorization': localStorage.getItem("accessToken")
+    let resp = await fetch('http://localhost:4000', {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': localStorage.getItem("accessToken")
 
-                },
-                body: data,
-            })
-
-            let respData = await resp.json()
-
-            this.showLoading = false
-            if (resp.status == 400 || resp.status == 500 || resp.status == 401) {
-                this.toast.error('خطای پیش بینی نشده')
-            } else if (resp.status == 200 || resp.status == 201) {
-                if (respData.errors) {
-                    this.toast.error(respData.errors[0].message)
-                } else {
-
-                    this.toast.success('با موفقیت ثبت شد')
-                }
-
-            }
         },
-        async handelTagAPI(token) {
-            this.showLoader = true
-            let resp = await fetch(`http://localhost:4000`, {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: JSON.stringify({
-                    query: `query{
+        body: data,
+    })
+
+    let respData = await resp.json()
+
+    showLoading.value = false
+    if (resp.status == 400 || resp.status == 500 || resp.status == 401) {
+        toast.error('خطای پیش بینی نشده')
+    } else if (resp.status == 200 || resp.status == 201) {
+        if (respData.errors) {
+            toast.error(respData.errors[0].message)
+        } else {
+
+            toast.success('با موفقیت ثبت شد')
+        }
+
+    }
+}
+const handelTagAPI = async (token)=> {
+    showLoader.value = true
+    let resp = await fetch(`http://localhost:4000`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify({
+            query: `query{
   tags{
     id
     name
   }
 }`
-                }),
-            })
-            let respData = await resp.json()
-            if (resp.status < 300) {
-                if (resp.status <= 300) {
-                    if (respData.errors) {
-                        this.toast.error(respData.error[0].message)
+        }),
+    })
+    let respData = await resp.json()
+    if (resp.status < 300) {
+        if (resp.status <= 300) {
+            if (respData.errors) {
+                toast.error(respData.error[0].message)
 
-                    }
-                }
-                return respData.data.tags
-            } else {
-                this.toast.error('خطای پیش بینی نشده')
             }
-            this.showLoader = false
+        }
+        return respData.data.tags
+    } else {
+        toast.error('خطای پیش بینی نشده')
+    }
+    showLoader.value = false
+}
+const handelAddTagAPI = async (token, tag_name)=> {
+    showLoader.value = true
+    let resp = await fetch(`http://localhost:4000`, {
+        method: 'POST', // or 'PUT'
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
         },
-        async handelAddTagAPI(token, tag_name) {
-            this.showLoader = true
-            let resp = await fetch(`http://localhost:4000`, {
-                method: 'POST', // or 'PUT'
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token
-                },
-                body: JSON.stringify({
-                    query: `mutation($name:String!){
+        body: JSON.stringify({
+            query: `mutation($name:String!){
   createTag(name:$name){
     id
     name
   }
 }`,
-                    variables: {
-                        name: tag_name
-                    }
-                }),
-            })
-            this.showLoader = false
-            let respData = await resp.json()
-            if (resp.status < 300) {
-                if (resp.status <= 300) {
-                    if (respData.errors) {
-                        this.toast.error(respData.error[0].message)
-
-                    }
-                }
-                let options = await this.handelTagAPI(localStorage.getItem("accessToken"))
-                this.selectInputData.options = options
-                return respData.data.tags
-            } else {
-                this.toast.error('خطای پیش بینی نشده')
+            variables: {
+                name: tag_name
             }
+        }),
+    })
+    showLoader = false
+    let respData = await resp.json()
+    if (resp.status < 300) {
+        if (resp.status <= 300) {
+            if (respData.errors) {
+                toast.error(respData.error[0].message)
 
-        },
-        async OptionBtnClicked(e) {
-            let tag = await this.handelAddTagAPI(localStorage.getItem("accessToken"), e)
-            if (tag) {
-                this.selectInputData.options.push(tag.data)
             }
         }
-    },
-    async mounted() {
-        let options = await this.handelTagAPI(localStorage.getItem("accessToken"))
-        this.selectInputData.options = options
+        let options = await handelTagAPI(localStorage.getItem("accessToken"))
+        selectInputData.value.options = options
+        return respData.data.tags
+    } else {
+        toast.error('خطای پیش بینی نشده')
+    }
+
+}
+const OptionBtnClicked = async (e) =>{
+    let tag = await handelAddTagAPI(localStorage.getItem("accessToken"), e)
+    if (tag) {
+        selectInputData.value.options.push(tag.data)
     }
 }
+
+onMounted(async () => {
+    let options = await handelTagAPI(localStorage.getItem("accessToken"))
+    selectInputData.value.options = options
+})
+
 </script>
 <style lang="scss" >
 .create-new-article {
