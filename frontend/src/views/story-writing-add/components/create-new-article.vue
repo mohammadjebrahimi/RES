@@ -130,7 +130,7 @@ const formData = ref({
 })
 
 
-const setArticleImage = async (event)=> {
+const setArticleImage = async (event) => {
     let image = event.target.value
     if (image === '' || image === 'undefined') {
         return
@@ -138,12 +138,12 @@ const setArticleImage = async (event)=> {
     const img = await readImageAsBase64(event.target.files[0])
     articleImage.value = img.src
 }
-const getTag = ()=> {
+const getTag = () => {
     tags.value = selectedTags.value
     tagsId.value = tags.value.map(({ id, name }) => (id)).join(',')
 
 }
-const submit = async ()=> {
+const submit = async () => {
     showLoading.value = true
     const query = `mutation(    
                   $title : String! 
@@ -209,8 +209,8 @@ const submit = async ()=> {
 
     }
 }
-const handelTagAPI = async (token)=> {
-    showLoader.value = true
+const handelTagAPI = async (token) => {
+
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POST', // or 'PUT'
         headers: {
@@ -238,10 +238,10 @@ const handelTagAPI = async (token)=> {
     } else {
         toast.error('خطای پیش بینی نشده')
     }
-    showLoader.value = false
+
 }
-const handelAddTagAPI = async (token, tag_name)=> {
-    showLoader.value = true
+const handelAddTagAPI = async (token, tag_name) => {
+
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POST', // or 'PUT'
         headers: {
@@ -260,7 +260,7 @@ const handelAddTagAPI = async (token, tag_name)=> {
             }
         }),
     })
-    showLoader = false
+
     let respData = await resp.json()
     if (resp.status < 300) {
         if (resp.status <= 300) {
@@ -277,7 +277,7 @@ const handelAddTagAPI = async (token, tag_name)=> {
     }
 
 }
-const OptionBtnClicked = async (e) =>{
+const OptionBtnClicked = async (e) => {
     let tag = await handelAddTagAPI(localStorage.getItem("accessToken"), e)
     if (tag) {
         selectInputData.value.options.push(tag.data)
