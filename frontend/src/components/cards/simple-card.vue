@@ -1,11 +1,11 @@
 <template>
-    <div class="simpel-card">
-        <figure class="simpel-card__figure">
+    <div class="simple-card">
+        <figure class="simple-card__figure">
             <img :src="image" :alt="title">
         </figure>
-        <div class="simpel-card__header-right">
-            <div class="simpel-card__title ">{{ title }}</div>
-            <div class="simpel-card__description "> {{ description }}</div>
+        <div class="simple-card__header-right">
+            <div class="simple-card__title ">{{ title }}</div>
+            <div class="simple-card__description "> {{ description }}</div>
         </div>
     </div>
 </template>
@@ -19,7 +19,7 @@ defineProps({
 
 </script>
 <style scoped lang="scss">
-.simpel-card {
+.simple-card {
     @include flex-direction();
     align-items: center;
     width: 100%;

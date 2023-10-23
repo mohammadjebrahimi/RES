@@ -1,7 +1,7 @@
 <template>
   <div class="search-result-cards">
     <template v-for="(prop, index) in props">
-      <SimpelCard :title="prop.title" :description="prop.description" :image="prop.icon"/>
+      <simpleCard :title="prop.title" :description="prop.description" :image="prop.icon"/>
 
       <hr v-if="index + 1 < props.length" class="search-result-cards__seperator" />
     </template>
@@ -10,7 +10,7 @@
   </div>
 </template>
 <script setup>
-import SimpelCard from '../cards/simpel-card.vue';
+import simpleCard from '../cards/simple-card.vue';
 defineProps({props: Array})
 </script>
 <style scoped lang="scss">

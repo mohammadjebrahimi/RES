@@ -1,6 +1,6 @@
 <template>
   <article class="article">
-    <SimpelCard :image="authFigure" :title="authorName" :description="date" />
+    <simpleCard :image="authFigure" :title="authorName" :description="date" />
     <div class="article__title">{{ title }}</div>
     <div class="article__footer">
       <div class="article__study-duration">{{ studyDuration }}</div>
@@ -22,7 +22,7 @@
   </article>
 </template>
 <script setup>
-import SimpelCard from '../cards/simpel-card.vue';
+import simpleCard from '../cards/simple-card.vue';
 import tiptapEditor from '@/components/tiptap-editor/index.vue'
 
 defineProps({

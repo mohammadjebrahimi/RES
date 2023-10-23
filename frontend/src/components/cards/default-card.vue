@@ -1,6 +1,6 @@
 <template>
     <RouterLink :to="link" target="_blank" class="card">
-        <SimpelCard :title="authorName" :description="date" :image="authFigure" />
+        <simpleCard :title="authorName" :description="date" :image="authFigure" />
         <figure class="card__inner-image" v-if="image">
             <img :src="image" alt="inner-image">
         </figure>
@@ -15,7 +15,7 @@
 </template>
 <script setup>
 import { RouterLink } from 'vue-router'
-import SimpelCard from './simpel-card.vue';
+import simpleCard from './simple-card.vue';
 defineProps({
     'authFigure': String,
     'authorName': String,
