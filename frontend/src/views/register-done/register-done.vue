@@ -7,7 +7,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import SuccessRegister from './components/success-register.vue'
@@ -16,7 +16,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter()
 
 
-const redirect = () => {
+const redirect = ():void => {
     router.push({ name: 'login' })
 }
 

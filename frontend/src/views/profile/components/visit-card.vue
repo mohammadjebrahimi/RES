@@ -20,13 +20,19 @@
         </div>
     </div>
 </template>
-<script setup>
-
-defineProps({
-    specifications: Array,
-    name: String,
-    image: String,
-})
+<script setup lang="ts">
+type specification = {
+    value: string
+    image: string
+    big: boolean
+    number: boolean
+}
+type propsShape = {
+    specifications?: specification[]
+    name?: string
+    image?: string
+}
+defineProps<propsShape>()
 
 </script>
 <style lang="scss">

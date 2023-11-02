@@ -12,7 +12,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultArticle from '@/components/articles/default-article.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
@@ -28,14 +28,14 @@ import { useRoute } from 'vue-router'
 
 const route =useRoute()
 const toast = useToast()
-const showLoader = ref(false)
+const showLoader = ref<boolean>(false)
 const articleDetail = ref({})
 const cards = ref([])
 const comments = ref([])
 
 
 
-const handelArticleAPI = async (token, id) => {
+const handelArticleAPI = async (token:string, id:string) => {
     showLoader.value = true
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POSt', // or 'PUT'
@@ -82,7 +82,7 @@ const handelArticleAPI = async (token, id) => {
     }
 
 }
-const handelOtherArticleOfThisAuthorAPI = async (authorId) => {
+const handelOtherArticleOfThisAuthorAPI = async (authorId:string) => {
     showLoader.value = true
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POSt', // or 'PUT'
@@ -124,7 +124,7 @@ const handelOtherArticleOfThisAuthorAPI = async (authorId) => {
     }
 
 }
-const handelAddCommentsAPI = async (token, body) => {
+const handelAddCommentsAPI = async (token:string, body:any) => {
 
     showLoader.value = true
     let resp = await fetch(`http://localhost:4000`, {
@@ -157,7 +157,7 @@ const handelAddCommentsAPI = async (token, body) => {
         return comments
     } else {
         if (Array.isArray(comments.message)) {
-            comments.message.forEach(message => toast.error(message))
+            comments.message.forEach((message:string) => toast.error(message))
         } else {
             toast.error(comments.message)
         }
@@ -166,15 +166,15 @@ const handelAddCommentsAPI = async (token, body) => {
 
 
 }
-const submitComment = async (e) => {
+const submitComment = async (e:any) => {
 
-    let comment = await handelAddCommentsAPI(localStorage.getItem("accessToken"), e)
+    let comment = await handelAddCommentsAPI(localStorage.getItem("accessToken")!, e)
     if (comment) {
         await pageLoader()
     }
 }
 const pageLoader = async () => {
-    let article = await handelArticleAPI(localStorage.getItem("accessToken"), route.params.id)
+    let article = await handelArticleAPI(localStorage.getItem("accessToken")!, route.params.id as string)
     let articleData = article
     articleDetail.value = {
         'title': articleData.title,
@@ -187,7 +187,7 @@ const pageLoader = async () => {
         authorName: `${articleData.author.username}`,
     }
     const articleOfThisAuthor = await handelOtherArticleOfThisAuthorAPI(articleData.author.id)
-    cards.value = articleOfThisAuthor.map((current) => {
+    cards.value = articleOfThisAuthor.map((current:any) => {
         return {
             "authFigure": articleData.author.image_url.replace('192.168.53.150', '87.107.30.143'),
             "authorName": `${articleData.author.username} ${articleData.author_last_name}`,
@@ -200,7 +200,7 @@ const pageLoader = async () => {
             "link": { name: 'single', params: { id: current.id } }
         }
     })
-    comments.value = articleData.comments.map((current) => {
+    comments.value = articleData.comments.map((current:any) => {
         return {
             authorName: `${current.first_name} ${current.last_name}`,
             date: getPersianDate(current.created_at),

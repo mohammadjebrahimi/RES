@@ -15,7 +15,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import singleCard from '@/components/cards/single-card.vue'
@@ -25,24 +25,27 @@ import { useToast } from "vue-toastification";
 import * as Yup from "yup";
 import EmptyModal from '../../components/modals/empty-modal.vue'
 import Circle from '../../components/loading/circle.vue'
-import { reactive, ref } from 'vue'
+import { reactive, ref, type FormHTMLAttributes } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import type { defaultFormComponentPropsShape, textInput } from '@/types/types'
+import type { FormActions } from 'vee-validate'
 
 const router = useRouter()
 const route = useRoute()
-const showModal = ref(false)
-const defaultEmail = route.params['email']
+const showModal = ref<boolean>(false)
+const defaultEmail = route.params['email'] as string
 const toast = useToast()
-const schema = Yup.object().shape({
+type formInputType={ Email: string, password: string }
+const schema: Yup.SchemaOf<formInputType> = Yup.object().shape({
     'Email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
     'password': Yup.string().min(6, 'حداقل 6 کاراکتر').required('فیلد ضروری است'),
 })
-const formData = reactive({
+const formData:defaultFormComponentPropsShape = reactive({
     title: 'ورود/ثبت نام',
     description: '',
     submitText: 'ادامه'
 })
-const passwordInput = reactive({
+const passwordInput: textInput = reactive({
     name: 'password',
     id: 'password',
     label: 'رمز عبور',
@@ -54,7 +57,7 @@ const passwordInput = reactive({
     ltr: true,
 
 })
-const emailInput = reactive({
+const emailInput: textInput = reactive({
     name: 'Email',
     id: 'Email',
     label: 'پست الکترونیکی',
@@ -68,7 +71,7 @@ const emailInput = reactive({
 })
 
 
-const handelLoginAPI = async (e) => {
+const handelLoginAPI = async (e: Event) => {
     showModal.value = true
     let resp = await fetch('http://localhost:4000', {
         method: 'POST', // or 'PUT'
@@ -84,8 +87,8 @@ mutation($email: String!,$password:String!){
 }
 `,
             variables: {
-                email: e['Email'],
-                password: e['password'],
+                email: e['Email' as keyof Event],
+                password: e['password' as keyof Event],
             }
         }),
     })

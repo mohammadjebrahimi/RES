@@ -7,9 +7,12 @@
     <button class="success-register__submit" @click="goToSignUpPage()">ورود به سایت</button>
   </section>
 </template>
-<script setup>
-const emit = defineEmits(['btnClicked'])
-const goToSignUpPage = () => {
+<script setup lang="ts">
+type emitShape = {
+  (e: 'btnClicked'): void
+}
+const emit = defineEmits<emitShape>()
+const goToSignUpPage = (): void => {
   emit('btnClicked')
 }
 

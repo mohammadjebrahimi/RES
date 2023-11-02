@@ -15,7 +15,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import singleCard from '@/components/cards/single-card.vue'
@@ -27,19 +27,20 @@ import EmptyModal from '../../components/modals/empty-modal.vue'
 import Circle from '../../components/loading/circle.vue'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import type { defaultFormComponentPropsShape, textInput } from '@/types/types'
 
 const router = useRouter()
-const showModal = ref(false)
+const showModal = ref<boolean>(false)
 const toast = useToast()
-const schema = Yup.object().shape({
+const schema:Yup.SchemaOf<{Email:string}> = Yup.object().shape({
     'Email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
 })
-const formData = ref({
+const formData = ref<defaultFormComponentPropsShape>({
     title: 'ورود/ثبت نام',
     description: '',
     submitText: 'ادامه'
 })
-const emailInput = ref({
+const emailInput = ref<textInput>({
     name: 'Email',
     id: 'Email',
     label: 'پست الکترونیکی',
@@ -54,7 +55,7 @@ const emailInput = ref({
 
 
 
-const handelUserExistAPI = async (e) => {
+const handelUserExistAPI = async (e:Event) => {
     showModal.value = true
     let resp = await fetch('http://localhost:4000', {
         method: 'POST', // or 'PUT'
@@ -68,7 +69,7 @@ const handelUserExistAPI = async (e) => {
   }
 }`,
             variables: {
-                email: e['Email']
+                email: e['Email' as keyof Event]
             }
         }),
     })
@@ -80,16 +81,16 @@ const handelUserExistAPI = async (e) => {
         }
         else if (respData.data.users.length) {
             toast.success('شما قبلا ثبت نام کرده اید')
-            router.push({ name: 'login', query: { 'email': e['Email'] } })
+            router.push({ name: 'login', query: { 'email':  (e['Email' as keyof Event] as string) } })
             toast.info('وارد صفحه لاگین می شوید')
         } else {
             toast.error('لطفا ثبت نام کنید')
-            router.push({ name: 'register2', query: { 'email': e['Email'] } })
+            router.push({ name: 'register2', query: { 'email':  (e['Email' as keyof Event] as string) } })
             toast.info('وارد صفحه ثبت نام می شوید')
         }
     } else {
 
-        router.push({ name: 'register2', query: { 'email': e['Email'] } })
+        router.push({ name: 'register2', query: { 'email': (e['Email' as keyof Event] as string) } })
         toast.info('وارد صفحه ثبت نام می شوید')
     }
 

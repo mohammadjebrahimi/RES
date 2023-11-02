@@ -15,7 +15,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import UserDetail from './components/user-detail.vue';
 import HorizontalCardContainer from '@/components/card-containers/horizontal-card-container.vue';
 import defaultHeader from '@/components/headers/default-header.vue'
@@ -30,20 +30,20 @@ import getPersianDate from "@/mixins/date.js"
 import { onBeforeMount, ref } from 'vue';
 
 
-const authorId = ref(0)
-const articlePage = ref(0)
+const authorId = ref<number>(0)
+const articlePage = ref<number>(0)
 const toast = useToast()
-const showLoader = ref(false)
+const showLoader = ref<boolean>(false)
 const cards = ref([])
 const userDetail = ref({})
 const person = ref({})
-const showModal = ref(false)
+const showModal = ref<boolean>(false)
 
 
-const showSpecification = () => {
+const showSpecification = ():void => {
     showModal.value = !showModal.value
 }
-const handelUserAPI = async (token) => {
+const handelUserAPI = async (token:string) => {
     showLoader.value = true
     let resp = await fetch('http://localhost:4000', {
         method: 'POST', // or 'PUT'
@@ -73,7 +73,7 @@ const handelUserAPI = async (token) => {
     }
 
 }
-const handelArticlesAPI = async (token, id, page) => {
+const handelArticlesAPI = async (token:string, id:number, page:number) => {
     showLoader.value = true
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POST', // or 'PUT'
@@ -115,12 +115,12 @@ const handelArticlesAPI = async (token, id, page) => {
 }
 const showMore = async () => {
     articlePage.value++
-    let articles = await handelArticlesAPI(localStorage.getItem("accessToken"), authorId.value, articlePage.value)
+    let articles = await handelArticlesAPI(localStorage.getItem("accessToken")!, authorId.value, articlePage.value)
 
-    let cards = articles.map((current) => {
+    let cards = articles.map((current: any) => {
         return {
-            "authFigure": userDetail.value.Image,
-            "authorName": userDetail.value?.name,
+            "authFigure": (userDetail.value as any).Image,
+            "authorName": (userDetail.value as any)?.name,
             "date": getPersianDate(current.created_at),
             "title": current.title,
             "summery": current.summery,
@@ -133,7 +133,7 @@ const showMore = async () => {
     cards.value?.push(...cards)
 }
 onBeforeMount(async () => {
-    let { created_at, email, first_name, id, image_url, last_name, phone_number, username } = await handelUserAPI(localStorage.getItem("accessToken"))
+    let { created_at, email, first_name, id, image_url, last_name, phone_number, username } = await handelUserAPI(localStorage.getItem("accessToken")!)
 
     userDetail.value = {
         name: `${first_name} ${last_name}`,
@@ -165,9 +165,9 @@ onBeforeMount(async () => {
     }
     articlePage.value = 1
     authorId.value = id
-    let articles = await handelArticlesAPI(localStorage.getItem("accessToken"), id, articlePage.value)
+    let articles = await handelArticlesAPI(localStorage.getItem("accessToken")!, id, articlePage.value)
 
-    cards.value = articles.map((current) => {
+    cards.value = articles.map((current:any) => {
         return {
             "authFigure": image_url.replace('192.168.53.150', '87.107.30.143'),
             "authorName": `${first_name} ${last_name}`,

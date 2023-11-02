@@ -67,7 +67,7 @@
         </EmptyModal>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import tiptapEditor from '@/components/tiptap-editor/index.vue'
 import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSelectInput from '@/components/inputs/default-select-input.vue'
@@ -81,13 +81,18 @@ import { readImageAsBase64 } from '@/components/tiptap-editor/upload/default-upl
 
 import * as Yup from "yup";
 import { onMounted, ref } from 'vue';
+import type { selectInput, textInput } from '@/types/types';
+import type { defaultFormComponentPropsShape } from '@/types/types';
 
-
-const schema = Yup.object().shape({
+type schemaShape = {
+    summery: string
+    title: string
+}
+const schema: Yup.SchemaOf<schemaShape> = Yup.object().shape({
     summery: Yup.string().required('فیلد ضروری است'),
     title: Yup.string().required('فیلد ضروری است'),
 })
-const titleInput = ref({
+const titleInput = ref<textInput>({
     name: 'title',
     id: 'title',
     placeHolder: [
@@ -96,7 +101,7 @@ const titleInput = ref({
     type: 'text',
     required: true,
 })
-const summeryInput = ref({
+const summeryInput = ref<textInput>({
     name: 'summery',
     id: 'summery',
     placeHolder: [
@@ -106,14 +111,14 @@ const summeryInput = ref({
     required: true,
 })
 const toast = useToast()
-const editorValue = ref('')
-const tags = ref([])
+const editorValue = ref<string>('')
+const tags = ref<any>([])
 const selectedTags = ref([])
-const tagsId = ref([])
-const articleImage = ref('/src/assets/images/Group 254.png')
-const showTagModal = ref(false)
-const showLoading = ref(false)
-const selectInputData = ref({
+const tagsId = ref<any>([])
+const articleImage = ref<string>('/src/assets/images/Group 254.png')
+const showTagModal = ref<boolean>(false)
+const showLoading = ref<boolean>(false)
+const selectInputData = ref<selectInput>({
     optionValue: 'name',
     options: [],
     name: 'tag',
@@ -122,7 +127,7 @@ const selectInputData = ref({
     placeHolder: 'انتخاب کنید',
     ltr: false
 })
-const formData = ref({
+const formData = ref<defaultFormComponentPropsShape>({
     action: '',
     title: '',
     description: '',
@@ -130,17 +135,17 @@ const formData = ref({
 })
 
 
-const setArticleImage = async (event) => {
-    let image = event.target.value
+const setArticleImage = async (event:Event) => {
+    let image = (event.target as HTMLInputElement).value
     if (image === '' || image === 'undefined') {
         return
     }
-    const img = await readImageAsBase64(event.target.files[0])
+    const img = await readImageAsBase64((event.target as any).files[0])
     articleImage.value = img.src
 }
-const getTag = () => {
+const getTag = ():any => {
     tags.value = selectedTags.value
-    tagsId.value = tags.value.map(({ id, name }) => (id)).join(',')
+    tagsId.value = tags.value.map(({ id, name }:{id:string,name:string}) => (id)).join(',')
 
 }
 const submit = async () => {
@@ -161,9 +166,9 @@ const submit = async () => {
                       __typename  }}`;
 
     const content = editorValue.value
-    const title = document.getElementsByName("title")[0].value
-    const summery = document.getElementsByName("summery")[0].value
-    const image = document.getElementsByName("image")[0].files[0]
+    const title = (document.getElementsByName("title")[0] as HTMLInputElement).value
+    const summery = (document.getElementsByName("summery")[0] as HTMLInputElement).value
+    const image =(document.getElementsByName("image")[0] as any).files[0]
     const tags = tagsId.value
 
     let data = new FormData()
@@ -190,7 +195,7 @@ const submit = async () => {
             'Accept': 'application/json',
             'Authorization': localStorage.getItem("accessToken")
 
-        },
+        } as HeadersInit | undefined,
         body: data,
     })
 
@@ -209,7 +214,7 @@ const submit = async () => {
 
     }
 }
-const handelTagAPI = async (token) => {
+const handelTagAPI = async (token:string) => {
 
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POST', // or 'PUT'
@@ -240,7 +245,7 @@ const handelTagAPI = async (token) => {
     }
 
 }
-const handelAddTagAPI = async (token, tag_name) => {
+const handelAddTagAPI = async (token:string, tag_name?:string) => {
 
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POST', // or 'PUT'
@@ -269,7 +274,7 @@ const handelAddTagAPI = async (token, tag_name) => {
 
             }
         }
-        let options = await handelTagAPI(localStorage.getItem("accessToken"))
+        let options = await handelTagAPI(localStorage.getItem("accessToken")!)
         selectInputData.value.options = options
         return respData.data.tags
     } else {
@@ -277,15 +282,15 @@ const handelAddTagAPI = async (token, tag_name) => {
     }
 
 }
-const OptionBtnClicked = async (e) => {
-    let tag = await handelAddTagAPI(localStorage.getItem("accessToken"), e)
+const OptionBtnClicked = async (e?:string) => {
+    let tag = await handelAddTagAPI(localStorage.getItem("accessToken")!, e)
     if (tag) {
         selectInputData.value.options.push(tag.data)
     }
 }
 
 onMounted(async () => {
-    let options = await handelTagAPI(localStorage.getItem("accessToken"))
+    let options = await handelTagAPI(localStorage.getItem("accessToken")!)
     selectInputData.value.options = options
 })
 

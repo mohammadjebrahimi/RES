@@ -14,15 +14,19 @@
         <button @click="btnClick()" class="user-detail__button">{{ buttonText }}</button>
     </section>
 </template>
-<script setup>
+<script setup lang="ts">
 
-defineProps({
-    name: String,
-    Image: String,
-    socialId: String,
-    buttonText: String
-})
-const emit = defineEmits(['btnClick'])
+type propsShape = {
+    name?: string,
+    Image?: string,
+    socialId?: string,
+    buttonText?: string
+}
+type emitShape = {
+    (e: 'btnClick'): void
+}
+defineProps<propsShape>()
+const emit = defineEmits<emitShape>()
 
 const btnClick = () => {
     emit('btnClick')

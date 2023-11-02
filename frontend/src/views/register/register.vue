@@ -2,14 +2,14 @@
     <main class="register">
         <default-header class="register__header" />
 
-        <default-carousel :carouselDatas="carouselData" />
+        <default-carousel :carouselSlides="carouselSlides" />
         <horizontal-card-container class="register__horizontal-card-container" :cards="cards" />
         <vertical-card-container class="register__vertical-card-container" :cards="cards" />
 
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import DefaultHeader from "@/components/headers/default-header.vue";
 import DefaultCarousel from "@/components/carousels/default-carousel.vue";
 import HorizontalCardContainer from "@/components/card-containers/horizontal-card-container.vue";
@@ -22,7 +22,7 @@ import { onBeforeMount, ref } from 'vue';
 
 
 const toast = useToast()
-const carouselData = ref([])
+const carouselSlides = ref([])
 //    [] {
 //         "carouselImage": '/src/assets/images/unsplash_NnRv949hZ1Q.png',
 //         "cardData": {
@@ -153,7 +153,7 @@ const carouselData = ref([])
 
 const cards = ref([])
 
-const handelArticlesAPI = async (token, page) => {
+const handelArticlesAPI = async (token:string, page:number) => {
     let resp = await fetch(`http://localhost:4000`, {
         method: 'POSt', // or 'PUT'
         headers: {
@@ -196,9 +196,9 @@ const handelArticlesAPI = async (token, page) => {
 
 }
 onBeforeMount(async () => {
-    let articles = await handelArticlesAPI(localStorage.getItem("accessToken"), 1)
+    let articles = await handelArticlesAPI(localStorage.getItem("accessToken")!, 1)
 
-    cards.value = articles.map((current) => {
+    cards.value = articles.map((current:any) => {
         return {
             "authFigure": current.author.image_url.replace('192.168.53.150', '87.107.30.143'),
             "authorName": `${current.author.username}`,
@@ -212,7 +212,7 @@ onBeforeMount(async () => {
         }
     })
 
-    carouselData.value = articles.map((current) => {
+    carouselSlides.value = articles.map((current:any) => {
         return {
             "carouselImage": current.image_url.replace('192.168.53.150', '87.107.30.143'),
             "cardData": {

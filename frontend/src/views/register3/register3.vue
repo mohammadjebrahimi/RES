@@ -19,7 +19,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import * as Yup from "yup";
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
@@ -33,24 +33,31 @@ import Circle from "../../components/loading/circle.vue";
 import EmptyModal from "../../components/modals/empty-modal.vue";
 import { useRoute, useRouter } from "vue-router";
 import { ref } from "vue";
+import type { defaultFormComponentPropsShape, textInput, fileInput } from "@/types/types";
+
+type schemaShape = {
+    userName: string
+    password: string
+    repeatedPass: string
+}
 
 const route = useRoute()
 const router = useRouter()
-const showLoading = ref(false)
+const showLoading = ref<boolean>(false)
 const toast = useToast()
-const schema = Yup.object().shape({
+const schema: Yup.SchemaOf<schemaShape> = Yup.object().shape({
     userName: Yup.string().required('فیلد ضروری است'),
     password: Yup.string().min(6, 'حداقل 6 کاراکتر').required('فیلد ضروری است'),
     repeatedPass: Yup.string()
         .required('فیلد ضروری است')
         .oneOf([Yup.ref("password")], "تکرار رمز عبور مطابقت ندارد"),
 })
-const formData = ref({
+const formData = ref<defaultFormComponentPropsShape>({
     title: 'شما هنوز در هلیوم ثبت نام نکرده اید.',
     description: 'لطفا اطلاعات زیر را برای ثبت نام کامل کنید.',
     submitText: 'ادامه'
 })
-const userName = ref({
+const userName = ref<textInput>({
     name: 'userName',
     id: 'userName',
     label: 'نام کاربری',
@@ -61,7 +68,7 @@ const userName = ref({
     type: 'text',
     required: true,
 })
-const passwordInput = ref({
+const passwordInput = ref<textInput>({
     name: 'password',
     id: 'password',
     label: 'رمز عبور',
@@ -73,7 +80,7 @@ const passwordInput = ref({
     ltr: true,
 
 })
-const repeatedPassInput = ref({
+const repeatedPassInput = ref<textInput>({
     name: 'repeatedPass',
     id: 'repeatedPass',
     label: 'تکرار رمز عبور',
@@ -84,7 +91,7 @@ const repeatedPassInput = ref({
     type: 'password',
     required: true,
 })
-const fileInput = ref({
+const fileInput = ref<fileInput>({
     name: 'file',
     id: 'userImage',
     label: 'بارگزاری تصویر',
@@ -92,11 +99,8 @@ const fileInput = ref({
     image: '/src/assets/images/Default Avatar.png',
 })
 
-
-const handelUserSignUpAPI = async (e) => {
+const handelUserSignUpAPI = async (e: any) => {
     let data = new FormData()
-
-
     const query = `mutation(    
                   $username : String! 
                   $password : String! 
@@ -117,11 +121,11 @@ const handelUserSignUpAPI = async (e) => {
 
     const username = e.userName
     const password = e.password
-    const image = document.getElementsByName("file")[0].files[0]
-    const phone_number = route.query['Phon-Number']
-    const email = route.query.Email
-    const last_name =route.query.lName
-    const first_name = route.query.fName
+    const image = (document.getElementsByName("file")[0] as any).files[0]
+    const phone_number = route.query['PhonNumber']!
+    const email = route.query.Email!
+    const last_name = route.query.lName!
+    const first_name = route.query.fName!
 
     data.append("operations", JSON.stringify({ query }));
     data.append('map', `{ "0": ["variables.username"],
@@ -135,10 +139,10 @@ const handelUserSignUpAPI = async (e) => {
     data.append('0', username);
     data.append('1', password);
     data.append('2', image);
-    data.append('3', phone_number);
-    data.append('4', email);
-    data.append('5', last_name);
-    data.append('6', first_name);
+    data.append('3', phone_number as string);
+    data.append('4', email as string);
+    data.append('5', last_name as string);
+    data.append('6', first_name as string);
 
 
     showLoading.value = true
@@ -156,7 +160,7 @@ const handelUserSignUpAPI = async (e) => {
     showLoading.value = false
     if (resp.status >= 400) {
         if (Array.isArray(respData.message)) {
-            respData.message.forEach(message => toast.error(message))
+            respData.message.forEach((message: string) => toast.error(message))
         } else {
             toast.error(respData.message)
         }
