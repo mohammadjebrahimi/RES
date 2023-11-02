@@ -6,7 +6,7 @@
     </main>
     <default-footer />
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultHeader from '@/components/headers/default-header.vue'
 import defaultFooter from '@/components/footers/default-footer.vue'
 import CreateNewArticle from './components/create-new-article.vue'
