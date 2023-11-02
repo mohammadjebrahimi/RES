@@ -12,11 +12,14 @@
 
     </section>
 </template>
-<script setup>
-defineProps({
-    'comments': Object,
-    'label': String
-})
+<script setup lang="ts">
+import type { comment } from '@/types/types';
+
+type propsShape = {
+    comments: comment[]
+    label:string
+}
+defineProps<propsShape>()
 </script>
 <style lang="scss">
 .comment-container {

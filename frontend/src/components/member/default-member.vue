@@ -17,19 +17,19 @@
     </template>
   </VDropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   Dropdown as VDropdown,
 } from 'floating-vue'
 import { RouterLink } from 'vue-router';
 import { useHeliumStore } from '@/store'
 
+type propShape={
+  currentUser:any
+}
+defineProps<propShape>()
 
-defineProps({
-  currentUser: Object
-})
-
-const logout = () => {
+const logout = ():void => {
   const store = useHeliumStore()
   localStorage.removeItem("accessToken");
   store.setCurrentUser({})

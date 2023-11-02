@@ -9,13 +9,14 @@
         </div>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
+type propsShape = {
+    image?: string
+    title?: string
+    description?: string
+}
 
-defineProps({
-    'image': String,
-    'title': String,
-    'description': String,
-})
+defineProps<propsShape>()
 
 </script>
 <style scoped lang="scss">

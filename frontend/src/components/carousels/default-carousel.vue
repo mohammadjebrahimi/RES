@@ -1,7 +1,7 @@
 <template>
     <section class="carousel">
         <div class="carousel__images">
-            <template v-for="(data, index) in carouselDatas" :key="`carousel__figure-{index}`">
+            <template v-for="(data, index) in carouselSlides" :key="`carousel__figure-{index}`">
                 <transition name="slide-fade">
                     <figure v-if="index + 1 == active" :id="`carousel__figure-{index}`" class="carousel__figure">
                         <img class="carousel__image" :src="data.carouselImage" alt="scroll" />
@@ -16,8 +16,8 @@
 
 
                 <div class="carousel__navigation">
-                    <span v-for="(dot, index) in carouselDatas"
-                        :class="{ 'carousel__nav-dot--activate': ++index === active }" @click="jump(index)"
+                    <span v-for="(dot, index) in carouselSlides"
+                        :class="{ 'carousel__nav-dot--activate': index+1 === active }" @click="jump(index+1)"
                         class="carousel__nav-dot"></span>
                 </div>
             </div>
@@ -25,22 +25,27 @@
         </div>
     </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import { ref, toRefs } from 'vue';
 import DefaultCard from '../cards/default-card.vue'
+import type { carouselSlide } from '@/types/types';
 
-const props = defineProps(['carouselDatas'])
-const {carouselDatas} = toRefs(props)
-const active = ref(1)
+type propsShape = {
+    carouselSlides: carouselSlide[]
+}
 
-const move = (amount) => {
-    let newActive
-    const newIndex = active.value + amount
-    if (newIndex > carouselDatas.value.length) newActive = 1
-    if (newIndex === 0) newActive = carouselDatas.value.length
+const props = defineProps<propsShape>()
+const { carouselSlides } = toRefs(props)
+const active = ref<number>(1)
+
+const move = (amount:number):void => {
+    let newActive:number|undefined
+    const newIndex:number = active.value + amount
+    if (newIndex > carouselSlides.value.length) newActive = 1
+    if (newIndex === 0) newActive = carouselSlides.value.length
     active.value = newActive || newIndex
 }
-const jump = (index) => {
+const jump = (index:number):void => {
     active.value = index
 }
 </script>

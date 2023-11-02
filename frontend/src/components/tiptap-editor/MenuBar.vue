@@ -2,28 +2,30 @@
   <div>
     <template v-for="(item, index) in items">
       <div class="divider" v-if="item.type === 'divider'" :key="`divider${index}`" />
-      <menu-dropdown v-else-if="item.type === 'dropdown'" :key="`d-${index}`" :title="item.title" :icon="item.icon"
-        :items="item.items" />
+      <menu-dropdown v-else-if="item.type === 'dropdown'" :key="`d-${index}`" :title="item.title!" :icon="item.icon!"
+        :items="item.items!" />
       <menu-item v-else :key="index" v-bind="item" />
     </template>
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, toRefs } from 'vue';
 import MenuDropdown from './MenuDropdown.vue';
 import MenuItem from './MenuItem.vue'
+import type { tiptapEditorMenuItem } from '@/types/types';
 
-
-const props = defineProps({
-  editor: {
-    type: Object,
-    required: true,
-  },
-})
+type propShape={
+  editor:any
+}
+const props = defineProps<propShape>()
 
 const {editor}=toRefs(props)
-const items = ref([
+
+
+
+
+const items = ref<tiptapEditorMenuItem[]>([
   {
     icon: 'bold',
     title: 'Bold',

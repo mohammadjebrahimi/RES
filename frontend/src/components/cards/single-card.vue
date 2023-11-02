@@ -7,33 +7,26 @@
         }}</a>
     </div>
 </template>
-<script setup>
-defineProps({
-    showClose: {
-        type: Boolean,
-        default: true
-    },
-    showOk: {
-        type: Boolean,
-        default: true
-    },
-    buttonText: {
-        type: String,
-        default: 'تایید'
-    }
-    ,
-    outLineBtn: {
-        type: Boolean,
-        default: false
-    }
-})
-const emit =  defineEmits(["ok","close"])
+<script setup lang="ts">
+type propsShape = {
+    showClose?: boolean
+    showOk?: boolean
+    buttonText?: string
+    outLineBtn?: boolean
+}
+type emitShape={
+    (e: 'ok'): void,
+    (e: 'close'): void
+}
+
+const { showClose = true, showOk = true, buttonText = 'تایید', outLineBtn = false } = defineProps<propsShape>()
+const emit = defineEmits<emitShape>()
 
 const ok = () => {
-   emit('ok', '')
+    emit('ok')
 }
 const close = () => {
-   emit('close', '')
+    emit('close')
 }
 
 </script>

@@ -27,37 +27,37 @@
         </div>
     </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import DefaultForm from '../forms/default-form.vue';
 import DefaultTextInput from '../inputs/default-text-input.vue';
 import DefaultTextAreaInput from '../inputs/default-text-area-input.vue';
 import * as Yup from "yup";
 import { reactive, ref } from 'vue';
+import type { textInput , commentBootstrapSchema ,submitCommentEventShape } from '@/types/types'
 
-const props =defineProps({
-    action: {
-        type: String,
-        default: ""
-    },
-    label: {
-        type: String,
-        default: ""
-    },
-    replyTo: {
-        default: null
-    },
-    articleId: {
-        type: Number,
-    },
-})
-const emit =  defineEmits(["submitComment"])
-const schema = ref(Yup.object().shape({
-    'content': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC \n]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
+type propsShape = {
+    label: string
+    replyTo?:string|null
+    articleId:number
+}
+type emitShape = {
+    (e: 'submitComment',event:submitCommentEventShape): void
+}
+
+
+const {label='',replyTo=null,articleId} =defineProps<propsShape>()
+const emit =  defineEmits<emitShape>()
+
+
+
+const schema:Yup.SchemaOf<commentBootstrapSchema> = Yup.object().shape({
+    'content': Yup.string().matches(/^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC \n]+$/, 'فارسی وارد کنید').required('فیلد ضروری است'),
     'email': Yup.string().email('ایمیل معتبر نیست').required('فیلد ضروری است'),
-    'first_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
-    'last_name': Yup.string().matches('^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$', 'فارسی وارد کنید').required('فیلد ضروری است'),
-}))
-const fnameInput = reactive({
+    'first_name': Yup.string().matches(/^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$/, 'فارسی وارد کنید').required('فیلد ضروری است'),
+    'last_name': Yup.string().matches(/^[\u0622\u0627\u0628\u067E\u062A-\u062C\u0686\u062D-\u0632\u0698\u0633-\u063A\u0641\u0642\u06A9\u06AF\u0644-\u0648\u06CC ]+$/, 'فارسی وارد کنید').required('فیلد ضروری است'),
+})
+
+const fnameInput:textInput = reactive({
     name: 'first_name',
     id: 'first_name',
     placeHolder: [
@@ -66,7 +66,7 @@ const fnameInput = reactive({
     type: 'text',
     required: true,
 })
-const lnameInput = reactive({
+const lnameInput:textInput = reactive({
     name: 'last_name',
     id: 'last_name',
     placeHolder: [
@@ -75,7 +75,7 @@ const lnameInput = reactive({
     type: 'text',
     required: true,
 })
-const emailInput = reactive({
+const emailInput:textInput = reactive({
     name: 'email',
     id: 'email',
     placeHolder: [
@@ -86,7 +86,7 @@ const emailInput = reactive({
     required: true,
 })
 
-const suggestInput = reactive({
+const suggestInput:textInput = reactive({
     name: 'content',
     id: 'content',
     placeHolder: [
@@ -96,10 +96,12 @@ const suggestInput = reactive({
     required: true,
 })
 
-const submitForm = (e) => {
-    e['reply_to'] = JSON.parse(props.replyTo)
-    e['article_id'] = +props.articleId
-    emit('submitComment', e)
+const submitForm = (e: Event):void => {
+    let submitFormEvent:submitCommentEventShape = { ...e }
+
+    submitFormEvent['reply_to'] = replyTo
+    submitFormEvent['article_id'] = +articleId
+    emit('submitComment', submitFormEvent)
 }
 </script>
 <style lang="scss">

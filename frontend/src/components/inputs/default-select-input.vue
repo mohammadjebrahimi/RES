@@ -1,51 +1,40 @@
 <template>
     <div class="select-box">
-        <v-select @search="onSearch($event)" v-model="selectValue" :label="optionValue" :reduce="(option) => option"
+        <vSelect @search="onSearch($event)" v-model="selectValue" :label="optionValue" :reduce="(option:any ) => option"
             :options="options" multiple class="select-box__v-select">
             <template #no-options="{ search, searching, loading }">
                 <button @click="btnClicked(search)" class="select-box__button">افزوده شود</button>
             </template>
-        </v-select>
+        </vSelect>
         <label :for="id" class="select-box__input-label">{{ label }}</label>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { selectInput } from '@/types/types';
 import { ref, toRefs, watch } from 'vue';
 import vSelect from 'vue-select'
 import 'vue-select/dist/vue-select.css';
 
-const emit = defineEmits(['update:value', 'OptionBtnClicked'])
-const props = defineProps({
-    options: Array,
-    name: String,
-    id: {
-        type: String,
-        required: true
-    },
-    label: String,
-    placeHolder: String,
-    ltr: {
-        type: Boolean,
-        default: false
-    },
-    value: {
-        type: Array,
-        default: []
-    },
-    optionValue: String,
-    onSearch: {
-        type: Function,
-        default: () => { }
-    }
+type emitShape={
+    (e: 'update:value',newValue:string[]): void
+    (e: 'OptionBtnClicked',search?:string): void
+}
+const emit = defineEmits<emitShape>()
+const props = withDefaults(defineProps<selectInput>(), {
+    value: () => [],
+    onSearch: () => { },
+    ltr: false
 })
 const { value } = toRefs(props)
-const selectValue =ref(value.value)
-watch(selectValue, async (newValue) => {
+const selectValue = ref<string[]>(value.value)
+watch(selectValue, async (newValue:string[]) => {
     emit('update:value', newValue)
 })
 
-const btnClicked = (e) => {
-    emit('OptionBtnClicked', e)
+const btnClicked = (search:string):void => {
+    console.log(search);
+    
+    emit('OptionBtnClicked', search)
 }
 </script>
 <style lang="scss">

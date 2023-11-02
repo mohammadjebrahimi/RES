@@ -1,5 +1,5 @@
 <template>
-    <Form @submit="submit($event)" :validationSchema="schema" :action="action" class="form">
+    <Form @submit="submit($event as Event)" :validationSchema="schema" :action="action" class="form">
         <div class="form__detail">
             <h3 class="form__title">{{ title }}</h3>
             <p class="form__description">{{ description }}</p>
@@ -13,24 +13,21 @@
         </button>
     </Form>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { defaultFormComponentPropsShape } from '@/types/types';
 import { Form } from 'vee-validate';
-const emit = defineEmits(['submitForm'])
 
-defineProps({
-    schema: Object,
-    action: String,
-    title: String,
-    description: String,
-    submitText: String,
-    alignToEnd: {
-        type: Boolean,
-        default: false
-    }
-})
+type emitShape={
+    (e: 'submitForm',event:Event): void,
+}
 
 
-const submit = (e) => {
+const emit = defineEmits<emitShape>()
+
+const{alignToEnd=false}=defineProps<defaultFormComponentPropsShape>()
+
+
+const submit = (e:Event):void => {
     emit('submitForm', e)
 }
 

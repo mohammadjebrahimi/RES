@@ -11,16 +11,17 @@
     <DefaultTabbar class="searchbar__tabbar" :tabs="tabs" :selectedTabIndex="selectedTabIndex" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 
 import defaultSearchResultCards from '@/components/search-result-cards/default-search-result-cards.vue'
 import { onMounted, reactive, ref, shallowRef } from 'vue'
 import DefaultTabbar from '@/components/tabbar/default-tabbar.vue'
 import DefaultTextInput from '@/components/inputs/default-text-input.vue'
+import type { tab, textInput } from '@/types/types';
 
-const selectedTabIndex = ref(0)
-const tabs = ref([])
-const searchInput = reactive({
+const selectedTabIndex = ref<number>(0)
+const tabs = ref<tab[]>([])
+const searchInput = reactive<textInput>({
   name: 'search',
   id: 'search',
   placeHolder: [
@@ -29,14 +30,14 @@ const searchInput = reactive({
   type: 'text',
 })
 
-const search = async (e) => {
+const search = async (e: string) => {
   let token = localStorage.getItem("accessToken")
   let resp = await fetch('http://localhost:4000', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
+    } as HeadersInit | undefined,
     body: JSON.stringify({
       query: `query($search:String!){
   searchArticle(title: $search) {
@@ -72,7 +73,7 @@ const search = async (e) => {
     },
     body: {
       component: shallowRef(defaultSearchResultCards),
-      props: respData.data.searchArticle.map((article) => {
+      props: respData.data.searchArticle.map((article: any) => {
         return {
           icon: article['image_url'],
           title: article['title'],
@@ -89,7 +90,7 @@ const search = async (e) => {
     },
     body: {
       component: shallowRef(defaultSearchResultCards),
-      props: respData.data.searchTag.map((tag) => {
+      props: respData.data.searchTag.map((tag:any) => {
         return {
           icon: "/src/assets/images/tag.png",
           title: tag['name'],
@@ -107,7 +108,7 @@ const search = async (e) => {
     },
     body: {
       component: shallowRef(defaultSearchResultCards),
-      props: respData.data.searchUser.map((user) => {
+      props: respData.data.searchUser.map((user:any) => {
         return {
           icon: user['image_url'],
           title: user['username'],

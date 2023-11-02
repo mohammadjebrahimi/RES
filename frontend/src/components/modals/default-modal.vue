@@ -1,46 +1,42 @@
 <template >
     <div class="modal" v-if="show">
-        <singleCard :outLineBtn="outLineBtn" :buttonText="buttonText" :showClose="showClose" :showOk="showOk" @ok="ok()" @close="close()">
+        <singleCard :outLineBtn="outLineBtn" :buttonText="buttonText" :showClose="showClose" :showOk="showOk" @ok="ok()"
+            @close="close()">
             <slot></slot>
         </singleCard>
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import singleCard from '../cards/single-card.vue'
+type propShape = {
+    show: boolean
+    showClose?: boolean
+    showOk?: boolean
+    buttonText?: string
+    outLineBtn?: boolean
+}
+type emitShape = {
+    (e: "ok"): void
+    (e: "update:show", value: boolean): void
+    (e: "close"): void
+}
+const props = withDefaults(defineProps<propShape>(), {
+    show: false,
+    showClose: true,
+    showOk: true,
+    buttonText: 'تایید',
+    outLineBtn: false,
+})
+const emit = defineEmits<emitShape>()
 
-   defineProps ({
-        show: {
-            type: Boolean,
-            default: false
-        },
-        showClose: {
-            type: Boolean,
-            default: true
-        },
-        showOk: {
-            type: Boolean,
-            default: true
-        },
-        buttonText: {
-            type: String,
-            default: 'تایید'
-        } ,
-        outLineBtn: {
-            type: Boolean,
-            default: false
-        }
-    })
-
-    const emit =defineEmits(["ok", "update:show","close","update:show"])
-
-       const ok=()=> {
-            emit("ok", "");
-            emit("update:show", false);
-        }
-        const close=()=> {
-            emit("close", "");
-            emit("update:show", false);
-        }
+const ok = (): void => {
+    emit("ok");
+    emit("update:show", false);
+}
+const close = (): void => {
+    emit("close");
+    emit("update:show", false);
+}
 </script>
 <style lang="scss">
 .modal {

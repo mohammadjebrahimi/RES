@@ -12,14 +12,20 @@
     <hr class="tab-header__seperator" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { tab } from '@/types/types';
 
-defineProps({
-  tabs: Array,
-  selectedTabIndex: Number
-})
-const emit = defineEmits(['update:selectedTabIndex'])
-const emitSelectedTab = (e) => {
+type propShape= {
+  tabs:tab[]
+  selectedTabIndex:number
+}
+type emitShape={
+  (e:"update:selectedTabIndex", value:number):void
+}
+defineProps<propShape>()
+
+const emit = defineEmits<emitShape>()
+const emitSelectedTab = (e:number) => {
   emit('update:selectedTabIndex', e)
 }
 </script>

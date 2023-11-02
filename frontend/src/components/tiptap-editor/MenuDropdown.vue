@@ -19,19 +19,22 @@
     </template>
   </VDropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   Dropdown as VDropdown,
 } from 'floating-vue'
 import MenuItem from './MenuItem.vue';
 ;
-import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
+import type { tiptapEditorMenuItem } from '@/types/types';
+import { ref } from 'vue';
+type propShape = {
+  title: string
+  icon: string
+  items: tiptapEditorMenuItem[]
+}
+defineProps<propShape>()
+  const remixiconUrl =ref<string>('/node_modules/remixicon/fonts/remixicon.symbol.svg')
 
-  defineProps ({
-    title:String,
-    icon:String,
-    items: Array
-  })
 
 </script>
 <style lang="scss">
@@ -44,25 +47,25 @@ import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
 
   &__icon {
     background: transparent;
-  border: none;
-  border-radius: 0.4rem;
-  color: #fff;
-  cursor: pointer;
-  height: 1.75rem;
-  padding: 0.25rem;
-  margin-right: 0.25rem;
-  width: 1.75rem;
+    border: none;
+    border-radius: 0.4rem;
+    color: #fff;
+    cursor: pointer;
+    height: 1.75rem;
+    padding: 0.25rem;
+    margin-right: 0.25rem;
+    width: 1.75rem;
 
-  svg {
-    fill: currentColor;
-    height: 100%;
-    width: 100%;
-  }
+    svg {
+      fill: currentColor;
+      height: 100%;
+      width: 100%;
+    }
 
-  &.is-active,
-  &:hover {
-    background-color: #303030;
-  }
+    &.is-active,
+    &:hover {
+      background-color: #303030;
+    }
   }
 
   &__items {

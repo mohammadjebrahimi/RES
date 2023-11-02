@@ -3,13 +3,12 @@
         <slot></slot>
     </div>
 </template>
-<script setup>
-
-defineProps({
-    show: {
-        type: Boolean,
-        default: false
-    },
+<script setup lang="ts">
+type propShape ={
+    show:boolean
+}
+const props = withDefaults(defineProps<propShape>(), {
+    show: false
 })
 </script>
 <style lang="scss">

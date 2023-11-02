@@ -6,7 +6,7 @@
                 <slot>
                     <search />
 
-                    <template v-if="store.currentUser.username">
+                    <template v-if="(store.currentUser as any).username">
                         <default-notification />
                         <member :currentUser="store.currentUser" class="header__member" />
                     </template>
@@ -19,7 +19,7 @@
         </div>
     </header>
 </template>
-<script setup>
+<script setup lang="ts">
 import DefaultBrand from "@/components/brands/default-brand.vue";
 import member from '@/components/member/default-member.vue'
 import search from '@/components/search/default-search.vue'
@@ -30,7 +30,7 @@ import { useRouter } from "vue-router";
 const store = useHeliumStore()
 const router = useRouter()
 
-const redirect = () => {
+const redirect = ():void => {
     router.push({ name: 'register1' })
 }
 

@@ -6,31 +6,14 @@
   </button>
 </template>
 
-<script setup>
-import remixiconUrl from 'remixicon/fonts/remixicon.symbol.svg'
+<script setup lang="ts">
+import type { tiptapEditorMenuItem } from '@/types/types';
+import { ref } from 'vue';
+const remixiconUrl =ref<string>('/node_modules/remixicon/fonts/remixicon.symbol.svg')
 
 
-defineProps({
-  icon: {
-    type: String,
-    required: true,
-  },
 
-  title: {
-    type: String,
-    required: true,
-  },
-
-  action: {
-    type: Function,
-    required: true,
-  },
-
-  isActive: {
-    type: Function,
-    default: null,
-  },
-})
+defineProps<tiptapEditorMenuItem>()
 
 </script>
 

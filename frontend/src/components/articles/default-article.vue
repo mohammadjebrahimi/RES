@@ -15,28 +15,32 @@
 
     <div class="article__text">
 
-      <tiptapEditor v-model=content />
-      <!-- <p> {{ content }}<br></p> -->
+      <tiptapEditor v-model=tiptapContent />
+
     </div>
 
   </article>
 </template>
-<script setup>
-import simpleCard from '../cards/simple-card.vue';
+<script setup lang="ts">
+import type { tag } from '@/types/types'
+import simpleCard from '@/components/cards/simple-card.vue'
 import tiptapEditor from '@/components/tiptap-editor/index.vue'
+import { computed, toRefs } from 'vue'
 
-defineProps({
-  "title": String,
-  "read_time_minutes": String,
-  "tags": Array,
-  "image_url": String,
-  "content": String,
-  date: String,
-  authFigure: String,
-  authorName: String,
-  studyDuration: String
-})
-
+type propsShape = {
+  title?: string
+  read_time_minutes?: string
+  tags?: [tag]
+  image_url?: string
+  content?: string
+  date?: string
+  authFigure?: string
+  authorName?: string
+  studyDuration?: string
+}
+const props = defineProps<propsShape>()
+const { content } = toRefs(props)
+const tiptapContent = computed<string|undefined>(()=>(content as any).value)
 </script>
 <style lang="scss">
 .article {

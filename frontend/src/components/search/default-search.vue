@@ -4,15 +4,15 @@
     <DefaultSearchbar />
   </DefaultModal>
 </template>
-<script setup>
+<script setup lang="ts">
 
 import DefaultModal from '@/components/modals/default-modal.vue'
 import DefaultSearchbar from '../searchbar/default-searchbar.vue';
 import { ref } from 'vue';
 
 
-const showModal = ref(false)
-const showSearchModal = () => {
+const showModal = ref<boolean>(false)
+const showSearchModal = ():void => {
   showModal.value = true
 }
 

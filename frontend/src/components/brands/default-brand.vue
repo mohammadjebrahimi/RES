@@ -7,7 +7,7 @@
         <span class="brand__name">هلیوم+</span>
     </router-link>
 </template>
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 </script>
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
     <div class="textarea" @input="input($event)">
 
         <Field as="textarea" @input="input($event)" :name="name"
-            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' id="form-suggest" placeholder=" "
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' placeholder=" "
             class="textarea__input"
             :class="{ 'textarea__input--direction-ltr': ltr, 'textarea__input--error': errorMessage }" :id="id"
             :required="required" />
@@ -15,41 +15,26 @@
         <ErrorMessage class="textarea__error" :name="name" />
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { textInput } from '@/types/types';
 import { Field, ErrorMessage, useField } from 'vee-validate';
-
 import { toRefs } from 'vue';
-const props = defineProps({
-    name: String,
-    id: {
-        type: String,
-        required: true
-    },
-    required: {
-        type: Boolean,
-        default: false
-    },
-    label: String,
-    placeHolder: Array,
-    ltr: {
-        type: Boolean,
-        default: false
-    },
-    value: String,
-})
 
+type emitShape = {
+    (e: 'update:value', eventTargetValue: string): void
+}
+const props = withDefaults(defineProps<textInput>(), {
+    required: false,
+    ltr: false
+})
 const { name, value } = toRefs(props)
 const errorMessage = useField(name, undefined, {
     initialValue: value,
 }).errorMessage
-
-const emit = defineEmits(['update:value'])
-
-
-
-
-const input = (e) => {
-    emit('update:value', e.target.value)
+const emit = defineEmits<emitShape>()
+const input = (e: Event):void => {
+    const eventTargetValue = (e.target as HTMLInputElement).value
+    emit('update:value', eventTargetValue)
 }
 </script>
 <style lang="scss">

@@ -1,12 +1,12 @@
 <template>
   <!-- Tab links -->
   <div class="tabbar">
-    <defaultTabHeader v-model:selectedTabIndex="selectedTabIndex" :tabs="tabs" />
+    <defaultTabHeader v-model:selectedTabIndex="selectedTabIndexRef" :tabs="tabs" />
     <div class="tab-body">
       <div class="tab-body__content">
 
-        <component v-if="tabs[selectedTabIndex]?.body?.props?.length" v-bind:is="tabs[selectedTabIndex].body.component"
-          :props="tabs[selectedTabIndex].body.props">
+        <component v-if="tabs[selectedTabIndexRef]?.body?.props?.length"
+          v-bind:is="tabs[selectedTabIndexRef].body.component" :props="tabs[selectedTabIndexRef].body.props">
         </component>
         <div v-else>موردی یافت نشد!</div>
 
@@ -14,17 +14,20 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultTabHeader from '@/components/tab-header/default-tab-header.vue';
+import type { tab } from '@/types/types';
+import { ref, toRefs, watch } from 'vue';
 
-
- defineProps( {
-    tabs: Object,
-    selectedTabIndex: {
-      type: Number,
-      default: 0
-    }
-  })
+type propShape = {
+  tabs: tab[]
+  selectedTabIndex: number
+}
+const props = withDefaults(defineProps<propShape>(), {
+  selectedTabIndex: 0,
+})
+const { selectedTabIndex } = toRefs(props)
+const selectedTabIndexRef = ref(selectedTabIndex.value)
 
 
 </script>

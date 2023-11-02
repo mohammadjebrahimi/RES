@@ -10,16 +10,22 @@
         <button @click="btnClick()" v-if="buttonText" class="horizontal-card-container__see-more">{{ buttonText }}</button>
     </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultCard from '@/components/cards/default-card.vue'
-defineProps({
-    'cards': Array,
-    'label': String,
-    'buttonText': String,
-})
-const emit = defineEmits(['btnClick'])
+import type { card } from '@/types/types'
+type propsShape = {
+    cards: card[]
+    label?: string
+    buttonText?: string
+}
+type emitShape = {
+    (e: 'btnClick'): void
+}
 
-const btnClick = () => {
+defineProps<propsShape>()
+const emit = defineEmits<emitShape>()
+
+const btnClick = (): void => {
     emit('btnClick')
 }
 </script>

@@ -12,7 +12,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import CharacterCount from '@tiptap/extension-character-count'
 import Highlight from '@tiptap/extension-highlight'
 import TaskItem from '@tiptap/extension-task-item'
@@ -32,17 +32,20 @@ import { ref, onMounted, onBeforeUnmount,toRefs,watch  } from 'vue'
 // const CustomDocument = Document.extend({
 //   content: 'heading  block*',
 // })
-
-const props = defineProps({
-  modelValue: String,
-  editable: {
-    type: Boolean,
-    default: false
-  }
+type propShape= {
+  modelValue?:string
+  editable?:boolean
+}
+const props = withDefaults(defineProps<propShape>(), {
+  editable: false,
 })
-const emit = defineEmits(['update:modelValue'])
+
+type emitShape= {
+  (e:"update:modelValue", html:string):void
+}
+const emit = defineEmits<emitShape>()
 const { modelValue, editable } = toRefs(props)
-const editor = ref(null)
+const editor = ref<any>(null)
 onMounted(() => {
   editor.value = new Editor({
     extensions: [
@@ -73,20 +76,20 @@ onMounted(() => {
         limit: 10000,
       }),
     ],
-    content: modelValue.value,
+    content: modelValue?.value,
     onUpdate: ({ editor }) => {
       const html = editor.getHTML()
       emit('update:modelValue', html)
     },
     editable: editable.value,
-  })
+  }) 
 })
 
   onBeforeUnmount(()=> {
     editor.value.destroy()
   })
 
-watch(modelValue, async (newValue) => {
+watch(modelValue as any, async (newValue) => {
   // assumes that value is the HTML value, keeps the cursor at the same position
   if (newValue === editor.value.getHTML()) {
     return;

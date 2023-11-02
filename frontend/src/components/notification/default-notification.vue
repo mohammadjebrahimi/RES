@@ -14,7 +14,7 @@
     </template>
   </VDropdown>
 </template>
-<script setup>
+<script setup lang="ts">
 import {
   Dropdown as VDropdown,
 } from 'floating-vue'
@@ -23,23 +23,23 @@ import sse from '@/mixins/sse.js'
 import { useHeliumStore } from '@/store'
 import { onMounted } from 'vue';
 
-
-defineProps({
-  currentUser: Object
-})
+type propShape = {
+  currentUser?:any
+}
+defineProps<propShape>()
 
 const store = useHeliumStore()
 
 
-const  handleNotificationAPI = async () => {
+const  handleNotificationAPI = async () :Promise<void> => {
 
-  let token = localStorage.getItem("accessToken")
-  let resp = await fetch('http://localhost:4000', {
+  let token:string|null = localStorage.getItem("accessToken")
+  let resp= await fetch('http://localhost:4000', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
+    } as HeadersInit | undefined,
     body: JSON.stringify({
       query: `
             query{
@@ -66,14 +66,14 @@ const  handleNotificationAPI = async () => {
   }
 
 }
-const subscribeNotification = () => {
+const subscribeNotification = ():void => {
   sse({
     query:/* GraphQL */ `subscription ($token: String!) {
   newNotification(token: $token){
  title
     description
   }
-}`, variables: { token: localStorage.getItem("accessToken") }, CLB: (e) => { console.log(e); store.updateShowNotificationAlert(true) }
+}`, variables: { token: localStorage.getItem("accessToken") }, CLB: (e:any) => { console.log(e); store.updateShowNotificationAlert(true) }
   })
 }
 onMounted(() => {

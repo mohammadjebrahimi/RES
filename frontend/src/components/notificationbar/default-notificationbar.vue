@@ -1,35 +1,36 @@
 <template>
   <!-- Tab links -->
-  <div class="notificationbar">
-    <div class="notificationbar__header">
-      <div class="notificationbar__header-right">اعلامیه ها</div>
-      <div @click="makeAllNotifAsRead()" class="notificationbar__header-left">همه مطالعه شدند</div>
+  <div class="notificationBar">
+    <div class="notificationBar__header">
+      <div class="notificationBar__header-right">اعلامیه ها</div>
+      <div @click="makeAllNotifAsRead()" class="notificationBar__header-left">همه مطالعه شدند</div>
     </div>
-    <hr class="notificationbar__seperator" />
-    <DefaultTabbar class="notificationbar__tabbar" :tabs="tabs" :selectedTabIndex="selectedTabIndex" />
+    <hr class="notificationBar__separator" />
+    <DefaultTabbar class="notificationBar__tabbar" :tabs="tabs" :selectedTabIndex="selectedTabIndex" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 
 import defaultSearchResultCards from '@/components/search-result-cards/default-search-result-cards.vue'
-import { onMounted, ref, shallowRef } from 'vue' 
+import { onMounted, ref, shallowRef } from 'vue'
 import DefaultTabbar from '@/components/tabbar/default-tabbar.vue'
 import { useHeliumStore } from '@/store'
+import type { tab } from '@/types/types';
 
 
-const selectedTabIndex = ref(1)
-const tabs = ref([])
+const selectedTabIndex = ref<number>(1)
+const tabs = ref<tab[]>([])
 const store = useHeliumStore()
 
 
-const handleNotificationAPI = async () => {
-  let token = localStorage.getItem("accessToken")
+const handleNotificationAPI = async (): Promise<void> => {
+  let token: string | null = localStorage.getItem("accessToken")
   let resp = await fetch('http://localhost:4000', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
+    } as HeadersInit | undefined,
     body: JSON.stringify({
       query: `
             query{
@@ -54,7 +55,7 @@ const handleNotificationAPI = async () => {
   })
   let respData = await resp.json()
 
-  const allTab = {
+  const allTab:tab = {
     header: {
       count: respData.data.notifications.length,
       icon: '/src/assets/images/all.png',
@@ -62,7 +63,7 @@ const handleNotificationAPI = async () => {
     },
     body: {
       component: shallowRef(defaultSearchResultCards),
-      props: respData.data.notifications.map((notification) => {
+      props: respData.data.notifications.map((notification: any) => {
 
         return {
           icon: notification['image_url'],
@@ -73,7 +74,7 @@ const handleNotificationAPI = async () => {
       })
     }
   }
-  const newTab = {
+  const newTab:tab = {
     header: {
       count: respData.data.notseenNotifs.length,
       icon: "/src/assets/images/new.png",
@@ -81,7 +82,7 @@ const handleNotificationAPI = async () => {
     },
     body: {
       component: shallowRef(defaultSearchResultCards),
-      props: respData.data.notseenNotifs.map((notification) => {
+      props: respData.data.notseenNotifs.map((notification: any) => {
 
         return {
           icon: notification['image_url'],
@@ -93,7 +94,8 @@ const handleNotificationAPI = async () => {
     }
   }
 
-  tabs.value = [allTab, newTab]
+  tabs.value.push(allTab)
+  tabs.value.push(newTab)
 
 }
 const makeAllNotifAsRead = async () => {
@@ -103,7 +105,7 @@ const makeAllNotifAsRead = async () => {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
-    },
+    } as HeadersInit | undefined,
     body: JSON.stringify({
       query: `
           mutation{
@@ -122,13 +124,13 @@ const makeAllNotifAsRead = async () => {
   store.updateShowNotificationAlert(false)
 }
 
-onMounted(async()=>{
+onMounted(async () => {
   await handleNotificationAPI()
 })
 
 </script>
 <style lang="scss">
-.notificationbar {
+.notificationBar {
   display: flex;
   flex-direction: column;
   max-width: 450px;
@@ -136,7 +138,7 @@ onMounted(async()=>{
   align-items: center;
 }
 
-.notificationbar__header {
+.notificationBar__header {
   width: 90%;
   display: flex;
   justify-content: space-between;
@@ -144,13 +146,13 @@ onMounted(async()=>{
   align-items: center;
 }
 
-.notificationbar__header-right {
+.notificationBar__header-right {
   padding: 0 1rem;
   font-weight: 600;
   font-size: 18px;
 }
 
-.notificationbar__header-left {
+.notificationBar__header-left {
   padding: 0 1rem;
   font-size: 14px;
   color: #28394F;
@@ -159,28 +161,28 @@ onMounted(async()=>{
   cursor: pointer;
 }
 
-.notificationbar__tabbar {
+.notificationBar__tabbar {
   width: 100%;
 }
 
-.notificationbar__search {
+.notificationBar__search {
   width: 100%;
   padding: 0 0 1rem 0;
 }
 
 
-.notificationbar__seperator {
+.notificationBar__separator {
   width: 99%;
   margin: 0 0 0.5rem 0;
 }
 
-.notificationbar__search-fig {
+.notificationBar__search-fig {
   margin: 0;
   align-items: center;
   display: flex;
 }
 
-.notificationbar__search-section {
+.notificationBar__search-section {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -188,11 +190,11 @@ onMounted(async()=>{
 }
 
 
-.notificationbar__search-section .input-box__input-placeholder {
+.notificationBar__search-section .input-box__input-placeholder {
   padding: 0 2.5%;
 }
 
-.notificationbar__search-section input.input-box__input {
+.notificationBar__search-section input.input-box__input {
   border: 0;
   padding: 0 2.5%;
 

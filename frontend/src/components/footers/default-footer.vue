@@ -16,7 +16,7 @@
         </div>
     </footer>
 </template>
-<script setup>
+<script setup lang="ts">
 import DefaultBrand from "../brands/default-brand.vue";
 </script>
 <style lang="scss" >

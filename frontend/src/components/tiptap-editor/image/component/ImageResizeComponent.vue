@@ -8,7 +8,7 @@
         <!-- <div>{{ node.attrs.title }}</div> -->
     </NodeViewWrapper>
 </template>
-<script setup>
+<script setup lang="ts">
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { NodeViewContent, nodeViewProps, NodeViewWrapper } from '@tiptap/vue-3'
 import {  onBeforeUnmount, onMounted, ref } from 'vue';
@@ -16,13 +16,13 @@ import {  onBeforeUnmount, onMounted, ref } from 'vue';
 const props = defineProps(nodeViewProps)
 
 const isEditable = ref(props.editor.options.editable)
-const resizeObserve = ref(null)
+const resizeObserve = ref<any>(null)
 const tiptap_image__figure_ref = ref(null)
 
 
-const onResize = (e) => {
-    if (e[0].target.style.width && e[0].target.style.height) {
-        this.updateAttributes({
+const onResize = (e:any) => {
+    if (e[0].target.style.width && e[0].target.style.height && this ) {
+            (this as any).updateAttributes({
             width: e[0].target.style.width,
             height: e[0].target.style.height
         })

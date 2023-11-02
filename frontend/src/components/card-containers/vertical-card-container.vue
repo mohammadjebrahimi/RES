@@ -5,12 +5,15 @@
         </template>
     </section>
 </template>
-<script setup>
+<script setup lang="ts">
 import card2 from '../cards/card-2.vue'
+import type { card } from '@/types/types'
 
-defineProps({
-    'cards': Object,
-})
+type propsShape = {
+    cards:card[]
+}
+
+defineProps<propsShape>()
 
 </script>
 <style lang="scss">

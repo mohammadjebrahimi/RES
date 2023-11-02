@@ -3,17 +3,21 @@
     <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
   </svg>
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed, toRefs } from 'vue';
+type propsShape = {
+  size: string
+}
 
-
-const props=defineProps({
-  size: {
-    default: '40px'
-  }
+const props = withDefaults(defineProps<propsShape>(), {
+  size: '40px'
 })
-const {size}=toRefs(props)
-const styles = computed(() => {
+
+const { size } = toRefs(props)
+const styles = computed<{
+  width: string,
+  height: string
+}>(() => {
   return {
     width: size.value,
     height: size.value
@@ -88,4 +92,5 @@ $duration: 1.4s;
     stroke-dashoffset: $offset;
     transform: rotate(450deg);
   }
-}</style>
+}
+</style>

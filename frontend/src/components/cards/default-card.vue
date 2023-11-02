@@ -13,22 +13,12 @@
         </div>
     </RouterLink>
 </template>
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import simpleCard from './simple-card.vue';
-defineProps({
-    'authFigure': String,
-    'authorName': String,
-    'date': String,
-    'title': String,
-    'summery': String,
-    'studyDuration': String,
-    'tags': Array,
-    'image': String,
-    'link': {
-        default: "/#"
-    }
-})
+import type { card } from '@/types/types'
+
+const{link='/#'}=defineProps<card>()
 </script>
 <style lang="scss">
 .card {

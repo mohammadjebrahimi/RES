@@ -3,27 +3,16 @@
     <figure class="card-2__outer-image">
       <img :src="image" alt="inner-image">
     </figure>
-    <default-card class="card-2__card" :authFigure="authFigure" :authorName="authorName" :tags="tags"
+    <defaultCard class="card-2__card" :authFigure="authFigure" :authorName="authorName" :tags="tags"
       :studyDuration="studyDuration" :summery="summery" :title="title" :date="date" :link="link">
-    </default-card>
+    </defaultCard>
   </a>
 </template>
-<script setup>
+<script setup lang="ts">
 import defaultCard from './default-card.vue'
+import type { card } from '@/types/types'
 
-defineProps({
-  'authFigure': String,
-  'authorName': String,
-  'date': String,
-  'title': String,
-  'summery': String,
-  'studyDuration': String,
-  'tags': Array,
-  'image': String,
-  'link': {
-    default: "/#"
-  }
-})
+const { link = '/#' }=defineProps<card>()
 
 
 </script>

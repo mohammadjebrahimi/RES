@@ -7,17 +7,15 @@
         <label :for="id" class="file-input-box__file-input-placeholder">{{ label }}</label>
     </div>
 </template>
-<script setup>
-defineProps({
-    name: String,
-    id: {
-        type: String,
-        required: true
-    },
-    label: String,
-    accept: String,
-    image: String,
-})
+<script setup lang="ts">
+type propsShape = {
+    name: string
+    id: string
+    label: string
+    accept: string
+    image: string
+}
+defineProps<propsShape>()
 
 </script>
 <style lang="scss">

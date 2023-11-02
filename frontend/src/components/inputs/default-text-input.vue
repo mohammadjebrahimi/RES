@@ -12,39 +12,29 @@
         <ErrorMessage class="input-box__error" :name="name" />
     </div>
 </template>
-<script setup>
+<script setup lang="ts">
 
+import type { textInput } from '@/types/types';
 import { Field, ErrorMessage, useField } from 'vee-validate';
 import { toRefs } from 'vue';
-const emit = defineEmits(['update:value'])
 
-const props = defineProps({
-    name: String,
-    id: {
-        type: String,
-        required: true
-    },
-    required: {
-        type: Boolean,
-        default: false
-    },
-    label: String,
-    placeHolder: Array,
-    ltr: {
-        type: Boolean,
-        default: false
-    },
-    type: String,
-    value: String,
+type emitShape = {
+    (e: 'update:value', eventTargetValue: string): void
+}
+
+const emit = defineEmits<emitShape>()
+const props = withDefaults(defineProps<textInput>(), {
+    required: false,
+    ltr: false
 })
-const { name,value } = toRefs(props)
+const { name, value } = toRefs(props)
 const errorMessage = useField(name, undefined, {
     initialValue: value,
 }).errorMessage
 
 
-const input = (e) => {
-    emit('update:value', e.target.value)
+const input = (e:Event) => {
+    emit('update:value', (e.target as HTMLInputElement).value)
 }
 </script>
 <style lang="scss">
